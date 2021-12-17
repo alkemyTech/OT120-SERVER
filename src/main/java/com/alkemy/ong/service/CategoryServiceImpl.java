@@ -11,24 +11,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryServiceImpl implements IDeleteCategoryService {
 
-  private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
+    private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
 
-  @Autowired
-  private ICategoryRepository categoryRepository;
+    @Autowired
+    private ICategoryRepository categoryRepository;
 
-  @Override
-  public void delete(Long id) throws EntityNotFoundException {
-    Category category = getCategory(id);
-    category.setSoftDelete(true);
-    categoryRepository.save(category);
-  }
-
-  private Category getCategory(Long id) {
-    Optional<Category> categoryOptional = categoryRepository.findById(id);
-    if (categoryOptional.isEmpty() || categoryOptional.get().isSoftDelete()) {
-      throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE);
+    @Override
+    public void delete(Long id) throws EntityNotFoundException {
+        Category category = getCategory(id);
+        category.setSoftDelete(true);
+        categoryRepository.save(category);
     }
-    return categoryOptional.get();
-  }
 
+    private Category getCategory(Long id) {
+        Optional<Category> categoryOptional = categoryRepository.findById(id);
+        if (categoryOptional.isEmpty() || categoryOptional.get().isSoftDelete()) {
+            throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE);
+        }
+        return categoryOptional.get();
+    }    
 }

@@ -1,11 +1,9 @@
 
 package com.alkemy.ong.model.entity.dto;
 
-import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.repository.ICategoryRepository;
-import java.util.ArrayList;
+import com.alkemy.ong.service.CategoryDtoService;
 import java.util.List;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,15 +13,12 @@ public class CategoryDtoMapping{
     @Autowired
     private ICategoryRepository categoryRepository;
     
+    @Autowired
+    private CategoryDtoService categoryService;
+    
     public List<CategoryDto> findAll()throws Exception{
-        try {
-            List<Category> entities = categoryRepository.findAll();
-            List<CategoryDto> dtos  = new ArrayList<>();
-            ModelMapper modelMapper = new ModelMapper();
-            for(Category category : entities){
-                dtos.add(modelMapper.map(category, CategoryDto.class));
-            }
-            return dtos;
+        try {      
+            return categoryService.findAll();
         } catch (Exception e) {  
             throw new Exception(e.getMessage());
         }
