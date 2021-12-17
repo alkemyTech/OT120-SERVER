@@ -1,6 +1,6 @@
 package com.alkemy.ong;
 
-import com.alkemy.ong.model.entity.dto.CategoryDtoMapping;
+import com.alkemy.ong.model.response.CategoryDtoMapping;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

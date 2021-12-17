@@ -1,6 +1,7 @@
 
-package com.alkemy.ong.model.entity.dto;
+package com.alkemy.ong.model.response;
 
+import com.alkemy.ong.model.request.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.CategoryDtoService;
 import java.util.List;

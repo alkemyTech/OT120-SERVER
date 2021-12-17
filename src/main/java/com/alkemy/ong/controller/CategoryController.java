@@ -1,9 +1,10 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.entity.dto.CategoryDto;
+import com.alkemy.ong.model.request.CategoryDto;
 import com.alkemy.ong.service.CategoryDtoService;
 import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
+import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,7 @@ public class CategoryController {
     }
 
     @GetMapping(value ="/categories")
-    public ResponseEntity<CategoryDto> findAll() throws Exception{
-        categoryService.findAlldto();
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<List<CategoryDto>> findAll() throws Exception{
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAlldto());
     }    
 }

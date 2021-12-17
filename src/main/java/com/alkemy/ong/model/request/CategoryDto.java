@@ -1,5 +1,5 @@
 
-package com.alkemy.ong.model.entity.dto;
+package com.alkemy.ong.model.request;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
