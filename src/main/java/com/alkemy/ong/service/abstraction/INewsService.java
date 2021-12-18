@@ -1,11 +1,10 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.dto.NewsDTO;
-import org.springframework.stereotype.Service;
+import com.alkemy.ong.exception.OperationNotAllowedException;
+import com.alkemy.ong.model.response.NewsResponseDto;
 
-@Service
 public interface INewsService {
 
-    NewsDTO findNewsById(Long id);
+    NewsResponseDto findNewsById(Long id) throws OperationNotAllowedException;
 
 }
