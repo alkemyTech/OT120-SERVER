@@ -1,27 +1,40 @@
 package com.alkemy.ong.service;
 
+
+import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.User;
-import javassist.NotFoundException;
+import com.alkemy.ong.model.request.LoginRequest;
+import com.alkemy.ong.model.response.TokenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthenticationService {
-    @Autowired
-    private UserServiceImpl userService;
+
+
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private UserServiceImpl userService;
 
-    public User authenticate(String email, String rawPassword) throws NotFoundException, InvalidCredentialsException {
-        User user = userService.getUserByEmail(email);
+
+    public TokenDto authenticateUser (LoginRequest userReq) throws InvalidCredentialsException {
+        User user = userService.getUserByEmail(userReq.getEmail());
 
         if(user == null){
             throw new UsernameNotFoundException("The user is not registered.");
         }
-        else if(!passwordEncoder.matches(rawPassword,user.getPassword())){
+        else if(!passwordEncoder.matches(userReq.getPassword(),user.getPassword())){
             throw new InvalidCredentialsException("The data entered are invalid.");
         }
-        return user;
+
+        final String jwt = jwtUtil.generateToken(user);
+
+        return  new TokenDto(jwt);
     }
 }
