@@ -1,10 +1,9 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
-import com.alkemy.ong.exception.FirstNameInvalidException;
-import com.alkemy.ong.exception.LastNameInvalidException;
-import com.alkemy.ong.exception.UsernameAlreadyExistsException;
+import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetUserService;
@@ -64,30 +63,31 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
     return user;
   }
 
-  public User postUser(String firstName, String lastName, String email, String password) {
-
-    if (emailExists(email)) {
-      throw new UsernameAlreadyExistsException("Ya existe una cuenta con ese usuario.");
-    }
-
-    if (!containsOnlyLetters(firstName)) {
-      throw new FirstNameInvalidException("El nombre sólo puede contener letras.");
-    }
-
-    if (!containsOnlyLetters(lastName)) {
-      throw new LastNameInvalidException("El apellido sólo puede contener letras.");
-    }
+  public User postUser(RegistrationRequest req) {
 
     User user = new User();
-    user.setFirstName(firstName);
-    user.setLastName(lastName);
-    user.setEmail(email);
-    user.setPassword(passwordEncoder.encode(password));
+
+    if (emailExists(req.getEmail())) {
+      throw new FieldInvalidException("Ya existe una cuenta con ese usuario.");
+    }
+
+    if (!containsOnlyLetters(req.getFirstName())) {
+      throw new FieldInvalidException("El nombre sólo puede contener letras.");
+    }
+
+    if (!containsOnlyLetters(req.getLastName())) {
+      throw new FieldInvalidException("El apellido sólo puede contener letras.");
+    }
+
+    user.setFirstName(req.getFirstName());
+    user.setLastName(req.getLastName());
+    user.setEmail(req.getEmail());
+    user.setPassword(passwordEncoder.encode(req.getPassword()));
 
     return userRepository.save(user);
   }
 
-  private boolean emailExists(final String email) {
+  private boolean emailExists(String email) {
     return userRepository.findByEmail(email) != null;
   }
 

@@ -7,6 +7,8 @@ import com.alkemy.ong.service.UserServiceImpl;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,15 +24,17 @@ public class UserController {
   public UserServiceImpl userService;
 
   @PostMapping("/auth/register")
-  public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody RegistrationRequest req) {
+  public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody @Valid RegistrationRequest req) {
 
     RegistrationResponse r = new RegistrationResponse();
 
-    User user = userService.postUser(req.firstName, req.lastName, req.email, req.password);
+    User user = userService.postUser(req);
 
-    r.username =user.getUsername();
+    r.setUsername(user.getUsername());
+    r.setFirstName(user.getFirstName());
+    r.setLastName(user.getLastName());
 
-    return ResponseEntity.ok(r);
+    return new ResponseEntity<>(r , HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/users/{id}")

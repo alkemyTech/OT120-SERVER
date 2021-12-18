@@ -3,10 +3,11 @@ package com.alkemy.ong.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.FORBIDDEN)
-public class UsernameAlreadyExistsException extends RuntimeException {
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class FieldInvalidException extends RuntimeException {
 
-    public UsernameAlreadyExistsException(final String message) {
+    public FieldInvalidException(final String message) {
         super(message);
     }
+
 }
