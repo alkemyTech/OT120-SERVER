@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.request;
+package com.alkemy.ong.dto;
 
 import javax.validation.constraints.Positive ;
 import javax.validation.constraints.Size;
