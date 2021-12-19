@@ -1,9 +1,9 @@
-package com.alkemy.ong.model.response.mapper;
+package com.alkemy.ong.mapper;
 
 import org.springframework.stereotype.Component;
 
+import com.alkemy.ong.dto.OrganizationDto ;
 import com.alkemy.ong.model.entity.Organization;
-import com.alkemy.ong.model.request.OrganizationDto;
 
 @Component
 public class OrganizationMapper {
