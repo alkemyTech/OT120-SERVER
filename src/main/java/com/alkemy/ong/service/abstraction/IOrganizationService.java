@@ -1,9 +1,9 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.model.entity.Organization;
+import com.alkemy.ong.dto.OrganizationDto ;
 
 public interface IOrganizationService {
 
-  Organization getById(Long id);
+  OrganizationDto getById(Long id);
 
 }
