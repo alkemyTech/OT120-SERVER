@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.service.CategoryServiceImpl;
 import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
@@ -28,12 +29,8 @@ public class CategoryController {
   }
 
   @GetMapping("/categories/{id}")
-  public ResponseEntity<?> getOne(@PathVariable long id){
-    try{
-      return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategory(id));
-    }catch (Exception e){
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Category not found.\"}");
-    }
+  public ResponseEntity<Category> getOne(@PathVariable long id) throws EntityNotFoundException{
+     return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategory(id));
   }
 
 }
