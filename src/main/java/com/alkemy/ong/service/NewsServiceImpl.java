@@ -1,12 +1,12 @@
 package com.alkemy.ong.service;
-
-import com.alkemy.ong.exception.OperationNotAllowedException;
+;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.model.response.NewsResponseDto;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.service.abstraction.INewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.persistence.EntityNotFoundException;
 
 @Service
 public class NewsServiceImpl implements INewsService{
@@ -16,11 +16,10 @@ public class NewsServiceImpl implements INewsService{
     @Autowired
     INewsRepository newsRepository;
 
-
     @Override
-    public NewsResponseDto findNewsById(Long id) throws OperationNotAllowedException {
+    public NewsResponseDto findNewsById(Long id) throws EntityNotFoundException {
         News news = newsRepository.findById(id)
-                .orElseThrow(() -> new OperationNotAllowedException(NEWS_NOT_FOUND_MESSAGE));
+                .orElseThrow(() -> new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE));
         return NewsResponseDto.newsToDto(news);
     }
 
