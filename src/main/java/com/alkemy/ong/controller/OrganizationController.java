@@ -20,7 +20,7 @@ public class OrganizationController {
   private IOrganizationService organizationService;	
 
   @GetMapping("/{id}")
-  public ResponseEntity<OrganizationDto> getOrganizationById(@Valid @PathVariable Long id) {
+  public ResponseEntity<OrganizationDto> getOrganizationById(@PathVariable Long id) {
     OrganizationDto organization = organizationService.getById(id);	
     return ResponseEntity.ok(organization);
   }
