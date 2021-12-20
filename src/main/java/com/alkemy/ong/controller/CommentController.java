@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.exception.OperationNotAllowedException;
+import com.alkemy.ong.model.response.exception.OperationNotAllowedException;
 import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import org.springframework.beans.factory.annotation.Autowired;

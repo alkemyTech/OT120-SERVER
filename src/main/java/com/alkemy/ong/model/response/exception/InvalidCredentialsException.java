@@ -1,4 +1,4 @@
-package com.alkemy.ong.exception;
+package com.alkemy.ong.model.response.exception;
 
 public class InvalidCredentialsException extends Exception {
 

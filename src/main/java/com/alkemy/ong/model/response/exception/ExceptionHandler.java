@@ -1,4 +1,4 @@
-package com.alkemy.ong.exception;
+package com.alkemy.ong.model.response.exception;
 
 import com.alkemy.ong.model.response.ErrorResponse;
 import javax.persistence.EntityNotFoundException;
