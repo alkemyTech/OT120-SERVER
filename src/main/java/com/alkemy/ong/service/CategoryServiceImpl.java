@@ -1,9 +1,11 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.request.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
@@ -19,7 +21,7 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
     private ICategoryRepository categoryRepository;
 
     @Autowired
-    private CategoryDtoService dtoService;
+    private CategoryMapper categoryMapper;
 
     @Override
     public void delete(Long id) throws EntityNotFoundException {
@@ -36,14 +38,10 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
         return categoryOptional.get();
     }
 
-    public List<Category> findAll() {
+    public List<CategoryDto> findAll() {
         List<Category> entities = categoryRepository.findAll();
-        return entities;
+        List<CategoryDto> dtos = new ArrayList();
+        entities.forEach(category -> dtos.add(categoryMapper.categoryToCategoryDto(category)));
+        return dtos;
     }
-
-    public List<CategoryDto> findDto() throws Exception {
-
-        return dtoService.findAll();
-    }
-
 }
