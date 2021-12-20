@@ -71,14 +71,6 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
       throw new FieldInvalidException("Ya existe una cuenta con ese usuario.");
     }
 
-    if (!containsOnlyLetters(req.getFirstName())) {
-      throw new FieldInvalidException("El nombre sólo puede contener letras.");
-    }
-
-    if (!containsOnlyLetters(req.getLastName())) {
-      throw new FieldInvalidException("El apellido sólo puede contener letras.");
-    }
-
     user.setFirstName(req.getFirstName());
     user.setLastName(req.getLastName());
     user.setEmail(req.getEmail());
@@ -89,17 +81,6 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
 
   private boolean emailExists(String email) {
     return userRepository.findByEmail(email) != null;
-  }
-
-  public static boolean containsOnlyLetters(String cadena) {
-    for (int x = 0; x < cadena.length(); x++) {
-      char c = cadena.charAt(x);
-      // Si no está entre a y z, ni entre A y Z, ni es un espacio
-      if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-        return false;
-      }
-    }
-    return true;
   }
 
     public User getUserByEmail(String email) {
