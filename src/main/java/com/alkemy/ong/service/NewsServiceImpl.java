@@ -1,38 +1,49 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.config.modelmapper.NewsMapper;
+import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.exception.OperationNotAllowedException;
-import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.repository.INewsRepository;
-
-import javax.persistence.Column;
-
+import com.alkemy.ong.dto.NewsResponseDto;
+import com.alkemy.ong.service.abstraction.INewsService;
+import javax.persistence.EntityNotFoundException;
 
 @Service
-public class NewsServiceImpl {
+public class NewsServiceImpl implements INewsService {
+
+    private static final String NEWS_NOT_FOUND_MESSAGE = "News not found.";
 
     @Autowired
-    INewsRepository INewsRepository;
+    INewsRepository newsRepository;
 
-    public News postNews(String name, String content, String image, Category category) throws OperationNotAllowedException {
-        if (name.isEmpty()) {
+    @Autowired
+    NewsMapper newsMapper;
+
+    @Override
+    public NewsResponseDto findNewsById(Long id) throws EntityNotFoundException {
+        News news = newsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE));
+        // return NewsResponseDto.newsToDto(news);
+        return newsMapper.newsToDto(news);
+    }
+
+    @Override
+    public NewsResponseDto postNews(NewsResponseDto newsDto) {
+        if (newsDto.getName().isEmpty()) {
             throw new OperationNotAllowedException("El titulo no puede estar vacío");
         }
-        if (content.isEmpty()) {
+        if (newsDto.getContent().isEmpty()) {
             throw new OperationNotAllowedException("Debe contener información");
         }
-        if (image.isEmpty()) {
+        if (newsDto.getImage().isEmpty()) {
             throw new OperationNotAllowedException("Debe agregar una imagen");
         }
-
-        News news = new News();
-        news.setName(name);
-        news.setContent(content);
-        news.setImage(image);
-        news.setCategory(category);
-
-        return INewsRepository.save(news);
+        News newsEntity = newsMapper.newsDtoToEntity(newsDto);
+        News saved = newsRepository.save(newsEntity);
+        NewsResponseDto result = newsMapper.newsEntityToDto(saved);
+        return result;
     }
 }

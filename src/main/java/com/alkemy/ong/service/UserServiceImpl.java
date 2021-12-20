@@ -1,7 +1,9 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetUserService;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +26,9 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
 
   @Autowired
   private IUserRepository userRepository;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -56,5 +62,33 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
     }
     return user;
   }
+
+  public User postUser(RegistrationRequest req) {
+
+    User user = new User();
+
+    if (emailExists(req.getEmail())) {
+      throw new FieldInvalidException("Ya existe una cuenta con ese usuario.");
+    }
+
+    user.setFirstName(req.getFirstName());
+    user.setLastName(req.getLastName());
+    user.setEmail(req.getEmail());
+    user.setPassword(passwordEncoder.encode(req.getPassword()));
+
+    return userRepository.save(user);
+  }
+
+  private boolean emailExists(String email) {
+    return userRepository.findByEmail(email) != null;
+  }
+
+    public User getUserByEmail(String email) {
+      User user = userRepository.findByEmail(email);
+      if (user == null) {
+        throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+      }
+      return user;
+    }
 
 }
