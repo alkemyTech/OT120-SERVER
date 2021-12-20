@@ -1,5 +1,6 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.service.abstraction.IEmailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class EmailService {
+public class EmailServiceImpl implements IEmailService {
 
     @Autowired
     SendGrid sendGrid;

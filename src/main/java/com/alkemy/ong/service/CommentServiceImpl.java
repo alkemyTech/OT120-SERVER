@@ -1,7 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.config.security.ApplicationRole;
-import com.alkemy.ong.model.response.exception.OperationNotAllowedException;
+import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;
