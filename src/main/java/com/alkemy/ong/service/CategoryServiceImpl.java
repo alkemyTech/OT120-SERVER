@@ -17,7 +17,7 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
 
     @Autowired
     private ICategoryRepository categoryRepository;
-    
+
     @Autowired
     private CategoryDtoService dtoService;
 
@@ -27,21 +27,23 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
         category.setSoftDelete(true);
         categoryRepository.save(category);
     }
-    public List<Category> findAll(){
-        List <Category> entities = categoryRepository.findAll();
-        return entities;
-    }
-    
-    public List<CategoryDto> findDto() throws Exception{
-        
-        return dtoService.findAll();
-    }
-    
-    private Category getCategory(Long id) {
+
+    public Category getCategory(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isEmpty() || categoryOptional.get().isSoftDelete()) {
             throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE);
         }
         return categoryOptional.get();
-    }    
+    }
+
+    public List<Category> findAll() {
+        List<Category> entities = categoryRepository.findAll();
+        return entities;
+    }
+
+    public List<CategoryDto> findDto() throws Exception {
+
+        return dtoService.findAll();
+    }
+
 }
