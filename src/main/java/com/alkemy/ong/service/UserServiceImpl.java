@@ -57,4 +57,11 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
     return user;
   }
 
+    public User getUserByEmail(String email) {
+      User user = userRepository.findByEmail(email);
+      if (user == null) {
+        throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+      }
+      return user;
+    }
 }
