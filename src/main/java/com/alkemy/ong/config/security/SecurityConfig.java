@@ -22,78 +22,57 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+  @Autowired
+  private UserDetailsService userDetailsService;
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+  @Autowired
+  private JwtRequestFilter jwtRequestFilter;
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public BCryptPasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
-        managerBuilder.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
+    managerBuilder.userDetailsService(userDetailsService)
+        .passwordEncoder(passwordEncoder());
+  }
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Override
+  @Bean
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 
-    String[] adminAuthorizedEndpoint = {
-        "/users",
-        "/testimonials",
-        "/testimonials/",
-        "/news/",
-        "/news/{id}",
-        "/activities/",
-        "/activities/{id}",
-        "/categories/",
-        "/categories/{id}",
-        "/slides/",
-        "/slides/{id}",
-        "/comments/",
-        "/comments",
-        "/members/",
-        "/members/{id}",
-        "/contacts",
-        "/contacts/"
-    };
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
-                .cors()
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers(adminAuthorizedEndpoint).hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/categories/**")
-                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.DELETE, "/users/**")
-                .hasAnyRole(ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.DELETE, "/testimonials/**")
-                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.DELETE, "/members/**")
-                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.DELETE, "/slides/**")
-                .hasAnyRole(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.DELETE, "/comments/**")
-                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .anyRequest()
-                .authenticated()
-                .and()
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
-    }
-
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf()
+        .disable()
+        .cors()
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authorizeRequests()
+        .antMatchers("/auth/**").permitAll()
+        .antMatchers(HttpMethod.DELETE, "/categories/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.DELETE, "/users/**")
+        .hasAnyRole(ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.DELETE, "/testimonials/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.DELETE, "/members/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+        .antMatchers(HttpMethod.DELETE, "/slides/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.DELETE, "/comments/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+        .anyRequest()
+        .authenticated()
+        .and()
+        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+        .exceptionHandling()
+        .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+  }
 }

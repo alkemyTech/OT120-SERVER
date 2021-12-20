@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.CategoryDto;
-import com.alkemy.ong.service.CategoryDtoService;
+import com.alkemy.ong.service.CategoryServiceImpl;
 import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import java.util.List;
@@ -21,7 +21,7 @@ public class CategoryController {
     private IDeleteCategoryService deleteCategoryService;
     
     @Autowired
-    private CategoryDtoService categoryService;
+    private CategoryServiceImpl categoryService;
 
     @DeleteMapping(value = "/categories/{id}")
     public ResponseEntity<Empty> delete(@PathVariable long id) throws EntityNotFoundException {
@@ -31,6 +31,6 @@ public class CategoryController {
 
     @GetMapping(value ="/categories")
     public ResponseEntity<List<CategoryDto>> findAll() throws Exception{
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findDto());
     }    
 }
