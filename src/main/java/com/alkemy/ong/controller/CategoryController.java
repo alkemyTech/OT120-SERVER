@@ -34,7 +34,7 @@ public class CategoryController {
 
     @GetMapping(value = "/categories")
     public ResponseEntity<List<CategoryDto>> findAll() throws Exception {
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findDto());
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
     }
 
     @GetMapping("/categories/{id}")

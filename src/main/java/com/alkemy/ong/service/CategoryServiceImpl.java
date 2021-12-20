@@ -8,6 +8,7 @@ import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,10 +39,9 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
         return categoryOptional.get();
     }
 
-    public List<CategoryDto> findAll() {
-        List<Category> entities = categoryRepository.findAll();
-        List<CategoryDto> dtos = new ArrayList();
-        entities.forEach(category -> dtos.add(categoryMapper.categoryToCategoryDto(category)));
-        return dtos;
+    public List<CategoryDto> findAll() {     
+        return categoryRepository.findAll().stream()
+                .map(category -> categoryMapper.categoryToCategoryDto(category))
+                .collect(Collectors.toList());
     }
 }
