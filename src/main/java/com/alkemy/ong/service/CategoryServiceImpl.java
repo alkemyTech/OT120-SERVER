@@ -23,7 +23,7 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
     categoryRepository.save(category);
   }
 
-  private Category getCategory(Long id) {
+  public Category getCategory(Long id) {
     Optional<Category> categoryOptional = categoryRepository.findById(id);
     if (categoryOptional.isEmpty() || categoryOptional.get().isSoftDelete()) {
       throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE);
