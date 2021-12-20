@@ -3,6 +3,7 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,11 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
         category.setSoftDelete(true);
         categoryRepository.save(category);
     }
-
+    public List<Category> findAll(){
+        List <Category> entities = categoryRepository.findAll();
+        return entities;
+    }
+    
     private Category getCategory(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isEmpty() || categoryOptional.get().isSoftDelete()) {

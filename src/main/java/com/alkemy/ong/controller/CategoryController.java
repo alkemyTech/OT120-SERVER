@@ -31,6 +31,6 @@ public class CategoryController {
 
     @GetMapping(value ="/categories")
     public ResponseEntity<List<CategoryDto>> findAll() throws Exception{
-        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAlldto());
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
     }    
 }
