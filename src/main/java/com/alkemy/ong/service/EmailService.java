@@ -18,7 +18,7 @@ public class EmailService {
     @Autowired
     SendGrid sendGrid;
 
-    public Response sendEmail(String email, String senderEmail) {
+    public Response sendEmail(String email, String senderEmail, String contentStr, String subject) {
 
         Response response = new Response();
 
@@ -27,9 +27,7 @@ public class EmailService {
             Email fromEmail = new Email(senderEmail);
             Email toEmail = new Email(email);
 
-            Content content = new Content("text/plain", "You have been registered.");
-
-            String subject = "Alkemy Test";
+            Content content = new Content("text/plain", contentStr);
 
             Mail mail = new Mail(fromEmail, subject, toEmail, content);
 
