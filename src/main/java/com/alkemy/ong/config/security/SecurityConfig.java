@@ -74,5 +74,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling()
         .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
   }
-
 }
