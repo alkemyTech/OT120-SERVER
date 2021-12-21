@@ -1,23 +1,25 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
-import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.RegistrationRequest;
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetUserService;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
+
+import com.alkemy.ong.service.abstraction.IUserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService {
+public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService, IUserService {
 
   private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
@@ -28,7 +30,13 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
   private IUserRepository userRepository;
 
   @Autowired
-  private PasswordEncoder passwordEncoder;
+  private UserMapper userMapper;
+
+  @Autowired
+  private ModelMapper modelMapper;
+
+  @Autowired
+  private UserDto userRequestDto;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -63,22 +71,6 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
     return user;
   }
 
-  public User postUser(RegistrationRequest req) {
-
-    User user = new User();
-
-    if (emailExists(req.getEmail())) {
-      throw new FieldInvalidException("Ya existe una cuenta con ese usuario.");
-    }
-
-    user.setFirstName(req.getFirstName());
-    user.setLastName(req.getLastName());
-    user.setEmail(req.getEmail());
-    user.setPassword(passwordEncoder.encode(req.getPassword()));
-
-    return userRepository.save(user);
-  }
-
   private boolean emailExists(String email) {
     return userRepository.findByEmail(email) != null;
   }
@@ -91,4 +83,11 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
       return user;
     }
 
+  @Override
+  public UserDto save(UserDto userRequestDto) {
+    User user = userMapper.userDtoToEntity(userRequestDto);
+    User userSaved = userRepository.save(user);
+    UserDto result = userMapper.entityToUserDto(userSaved);
+    return result;
+  }
 }
