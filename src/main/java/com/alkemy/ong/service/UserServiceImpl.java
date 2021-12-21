@@ -14,6 +14,7 @@ import com.alkemy.ong.service.abstraction.IGetUserService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -102,11 +103,6 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
 
   @Override
   public List<UsersResponseDto> getAllUsers() {
-    List<User> users = userRepository.findAll();
-    List <UsersResponseDto> usersResponseDtos = new ArrayList<UsersResponseDto>();
-    for (User user: users) {
-       usersResponseDtos.add(userMapper.usersDtoResponse(user));
-    }
-    return usersResponseDtos;
+    return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
   }
 }

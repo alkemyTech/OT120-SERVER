@@ -6,6 +6,7 @@ import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.model.response.RegistrationResponse;
 import com.alkemy.ong.service.UserServiceImpl;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -25,6 +26,9 @@ public class UserController {
 
   @Autowired
   public UserServiceImpl userService;
+
+  @Autowired
+  public IGetAllUsers getAllUsers;
 
   @PostMapping("/auth/register")
   public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody @Valid RegistrationRequest req) {
@@ -48,6 +52,6 @@ public class UserController {
 
   @GetMapping(value="/users")
   public ResponseEntity<List<UsersResponseDto>>getAllUsers(){
-    return new ResponseEntity<List<UsersResponseDto>>(userService.getAllUsers(),HttpStatus.OK);
+    return new ResponseEntity<List<UsersResponseDto>>(getAllUsers.getAllUsers(),HttpStatus.OK);
   }
 }
