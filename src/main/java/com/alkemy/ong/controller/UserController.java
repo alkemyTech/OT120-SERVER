@@ -1,14 +1,10 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.RegistrationRequest;
-import com.alkemy.ong.model.response.RegistrationResponse;
-import com.alkemy.ong.service.UserServiceImpl;
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import com.alkemy.ong.service.abstraction.IUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,20 +17,12 @@ public class UserController {
   public IDeleteUserService deleteUserService;
 
   @Autowired
-  public UserServiceImpl userService;
+  public IUserService userService;
 
   @PostMapping("/auth/register")
-  public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody @Valid RegistrationRequest req) {
-
-    RegistrationResponse r = new RegistrationResponse();
-
-    User user = userService.postUser(req);
-
-    r.setUsername(user.getUsername());
-    r.setFirstName(user.getFirstName());
-    r.setLastName(user.getLastName());
-
-    return new ResponseEntity<>(r , HttpStatus.OK);
+  public ResponseEntity<UserDto> postUser(@RequestBody UserDto userDto) {
+    UserDto newUser = userService.save(userDto);
+    return new ResponseEntity<>(newUser, HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/users/{id}")
