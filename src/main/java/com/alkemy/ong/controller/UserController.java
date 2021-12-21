@@ -1,8 +1,12 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.request.LoginRequest;
 import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.model.response.RegistrationResponse;
+import com.alkemy.ong.model.response.TokenDto;
+import com.alkemy.ong.service.AuthenticationService;
 import com.alkemy.ong.service.UserServiceImpl;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
@@ -23,8 +27,11 @@ public class UserController {
   @Autowired
   public UserServiceImpl userService;
 
+  @Autowired
+  AuthenticationService autoAuthenticationService;
+
   @PostMapping("/auth/register")
-  public ResponseEntity<RegistrationResponse> postRegisterUser(@RequestBody @Valid RegistrationRequest req) {
+  public ResponseEntity<TokenDto> postRegisterUser(@RequestBody @Valid RegistrationRequest req) throws InvalidCredentialsException {
 
     RegistrationResponse r = new RegistrationResponse();
 
@@ -34,7 +41,11 @@ public class UserController {
     r.setFirstName(user.getFirstName());
     r.setLastName(user.getLastName());
 
-    return new ResponseEntity<>(r , HttpStatus.OK);
+    LoginRequest loginRequest = new LoginRequest();
+    loginRequest.setEmail(user.getEmail());
+    loginRequest.setPassword(user.getPassword());
+
+    return new ResponseEntity<TokenDto>(autoAuthenticationService.authenticateUser(loginRequest),HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/users/{id}")
