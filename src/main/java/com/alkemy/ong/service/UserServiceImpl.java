@@ -1,12 +1,17 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
+
+import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService {
+public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService, IGetAllUsers {
 
   private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
@@ -29,6 +34,9 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
 
   @Autowired
   private PasswordEncoder passwordEncoder;
+
+  @Autowired
+  private UserMapper userMapper;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -91,4 +99,13 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
       return user;
     }
 
+  @Override
+  public List<UsersResponseDto> getAllUsers() {
+    List<User> users = userRepository.findAll();
+    List <UsersResponseDto> usersResponseDtos = null;
+    for (User user: users) {
+       usersResponseDtos.add(userMapper.usersDtoResponse(user));
+    }
+    return usersResponseDtos;
+  }
 }
