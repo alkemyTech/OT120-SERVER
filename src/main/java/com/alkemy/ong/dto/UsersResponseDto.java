@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsersDtoResponse {
+public class UsersResponseDto {
     private String firstName;
     private String lastName;
     private String email;
