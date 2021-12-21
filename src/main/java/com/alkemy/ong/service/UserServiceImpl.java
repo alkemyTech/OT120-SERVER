@@ -11,6 +11,7 @@ import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
@@ -102,7 +103,7 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
   @Override
   public List<UsersResponseDto> getAllUsers() {
     List<User> users = userRepository.findAll();
-    List <UsersResponseDto> usersResponseDtos = null;
+    List <UsersResponseDto> usersResponseDtos = new ArrayList<UsersResponseDto>();
     for (User user: users) {
        usersResponseDtos.add(userMapper.usersDtoResponse(user));
     }

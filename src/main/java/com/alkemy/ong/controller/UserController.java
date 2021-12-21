@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.model.response.RegistrationResponse;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -43,4 +46,8 @@ public class UserController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
+  @GetMapping(value="/users")
+  public ResponseEntity<List<UsersResponseDto>>getAllUsers(){
+    return new ResponseEntity<List<UsersResponseDto>>(userService.getAllUsers(),HttpStatus.OK);
+  }
 }
