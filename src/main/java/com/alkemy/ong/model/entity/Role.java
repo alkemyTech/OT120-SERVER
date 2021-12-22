@@ -34,7 +34,6 @@ public class Role {
   @Column(name = "TIMESTAMP")
   private Timestamp timestamp;
 
-  @ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
-  private List<User> users = new ArrayList<>();
+
 
 }

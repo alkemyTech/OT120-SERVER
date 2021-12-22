@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDTO {
+public class UserDto {
 
     private Long id;
     private String firstName;
@@ -15,7 +15,7 @@ public class UserDTO {
     private String email;
     private String password;
     private String photo;
-    private List<RoleDTO> roles;
+    private List<RoleDto> roles;
     private Timestamp timestamp;
 
 }

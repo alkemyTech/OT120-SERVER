@@ -1,7 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
-import com.alkemy.ong.dto.UserDTO;
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
@@ -11,7 +11,7 @@ import com.alkemy.ong.service.abstraction.IGetUserService;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
-import com.alkemy.ong.service.abstraction.UserService;
+import com.alkemy.ong.service.abstraction.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService, UserService {
+public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService, IUserService {
 
   private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
@@ -29,14 +29,9 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
   @Autowired
   private IUserRepository userRepository;
 
-  //Repository
+  @Autowired
   private UserMapper userMapper;
 
-  @Autowired
-  public UserServiceImpl(IUserRepository userRepository, UserMapper userMapper){
-    this.userRepository = userRepository;
-    this.userMapper = userMapper;
-  }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -72,14 +67,14 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
   }
 
   @Override
-  public UserDTO update(Long id, UserDTO userDTO) {
+  public UserDto update(Long id, UserDto userDTO) {
     Optional<User> userEntity = this.userRepository.findById(id);
     if(!userEntity.isPresent()){
       throw new ParamNotFound("User id not valid!");
     }
     this.userMapper.UserRefreshValues(userEntity.get(), userDTO);
     User entitySaved = this.userRepository.save(userEntity.get());
-    UserDTO result = this.userMapper.userEntity2DTO(entitySaved, true);
+    UserDto result = this.userMapper.userEntity2Dto(entitySaved, true);
     return result;
   }
 }
