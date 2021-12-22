@@ -39,7 +39,7 @@ public class UserController {
     loginRequest.setEmail(newUser.getEmail());
     loginRequest.setPassword(newUser.getPassword());
     TokenDto tokenDto = autoAuthenticationService.authenticateUser(loginRequest);
-    newUser.token = tokenDto.getToken();
+    newUser.setToken(tokenDto.getToken());
     return new ResponseEntity<>(newUser, HttpStatus.OK);
   }
 
