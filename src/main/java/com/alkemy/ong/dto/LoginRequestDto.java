@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.request;
+package com.alkemy.ong.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
+public class LoginRequestDto {
 
     @NotBlank(message = "incorrect email address.")
     @Email(message = "Email should be valid.", regexp = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}")

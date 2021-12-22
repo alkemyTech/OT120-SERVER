@@ -22,65 +22,62 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  private UserDetailsService userDetailsService;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-  @Autowired
-  private JwtRequestFilter jwtRequestFilter;
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
 
-  @Bean
-  public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-  @Autowired
-  public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
-    managerBuilder.userDetailsService(userDetailsService)
-        .passwordEncoder(passwordEncoder());
-  }
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder managerBuilder) throws Exception {
+        managerBuilder.userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder());
+    }
 
-  @Override
-  @Bean
-  public AuthenticationManager authenticationManagerBean() throws Exception {
-    return super.authenticationManagerBean();
-  }
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http.csrf()
-        .disable()
-        .cors()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .authorizeRequests()
-<<<<<<< HEAD
-            
-            .antMatchers(HttpMethod.PUT,"/organization/public/{id}").hasRole(ApplicationRole.ADMIN.getName())
-            .antMatchers(HttpMethod.GET,"/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
-            .antMatchers(HttpMethod.DELETE, "/categories/**")
-            .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-=======
-        .antMatchers("/auth/**").permitAll()
-        .antMatchers(HttpMethod.GET,"/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
-        .antMatchers(HttpMethod.DELETE, "/categories/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
->>>>>>> 5ed429a5dd4ed624e5ea0b5d467295d71c54b34d
-        .antMatchers(HttpMethod.DELETE, "/users/**")
-        .hasAnyRole(ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.DELETE, "/testimonials/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.DELETE, "/members/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.DELETE, "/slides/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName())
-        .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-        .anyRequest()
-        .authenticated()
-        .and()
-        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-        .exceptionHandling()
-        .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
-  }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf()
+                .disable()
+                .cors()
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.PUT, "/organization/public/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.DELETE, "/categories/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
+                
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.DELETE, "/categories/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/users/**")
+                .hasAnyRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/testimonials/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/members/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/slides/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .anyRequest()
+                .authenticated()
+                .and()
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
+    }
 }

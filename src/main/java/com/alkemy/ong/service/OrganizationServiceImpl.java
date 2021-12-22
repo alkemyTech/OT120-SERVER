@@ -39,23 +39,8 @@ public class OrganizationServiceImpl implements IOrganizationService {
         Optional<Organization> optional = organizationRepository.findById(id);
         if (optional.isPresent()) {
             Organization organization = optional.get();
-            if (organization.getName().isEmpty()) {
-                throw new Exception("El nombre no puede estar vacío");
-            }
-            if (organization.getImage().isEmpty()) {
-                throw new Exception("Debe agregar una imagen");
-            }
-            if (organization.getEmail().isEmpty()) {
-                throw new Exception("El email no puede estar vacío");
-            }
-            if (organization.getWelcomeText().isEmpty()) {
-                throw new Exception("El mensaje de bienvenida no puede estar vacío");
-            }
-
             organization = organizationMapper.organizationDto2EntityAll(dto);
             organizationRepository.save(organization);
-
-
         } else {
             throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
         }

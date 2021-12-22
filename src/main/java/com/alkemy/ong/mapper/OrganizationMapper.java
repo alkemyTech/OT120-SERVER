@@ -6,6 +6,8 @@ import com.alkemy.ong.dto.OrganizationDto;
 import com.alkemy.ong.dto.OrganizationAllDto;
 import com.alkemy.ong.model.entity.Organization;
 
+import java.sql.Timestamp;
+
 @Component
 public class OrganizationMapper {
 
@@ -36,6 +38,7 @@ public class OrganizationMapper {
         entity.setEmail(dto.getEmail());
         entity.setWelcomeText(dto.getWelcomeText());
         entity.setAboutUsText(dto.getAboutUsText());
+        entity.setTimeStamp(new Timestamp(System.currentTimeMillis()));
 
         return entity;
     }
