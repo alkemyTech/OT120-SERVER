@@ -5,24 +5,18 @@ import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.model.request.LoginRequest;
 import com.alkemy.ong.model.response.TokenDto;
 import com.alkemy.ong.service.AuthenticationService;
-import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+
 
 @RestController
 public class UserController {
-
-  @Autowired
-  public IDeleteUserService deleteUserService;
 
   @Autowired
   public IUserService userService;
@@ -46,7 +40,7 @@ public class UserController {
 
   @DeleteMapping(value = "/users/{id}")
   public ResponseEntity<Empty> delete(@PathVariable Long id) throws EntityNotFoundException {
-    deleteUserService.delete(id);
+    userService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 

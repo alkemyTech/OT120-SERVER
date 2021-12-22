@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.OperationNotAllowedException;
-import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
+import com.alkemy.ong.service.abstraction.ICommentsService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentController {
 
   @Autowired
-  private IDeleteCommentsService deleteCommentsService;
+  private ICommentsService CommentsService;
 
   @DeleteMapping(value = "/comments/{id}")
   public ResponseEntity<Empty> delete(@PathVariable("id") long id,
       @RequestHeader(value = "Authorization") String authorizationHeader)
       throws OperationNotAllowedException {
-    deleteCommentsService.delete(id, authorizationHeader);
+    CommentsService.delete(id, authorizationHeader);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
