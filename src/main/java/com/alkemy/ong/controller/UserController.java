@@ -2,16 +2,14 @@ package com.alkemy.ong.controller;
 
 
 import com.alkemy.ong.dto.UsersResponseDto;
-import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.RegistrationRequest;
-import com.alkemy.ong.model.response.RegistrationResponse;
-import com.alkemy.ong.service.UserServiceImpl;
-import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import com.alkemy.ong.model.response.UserDTOResponse;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.service.abstraction.IUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
+
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,5 +41,11 @@ public class UserController {
   @GetMapping(value="/users")
   public ResponseEntity<List<UsersResponseDto>>getAllUsers(){
     return new ResponseEntity<List<UsersResponseDto>>(getAllUsers.getAllUsers(),HttpStatus.OK);
+  }
+
+  @GetMapping("/auth/me")
+  public ResponseEntity<UserDTOResponse> getMe(@RequestHeader("authorization") String jwt) throws NotFoundException {
+
+    return new ResponseEntity<>(userService.getMe(jwt), HttpStatus.OK);
   }
 }
