@@ -7,7 +7,6 @@ import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.repository.IUserRepository;
-import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
 
@@ -25,9 +24,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService, IGetAllUsers {
 
+public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService ,IGetAllUsers {
 
   private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 

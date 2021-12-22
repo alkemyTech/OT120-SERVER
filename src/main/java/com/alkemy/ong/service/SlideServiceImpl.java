@@ -1,13 +1,13 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.repository.ISlideRepository;
-import com.alkemy.ong.service.abstraction.IDeleteSlideService;
+import com.alkemy.ong.service.abstraction.ISlideService;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SlideServiceImpl implements IDeleteSlideService {
+public class SlideServiceImpl implements ISlideService {
 
   private static final String SLIDE_NOT_FOUND_MESSAGE = "Slide not found.";
 

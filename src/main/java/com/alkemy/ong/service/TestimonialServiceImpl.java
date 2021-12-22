@@ -2,14 +2,14 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.repository.ITestimonialRepository;
-import com.alkemy.ong.service.abstraction.IDeleteTestimonialService;
+import com.alkemy.ong.service.abstraction.ITestimonialService;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TestimonialServiceImpl implements IDeleteTestimonialService {
+public class TestimonialServiceImpl implements ITestimonialService {
 
   private static final String TESTIMONIAL_NOT_FOUND_MESSAGE = "Testimonial not found.";
 

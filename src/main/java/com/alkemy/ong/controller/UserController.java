@@ -9,7 +9,6 @@ import com.alkemy.ong.service.UserServiceImpl;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.dto.UserDto;
-import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
@@ -22,9 +21,6 @@ import java.util.List;
 
 @RestController
 public class UserController {
-
-  @Autowired
-  public IDeleteUserService deleteUserService;
 
   @Autowired
   public IUserService userService;
@@ -40,7 +36,7 @@ public class UserController {
 
   @DeleteMapping(value = "/users/{id}")
   public ResponseEntity<Empty> delete(@PathVariable Long id) throws EntityNotFoundException {
-    deleteUserService.delete(id);
+    userService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
