@@ -2,9 +2,9 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.config.security.ApplicationRole;
 import com.alkemy.ong.exception.OperationNotAllowedException;
-import com.alkemy.ong.model.entity.Comment;
-import com.alkemy.ong.model.entity.Role;
-import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.entity.Comment;
+import com.alkemy.ong.entity.Role;
+import com.alkemy.ong.entity.User;
 import com.alkemy.ong.repository.ICommentRepository;
 import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
 import com.alkemy.ong.service.abstraction.IGetUserService;

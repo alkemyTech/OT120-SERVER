@@ -1,6 +1,6 @@
 package com.alkemy.ong.common;
 
-import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

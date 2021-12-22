@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.entity;
+package com.alkemy.ong.entity;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
@@ -19,39 +19,26 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ORGANIZATIONS")
-public class Organization {
+@Table(name = "CATEGORIES")
+public class Category {
 
   @Id
-  @Column(name = "ORGANIZATIONS_ID")
-  @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "CATEGORIES_ID")
   private long id;
 
   @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "IMAGE", nullable = false)
+  @Column(name = "DESCRIPTION")
+  private String description;
+
+  @Column(name = "IMAGE")
   private String image;
 
-  @Column(name = "ADDRESS")
-  private String address;
-
-  @Column(name = "PHONE")
-  private Integer phone;
-
-  @Column(name = "EMAIL", nullable = false)
-  private String email;
-
-  @Column(name = "WELCOME_TEXT", nullable = false)
-  private String welcomeText;
-
-  @Column(name = "ABOUT_US_TEXT")
-  private String aboutUsText;
-
-  @Column(name = "TIMESTAMP")
   @CreationTimestamp
-  private Timestamp timeStamp;
+  @Column(name = "TIMESTAMP")
+  private Timestamp timestamp;
 
   @Column(name = "SOFT_DELETE")
   private boolean softDelete;

@@ -1,6 +1,6 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.entity.User;
 
 public interface IGetUserService {
 

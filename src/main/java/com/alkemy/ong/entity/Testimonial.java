@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.entity;
+package com.alkemy.ong.entity;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,22 +19,29 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ROLES")
-public class Role {
+@Table(name = "TESTIMONIALS")
+public class Testimonial {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "ROLES_ID")
-  private Long id;
+  @Setter(AccessLevel.NONE)
+  @Column(name = "TESTIMONIALS_ID")
+  private long id;
 
   @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "DESCRIPTION")
-  private String description;
+  @Column(name = "IMAGE")
+  private String image;
 
+  @Column(name = "CONTENT")
+  private String content;
+
+  @Column(name = "TIMESTAMPS")
   @CreationTimestamp
-  @Column(name = "TIMESTAMP")
-  private Timestamp timestamp;
+  private Timestamp timestamps;
+
+  @Column(name = "SOFT_DELETE")
+  private boolean softDelete;
 
 }

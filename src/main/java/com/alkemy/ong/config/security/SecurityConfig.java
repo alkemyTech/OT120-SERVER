@@ -45,6 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return super.authenticationManagerBean();
   }
 
+  String[] publicEndpoints = {
+          "/auth/",
+          "/categories/{id}"
+  };
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.csrf()
@@ -55,8 +60,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
-            .antMatchers("/auth/").permitAll()
+            .antMatchers(publicEndpoints).permitAll()
             .antMatchers(HttpMethod.GET,"/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
+            //.antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ApplicationRole.ADMIN.getName())
             .antMatchers(HttpMethod.DELETE, "/categories/**")
             .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
         .antMatchers(HttpMethod.DELETE, "/users/**")

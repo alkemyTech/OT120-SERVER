@@ -1,6 +1,6 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.model.entity.Testimonial;
+import com.alkemy.ong.entity.Testimonial;
 import com.alkemy.ong.repository.ITestimonialRepository;
 import com.alkemy.ong.service.abstraction.IDeleteTestimonialService;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.entity.User;
 import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.model.response.RegistrationResponse;
 import com.alkemy.ong.service.UserServiceImpl;

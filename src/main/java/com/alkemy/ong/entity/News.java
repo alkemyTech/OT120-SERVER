@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.entity;
+package com.alkemy.ong.entity;
 
 import java.sql.Timestamp;
 import javax.persistence.CascadeType;

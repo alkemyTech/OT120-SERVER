@@ -2,7 +2,7 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.exception.FieldInvalidException;
-import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.entity.User;
 import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;

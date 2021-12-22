@@ -1,6 +1,6 @@
 package com.alkemy.ong.service;
 ;
-import com.alkemy.ong.model.entity.News;
+import com.alkemy.ong.entity.News;
 import com.alkemy.ong.model.response.NewsResponseDto;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.service.abstraction.INewsService;
