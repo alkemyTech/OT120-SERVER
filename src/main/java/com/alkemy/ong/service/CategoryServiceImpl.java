@@ -2,19 +2,22 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
-import com.alkemy.ong.model.request.CategoryDto;
+import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
+import com.alkemy.ong.service.abstraction.ICategoryService;
 import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryServiceImpl implements IDeleteCategoryService {
+public class CategoryServiceImpl implements IDeleteCategoryService, ICategoryService {
 
     private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
 
@@ -23,6 +26,9 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public void delete(Long id) throws EntityNotFoundException {
@@ -43,5 +49,15 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
         return categoryRepository.findAll().stream()
                 .map(category -> categoryMapper.categoryToCategoryDto(category))
                 .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public CategoryDto save(CategoryDto categoryDto) {
+        Category category = categoryMapper.categoryDtotoCategory(categoryDto);
+        Category categorySaved = categoryRepository.save(category);
+        CategoryDto result = categoryMapper.categoryToCategoryDto(categorySaved);
+
+        return result;
     }
 }
