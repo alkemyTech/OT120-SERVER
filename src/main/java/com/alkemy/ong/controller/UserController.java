@@ -1,12 +1,6 @@
 package com.alkemy.ong.controller;
 
-
 import com.alkemy.ong.dto.UsersResponseDto;
-import com.alkemy.ong.model.entity.User;
-import com.alkemy.ong.model.request.RegistrationRequest;
-import com.alkemy.ong.model.response.RegistrationResponse;
-import com.alkemy.ong.service.UserServiceImpl;
-import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.service.abstraction.IUserService;
