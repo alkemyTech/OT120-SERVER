@@ -20,8 +20,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
 @Service
-public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService, IGetAllUsers {
+public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService ,IGetAllUsers {
 
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
@@ -39,7 +40,6 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
 
     @Autowired
     private UserDto userRequestDto;
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
