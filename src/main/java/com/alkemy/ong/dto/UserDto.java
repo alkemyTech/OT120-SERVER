@@ -1,15 +1,17 @@
-package com.alkemy.ong.model.request;
+package com.alkemy.ong.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
-public class RegistrationRequest {
+@Component
+public class UserDto {
 
     @NotBlank (message = "El nombre no puede estar vacío ni ser nulo")
     @Pattern(regexp = "[a-zA-Z]+", message = "El nombre no puede contener números")

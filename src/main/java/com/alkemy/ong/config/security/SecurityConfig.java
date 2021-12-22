@@ -55,11 +55,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
         .authorizeRequests()
+<<<<<<< HEAD
             
             .antMatchers(HttpMethod.PUT,"/organization/public/{id}").hasRole(ApplicationRole.ADMIN.getName())
             .antMatchers(HttpMethod.GET,"/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
             .antMatchers(HttpMethod.DELETE, "/categories/**")
             .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+=======
+        .antMatchers("/auth/**").permitAll()
+        .antMatchers(HttpMethod.GET,"/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
+        .antMatchers(HttpMethod.DELETE, "/categories/**")
+        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+>>>>>>> 5ed429a5dd4ed624e5ea0b5d467295d71c54b34d
         .antMatchers(HttpMethod.DELETE, "/users/**")
         .hasAnyRole(ApplicationRole.USER.getName())
         .antMatchers(HttpMethod.DELETE, "/testimonials/**")
