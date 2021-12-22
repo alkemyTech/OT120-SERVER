@@ -1,14 +1,12 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.exception.InvalidCredentialsException;
-import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.request.LoginRequest;
-import com.alkemy.ong.model.request.RegistrationRequest;
-import com.alkemy.ong.model.response.RegistrationResponse;
 import com.alkemy.ong.model.response.TokenDto;
 import com.alkemy.ong.service.AuthenticationService;
-import com.alkemy.ong.service.UserServiceImpl;
 import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import com.alkemy.ong.service.abstraction.IUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -18,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 public class UserController {
 
@@ -25,27 +25,23 @@ public class UserController {
   public IDeleteUserService deleteUserService;
 
   @Autowired
-  public UserServiceImpl userService;
+  public IUserService userService;
 
   @Autowired
   AuthenticationService autoAuthenticationService;
 
   @PostMapping("/auth/register")
-  public ResponseEntity<TokenDto> postRegisterUser(@RequestBody @Valid RegistrationRequest req) throws InvalidCredentialsException {
 
-    RegistrationResponse r = new RegistrationResponse();
+ public ResponseEntity<?> postRegisterUser(@RequestBody UserDto userDto) throws InvalidCredentialsException {
 
-    User user = userService.postUser(req);
-
-    r.setUsername(user.getUsername());
-    r.setFirstName(user.getFirstName());
-    r.setLastName(user.getLastName());
+    UserDto newUser = userService.save(userDto);
 
     LoginRequest loginRequest = new LoginRequest();
-    loginRequest.setEmail(user.getEmail());
-    loginRequest.setPassword(user.getPassword());
-
-    return new ResponseEntity<TokenDto>(autoAuthenticationService.authenticateUser(loginRequest),HttpStatus.OK);
+    loginRequest.setEmail(newUser.getEmail());
+    loginRequest.setPassword(newUser.getPassword());
+    TokenDto tokenDto = autoAuthenticationService.authenticateUser(loginRequest);
+    newUser.token = tokenDto.getToken();
+    return new ResponseEntity<>(newUser, HttpStatus.OK);
   }
 
   @DeleteMapping(value = "/users/{id}")

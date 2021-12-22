@@ -1,15 +1,17 @@
-package com.alkemy.ong.model.request;
+package com.alkemy.ong.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
-public class RegistrationRequest {
+@Component
+public class UserDto {
 
     @NotBlank (message = "El nombre no puede estar vacío ni ser nulo")
     @Pattern(regexp = "[a-zA-Z]+", message = "El nombre no puede contener números")
@@ -25,4 +27,6 @@ public class RegistrationRequest {
     @NotBlank (message = "La contraseña no puede estar vacía")
     @Size(min = 6, max = 25, message = "La contraseña debe ser entre 6 y 25 caracteres")
     public String password;
+
+    public String token;
 }
