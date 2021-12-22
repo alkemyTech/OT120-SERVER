@@ -31,6 +31,7 @@ public class CategoryServiceImpl implements ICategoryService {
         categoryRepository.save(category);
     }
 
+    @Override
     public Category getCategory(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isEmpty() || categoryOptional.get().isSoftDelete()) {
