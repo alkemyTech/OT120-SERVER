@@ -1,5 +1,10 @@
 package com.alkemy.ong.mapper;
 
+
+import com.alkemy.ong.dto.UsersResponseDto;
+import com.alkemy.ong.model.entity.User;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.model.entity.User;
 import org.modelmapper.ModelMapper;
@@ -13,7 +18,11 @@ public class UserMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
+  
+    public UsersResponseDto usersDtoResponse (User entity){
+        return modelMapper.map(entity, UsersResponseDto.class);
+    }
+  
     private PasswordEncoder encodePassword;
 
     public User userDtoToEntity (UserDto userDto) {
@@ -33,5 +42,6 @@ public class UserMapper {
         userDto.setLastName(user.getLastName());
 
         return userDto;
+
     }
 }

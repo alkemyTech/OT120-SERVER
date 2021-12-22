@@ -1,12 +1,19 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.dto.UsersResponseDto;
+import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.repository.IUserRepository;
+import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import com.alkemy.ong.service.abstraction.IUserService;
@@ -18,7 +25,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService {
+public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService ,IGetAllUsers {
 
   private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
@@ -45,6 +52,11 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
   @Override
   public User getBy(String authorizationHeader) {
     return getUser(jwtUtil.extractUsername(authorizationHeader));
+  }
+
+  @Override
+  public UserDto save(UserDto userRequestDto) {
+    return null;
   }
 
   @Override
@@ -83,10 +95,9 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     }
 
   @Override
-  public UserDto save(UserDto userRequestDto) {
-    User user = userMapper.userDtoToEntity(userRequestDto);
-    User userSaved = userRepository.save(user);
-    UserDto result = userMapper.entityToUserDto(userSaved);
-    return result;
+
+  public List<UsersResponseDto> getAllUsers() {
+    return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
+
   }
 }
