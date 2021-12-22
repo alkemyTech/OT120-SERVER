@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 @Data
@@ -12,28 +15,18 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class NewsResponseDto {
 
-    private Long id;
-
+    @NotBlank (message = "El nombre no puede ser nulo")
     private String name;
 
+    @NotBlank (message = "Debe contener información")
     private String content;
 
+    @NotBlank (message = "Debe subir una imagen")
     private String image;
 
+    @NotBlank(message = "Falta fecha")
     private Timestamp timestamp;
 
+    @NotNull(message = "Elija una categoría")
     private Long category;
-
-
-   /* public static NewsResponseDto newsToDto(News news) {
-        return NewsResponseDto.builder()
-                .id(news.getId())
-                .name(news.getName())
-                .content(news.getContent())
-                .image(news.getImage())
-                .timestamp(news.getTimestamp())
-                .category(news.getCategory())
-                .build();
-    }*/
-
 }

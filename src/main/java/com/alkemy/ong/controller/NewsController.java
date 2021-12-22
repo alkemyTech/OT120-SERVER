@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/news")
 public class NewsController {
@@ -21,7 +23,7 @@ public class NewsController {
     INewsService newsService;
 
     @PostMapping(value = "")
-    public ResponseEntity<NewsResponseDto> postNews(@RequestBody NewsResponseDto newsDto) throws FieldInvalidException {
+    public ResponseEntity<NewsResponseDto> postNews(@Valid @RequestBody NewsResponseDto newsDto) throws FieldInvalidException {
         return ResponseEntity.status(HttpStatus.CREATED).body(newsService.postNews(newsDto));
     }
 

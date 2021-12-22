@@ -2,16 +2,22 @@ package com.alkemy.ong.config.modelmapper;
 
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.dto.NewsResponseDto;
+import com.alkemy.ong.service.abstraction.ICategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class NewsMapper {
 
+    @Autowired
+    ICategoryService categoryService;
 
     public News newsDtoToEntity(NewsResponseDto dto) {
         News news = new News();
         news.setName(dto.getName());
         news.setContent(dto.getContent());
         news.setImage(dto.getImage());
-        //news.setCategory(categoryService.getCategory(dto.getCategory())); /*aun no actualizo para tener esa funcion de categoria*/
+        news.setCategory(categoryService.getCategory(dto.getCategory()));
         return news;
     }
 
@@ -24,9 +30,8 @@ public class NewsMapper {
         return dto;
     }
 
-    public  NewsResponseDto newsToDto(News news) {
+    public NewsResponseDto newsToDto(News news) {
         return NewsResponseDto.builder()
-                .id(news.getId())
                 .name(news.getName())
                 .content(news.getContent())
                 .image(news.getImage())

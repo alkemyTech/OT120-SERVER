@@ -45,7 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-<<<<<<< HEAD
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
@@ -57,10 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/news/**").hasAnyRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.DELETE, "/categories/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .antMatchers("/auth/").permitAll()
-                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.DELETE, "/users/**")
                 .hasAnyRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.DELETE, "/testimonials/**")
@@ -77,37 +77,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
     }
-=======
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http.csrf()
-        .disable()
-        .cors()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-        .authorizeRequests()
-        .antMatchers(HttpMethod.GET,"/users").hasRole(ApplicationRole.ADMIN.getName())
-        .antMatchers("/auth/**").permitAll()
-        .antMatchers(HttpMethod.GET,"/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
-        .antMatchers(HttpMethod.DELETE, "/categories/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.DELETE, "/users/**")
-        .hasAnyRole(ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.DELETE, "/testimonials/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.DELETE, "/members/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-        .antMatchers(HttpMethod.DELETE, "/slides/**")
-        .hasAnyRole(ApplicationRole.ADMIN.getName())
-        .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-        .anyRequest()
-        .authenticated()
-        .and()
-        .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
-        .exceptionHandling()
-        .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
-  }
->>>>>>> e32f48e3ff6fedd2497d12e957bfdd0724f80ec6
 }

@@ -1,8 +1,6 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.config.modelmapper.NewsMapper;
-import com.alkemy.ong.exception.FieldInvalidException;
-import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.model.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,21 +24,11 @@ public class NewsServiceImpl implements INewsService {
     public NewsResponseDto findNewsById(Long id) throws EntityNotFoundException {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE));
-        // return NewsResponseDto.newsToDto(news);
         return newsMapper.newsToDto(news);
     }
 
     @Override
     public NewsResponseDto postNews(NewsResponseDto newsDto) {
-        if (newsDto.getName().isEmpty()) {
-            throw new OperationNotAllowedException("El titulo no puede estar vacío");
-        }
-        if (newsDto.getContent().isEmpty()) {
-            throw new OperationNotAllowedException("Debe contener información");
-        }
-        if (newsDto.getImage().isEmpty()) {
-            throw new OperationNotAllowedException("Debe agregar una imagen");
-        }
         News newsEntity = newsMapper.newsDtoToEntity(newsDto);
         News saved = newsRepository.save(newsEntity);
         NewsResponseDto result = newsMapper.newsEntityToDto(saved);
