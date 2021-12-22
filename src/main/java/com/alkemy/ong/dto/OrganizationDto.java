@@ -24,3 +24,5 @@ public class OrganizationDto {
   private String address;
 
 }
+
+
