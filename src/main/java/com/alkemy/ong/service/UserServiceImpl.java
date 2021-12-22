@@ -24,80 +24,80 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService ,IGetAllUsers {
 
-  private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
+    private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
-  @Autowired
-  private JwtUtil jwtUtil;
+    @Autowired
+    private JwtUtil jwtUtil;
 
-  @Autowired
-  private IUserRepository userRepository;
+    @Autowired
+    private IUserRepository userRepository;
 
-  @Autowired
-  private UserMapper userMapper;
+    @Autowired
+    private UserMapper userMapper;
 
-  @Autowired
-  private ModelMapper modelMapper;
+    @Autowired
+    private ModelMapper modelMapper;
 
-  @Autowired
-  private UserDto userRequestDto;
+    @Autowired
+    private UserDto userRequestDto;
 
-  @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return getUser(username);
-  }
-
-  @Override
-  public User getBy(String authorizationHeader) {
-    return getUser(jwtUtil.extractUsername(authorizationHeader));
-  }
-
-
-  @Override
-  public void delete(Long id) throws EntityNotFoundException {
-    User user = getUser(id);
-    user.setSoftDeleted(true);
-    userRepository.save(user);
-  }
-
-  private User getUser(Long id) {
-    Optional<User> userOptional = userRepository.findById(id);
-    if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
-      throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return getUser(username);
     }
-    return userOptional.get();
-  }
 
-  private User getUser(String username) {
-    User user = userRepository.findByEmail(username);
-    if (user == null) {
-      throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+    @Override
+    public User getBy(String authorizationHeader) {
+        return getUser(jwtUtil.extractUsername(authorizationHeader));
     }
-    return user;
-  }
 
-  private boolean emailExists(String email) {
-    return userRepository.findByEmail(email) != null;
-  }
+
+    @Override
+    public void delete(Long id) throws EntityNotFoundException {
+        User user = getUser(id);
+        user.setSoftDeleted(true);
+        userRepository.save(user);
+    }
+
+    private User getUser(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
+            throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return userOptional.get();
+    }
+
+    private User getUser(String username) {
+        User user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return user;
+    }
+
+    private boolean emailExists(String email) {
+        return userRepository.findByEmail(email) != null;
+    }
 
     public User getUserByEmail(String email) {
-      User user = userRepository.findByEmail(email);
-      if (user == null) {
-        throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
-      }
-      return user;
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return user;
     }
 
     @Override
     public UserDto save(UserDto userRequestDto) {
-    User user = userMapper.userDtoToEntity(userRequestDto);
-    User userSaved = userRepository.save(user);
-    UserDto result = userMapper.entityToUserDto(userSaved);
-    return result;
-  }
+        User user = userMapper.userDtoToEntity(userRequestDto);
+        User userSaved = userRepository.save(user);
+        UserDto result = userMapper.entityToUserDto(userSaved);
+        return result;
+    }
 
-  @Override
-  public List<UsersResponseDto> getAllUsers() {
-    return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
+    @Override
+    public List<UsersResponseDto> getAllUsers() {
+        return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
 
-  }
+    }
 }
