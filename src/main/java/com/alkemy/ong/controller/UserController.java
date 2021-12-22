@@ -1,5 +1,13 @@
 package com.alkemy.ong.controller;
 
+
+import com.alkemy.ong.dto.UsersResponseDto;
+import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.model.request.RegistrationRequest;
+import com.alkemy.ong.model.response.RegistrationResponse;
+import com.alkemy.ong.service.UserServiceImpl;
+import com.alkemy.ong.service.abstraction.IDeleteUserService;
+import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.service.abstraction.IUserService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
@@ -9,11 +17,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
   @Autowired
   public IUserService userService;
+
+  @Autowired
+  public IGetAllUsers getAllUsers;
 
   @PostMapping("/auth/register")
   public ResponseEntity<UserDto> postUser(@RequestBody UserDto userDto) {
@@ -27,4 +40,8 @@ public class UserController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
+  @GetMapping(value="/users")
+  public ResponseEntity<List<UsersResponseDto>>getAllUsers(){
+    return new ResponseEntity<List<UsersResponseDto>>(getAllUsers.getAllUsers(),HttpStatus.OK);
+  }
 }
