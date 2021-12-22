@@ -28,7 +28,7 @@ public class UserMapper {
         userDto.setPassword(userEntity.getPassword());
         userDto.setPhoto(userEntity.getPhoto());
         if(loadRoles){
-            List<RoleDto> roleDtoList = this.roleMapper.roleEntitySet2DtoList(userEntity.getRoles(), true);
+            List<RoleDto> roleDtoList = this.roleMapper.roleEntitySet2DtoList(userEntity.getRoles());
             userDto.setRoles(roleDtoList);
         }
         userDto.setTimestamp(userEntity.getTimestamp());
