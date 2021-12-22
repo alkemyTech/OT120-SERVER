@@ -6,6 +6,7 @@ import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.repository.IUserRepository;
+import com.alkemy.ong.service.abstraction.IEmailService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
 import java.util.List;
@@ -15,6 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import com.alkemy.ong.service.abstraction.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,6 +42,9 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
 
     @Autowired
     private UserDto userRequestDto;
+
+    @Autowired
+    IEmailService emailService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -86,11 +91,21 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         return user;
     }
 
+    /*@Value("${emailSettings.senderEmail}")
+    private String senderEmail;
+    @Value("${emailSettings.subject}")
+    private String subject;
+    @Value("${emailSettings.content}")
+    private String content;*/
     @Override
     public UserDto save(UserDto userRequestDto) {
+
         User user = userMapper.userDtoToEntity(userRequestDto);
         User userSaved = userRepository.save(user);
         UserDto result = userMapper.entityToUserDto(userSaved);
+        //if(result != null){
+         //   emailService.sendEmail(user.getEmail(), senderEmail, subject, content);
+       // }
         return result;
     }
 
