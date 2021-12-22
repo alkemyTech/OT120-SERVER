@@ -5,7 +5,7 @@ import com.alkemy.ong.model.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.repository.INewsRepository;
-import com.alkemy.ong.dto.NewsResponseDto;
+import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.INewsService;
 import javax.persistence.EntityNotFoundException;
 
@@ -21,17 +21,17 @@ public class NewsServiceImpl implements INewsService {
     NewsMapper newsMapper;
 
     @Override
-    public NewsResponseDto findNewsById(Long id) throws EntityNotFoundException {
+    public NewsDto findNewsById(Long id) throws EntityNotFoundException {
         News news = newsRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE));
         return newsMapper.newsToDto(news);
     }
 
     @Override
-    public NewsResponseDto postNews(NewsResponseDto newsDto) {
+    public NewsDto postNews(NewsDto newsDto) {
         News newsEntity = newsMapper.newsDtoToEntity(newsDto);
         News saved = newsRepository.save(newsEntity);
-        NewsResponseDto result = newsMapper.newsEntityToDto(saved);
+        NewsDto result = newsMapper.newsEntityToDto(saved);
         return result;
     }
 }

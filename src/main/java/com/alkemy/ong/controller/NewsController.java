@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.alkemy.ong.dto.NewsResponseDto;
+import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.INewsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,13 +23,13 @@ public class NewsController {
     INewsService newsService;
 
     @PostMapping(value = "")
-    public ResponseEntity<NewsResponseDto> postNews(@Valid @RequestBody NewsResponseDto newsDto) throws FieldInvalidException {
+    public ResponseEntity<NewsDto> postNews(@Valid @RequestBody NewsDto newsDto) throws FieldInvalidException {
         return ResponseEntity.status(HttpStatus.CREATED).body(newsService.postNews(newsDto));
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<NewsResponseDto> getNewsById(@PathVariable Long id) {
+    public ResponseEntity<NewsDto> getNewsById(@PathVariable Long id) {
         return ResponseEntity.ok(newsService.findNewsById(id));
     }
 }
