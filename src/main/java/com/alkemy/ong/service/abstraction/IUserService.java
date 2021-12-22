@@ -1,12 +1,16 @@
 package com.alkemy.ong.service.abstraction;
 
+import com.alkemy.ong.dto.UserDtoRequest;
+import com.alkemy.ong.dto.UserDtoResponse;
 
-import com.alkemy.ong.dto.UserDto;
+import javax.persistence.EntityNotFoundException;
 
 public interface IUserService {
 
-    //Update
-    UserDto update(Long id, UserDto userDTO);
+    UserDtoResponse save(UserDtoRequest userRequestDto);
 
+    void delete(Long id) throws EntityNotFoundException;
+
+    UserDtoResponse update(Long id, UserDtoRequest userDTORequest);
+    
 }
-

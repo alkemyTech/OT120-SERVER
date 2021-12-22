@@ -16,7 +16,7 @@
           </excludes>
         </configuration>
         <groupId>org.springframework.boot</groupId>
-      </plugin>
+      </plugin>     
       <plugin>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <groupId>org.springframework.boot</groupId>
@@ -52,6 +52,11 @@
       <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+</dependency>
+    <dependency>
       <artifactId>spring-boot-starter-security</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
@@ -63,6 +68,11 @@
       <artifactId>spring-session-core</artifactId>
       <groupId>org.springframework.session</groupId>
     </dependency>
+    <dependency>
+  <groupId>org.modelmapper</groupId>
+  <artifactId>modelmapper</artifactId>
+  <version>2.4.2</version>
+</dependency>
     <dependency>
       <artifactId>mysql-connector-java</artifactId>
       <groupId>mysql</groupId>
@@ -102,6 +112,12 @@
     <dependency>
       <artifactId>spring-boot-starter-validation</artifactId>
       <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
+    <dependency>
+      <groupId>com.sendgrid</groupId>
+      <artifactId>sendgrid-java</artifactId>
+      <version>4.8.1</version>
     </dependency>
   </dependencies>
   <description>ONG project with Spring Boot</description>

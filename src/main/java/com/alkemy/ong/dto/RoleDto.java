@@ -13,7 +13,7 @@ public class RoleDto {
     private String name;
     private String description;
     private Timestamp timestamp;
-    private List<UserDto> users;
+    private List<UserDtoRequest> users;
 }
 
 

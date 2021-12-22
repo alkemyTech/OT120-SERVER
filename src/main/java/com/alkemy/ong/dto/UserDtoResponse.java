@@ -1,13 +1,17 @@
 package com.alkemy.ong.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.sql.Timestamp;
 import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDto {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserDtoResponse {
 
     private Long id;
     private String firstName;
@@ -17,7 +21,4 @@ public class UserDto {
     private String photo;
     private List<RoleDto> roles;
     private Timestamp timestamp;
-
 }
-
-
