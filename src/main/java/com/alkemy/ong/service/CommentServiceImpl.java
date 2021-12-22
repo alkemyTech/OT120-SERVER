@@ -2,11 +2,11 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.config.security.ApplicationRole;
 import com.alkemy.ong.exception.OperationNotAllowedException;
-import com.alkemy.ong.entity.Comment;
-import com.alkemy.ong.entity.Role;
-import com.alkemy.ong.entity.User;
+import com.alkemy.ong.model.entity.Comment;
+import com.alkemy.ong.model.entity.Role;
+import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.ICommentRepository;
-import com.alkemy.ong.service.abstraction.IDeleteCommentsService;
+import com.alkemy.ong.service.abstraction.ICommentsService;
 import com.alkemy.ong.service.abstraction.IGetUserService;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CommentServiceImpl implements IDeleteCommentsService {
+public class CommentServiceImpl implements ICommentsService {
 
   private static final String COMMENT_NOT_FOUND_MESSAGE = "Comment not found.";
   private static final String USER_IS_NOT_ABLE_TO_DELETE_COMMENT_MESSAGE = "User is not able to delete comment.";

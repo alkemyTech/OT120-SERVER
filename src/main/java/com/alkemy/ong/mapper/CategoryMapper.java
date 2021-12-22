@@ -1,6 +1,6 @@
 package com.alkemy.ong.mapper;
 
-import com.alkemy.ong.entity.Category;
+import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.request.CategoryDto;
 import com.alkemy.ong.dto.CategoryRequest;
 import com.alkemy.ong.dto.CategoryResponse;

@@ -1,7 +1,7 @@
 package com.alkemy.ong.common;
 
-import com.alkemy.ong.entity.Role;
-import com.alkemy.ong.entity.User;
+import com.alkemy.ong.model.entity.Role;
+import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import java.sql.Timestamp;

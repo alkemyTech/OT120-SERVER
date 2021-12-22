@@ -1,6 +1,6 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.entity.Role;
+import com.alkemy.ong.model.entity.Role;
 
 public interface IRoleService {
 

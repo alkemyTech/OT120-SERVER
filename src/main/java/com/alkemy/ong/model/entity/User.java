@@ -1,4 +1,4 @@
-package com.alkemy.ong.entity;
+package com.alkemy.ong.model.entity;
 
 import java.sql.Timestamp;
 import java.util.Collection;

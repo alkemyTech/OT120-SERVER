@@ -1,4 +1,4 @@
-package com.alkemy.ong.entity;
+package com.alkemy.ong.model.entity;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

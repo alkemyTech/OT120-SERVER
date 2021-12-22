@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.dto.OrganizationDto ;
 import com.alkemy.ong.mapper.OrganizationMapper ;
-import com.alkemy.ong.entity.Organization;
+import com.alkemy.ong.model.entity.Organization;
 import com.alkemy.ong.repository.IOrganizationRepository;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
 

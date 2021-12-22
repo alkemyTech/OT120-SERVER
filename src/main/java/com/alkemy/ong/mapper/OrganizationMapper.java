@@ -3,7 +3,7 @@ package com.alkemy.ong.mapper;
 import org.springframework.stereotype.Component;
 
 import com.alkemy.ong.dto.OrganizationDto ;
-import com.alkemy.ong.entity.Organization;
+import com.alkemy.ong.model.entity.Organization;
 
 @Component
 public class OrganizationMapper {

@@ -1,12 +1,12 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.mapper.CategoryMapper;
-import com.alkemy.ong.entity.Category;
+import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.model.request.CategoryDto;
 import com.alkemy.ong.dto.CategoryRequest;
 import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.repository.ICategoryRepository;
-import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
+import com.alkemy.ong.service.abstraction.ICategoryService;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryServiceImpl implements IDeleteCategoryService {
+public class CategoryServiceImpl implements ICategoryService {
 
     private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
 
@@ -33,6 +33,7 @@ public class CategoryServiceImpl implements IDeleteCategoryService {
         categoryRepository.save(category);
     }
 
+    @Override
     public Category getCategory(Long id) {
         Optional<Category> categoryOptional = categoryRepository.findById(id);
         if (categoryOptional.isEmpty() || categoryOptional.get().isSoftDelete()) {

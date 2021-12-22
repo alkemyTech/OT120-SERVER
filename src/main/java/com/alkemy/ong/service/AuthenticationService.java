@@ -2,9 +2,9 @@ package com.alkemy.ong.service;
 
 
 import com.alkemy.ong.common.JwtUtil;
-import com.alkemy.ong.entity.User;
-import com.alkemy.ong.model.request.LoginRequest;
-import com.alkemy.ong.model.response.TokenDto;
+import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.dto.LoginRequestDto;
+import com.alkemy.ong.dto.TokenDto;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +23,7 @@ public class AuthenticationService {
     private UserServiceImpl userService;
 
 
-    public TokenDto authenticateUser (LoginRequest userReq) throws InvalidCredentialsException {
+    public TokenDto authenticateUser (LoginRequestDto userReq) throws InvalidCredentialsException {
         User user = userService.getUserByEmail(userReq.getEmail());
 
         if(user == null){

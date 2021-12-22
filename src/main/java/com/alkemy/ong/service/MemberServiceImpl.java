@@ -1,15 +1,15 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.entity.Member;
+import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.repository.IMemberRepository;
-import com.alkemy.ong.service.abstraction.IDeleteMembersService;
+import com.alkemy.ong.service.abstraction.IMembersService;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MemberServiceImpl implements IDeleteMembersService {
+public class MemberServiceImpl implements IMembersService {
 
   private static final String MEMBER_NOT_FOUND_MESSAGE = "Member not found.";
 

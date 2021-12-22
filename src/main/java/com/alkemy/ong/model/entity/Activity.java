@@ -1,4 +1,4 @@
-package com.alkemy.ong.entity;
+package com.alkemy.ong.model.entity;
 
 import java.sql.Timestamp;
 import javax.persistence.Column;
@@ -19,23 +19,23 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "TESTIMONIALS")
-public class Testimonial {
+@Table(name = "ACTIVITIES")
+public class Activity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Setter(AccessLevel.NONE)
-  @Column(name = "TESTIMONIALS_ID")
+  @Column(name = "ACTIVITIES_ID")
   private long id;
 
   @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "IMAGE")
-  private String image;
-
-  @Column(name = "CONTENT")
+  @Column(name = "CONTENT", nullable = false)
   private String content;
+
+  @Column(name = "IMAGE", nullable = false)
+  private String image;
 
   @Column(name = "TIMESTAMPS")
   @CreationTimestamp

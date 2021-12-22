@@ -1,6 +1,6 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.entity.Role;
+import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.repository.IRoleRepository;
 import com.alkemy.ong.service.abstraction.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;

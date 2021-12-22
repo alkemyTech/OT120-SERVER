@@ -1,7 +1,7 @@
 package com.alkemy.ong.model.response;
 
-import com.alkemy.ong.entity.Category;
-import com.alkemy.ong.entity.News;
+import com.alkemy.ong.model.entity.Category;
+import com.alkemy.ong.model.entity.News;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

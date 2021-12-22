@@ -1,11 +1,11 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.model.request.CategoryDto;
-import com.alkemy.ong.entity.Category;
+import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.dto.CategoryRequest;
 import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.service.CategoryServiceImpl;
-import com.alkemy.ong.service.abstraction.IDeleteCategoryService;
+import com.alkemy.ong.service.abstraction.ICategoryService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +19,14 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    private IDeleteCategoryService deleteCategoryService;
+    private ICategoryService CategoryService;
 
     @Autowired
     private CategoryServiceImpl categoryService;
 
     @DeleteMapping(value = "/categories/{id}")
     public ResponseEntity<Empty> delete(@PathVariable long id) throws EntityNotFoundException {
-        deleteCategoryService.delete(id);
+        CategoryService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
