@@ -1,28 +1,34 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
-import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
+<<<<<<< HEAD
 import com.alkemy.ong.model.request.RegistrationRequest;
 import com.alkemy.ong.model.response.UserDtoResponse;
+=======
+import com.alkemy.ong.dto.UserDto;
+>>>>>>> 927862f5d456e34a70b0e31f5aab0e9cfb399de3
 import com.alkemy.ong.repository.IUserRepository;
-import com.alkemy.ong.service.abstraction.IDeleteUserService;
 import com.alkemy.ong.service.abstraction.IGetUserService;
 
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
+<<<<<<< HEAD
 import javassist.NotFoundException;
+=======
+import com.alkemy.ong.service.abstraction.IUserService;
+>>>>>>> 927862f5d456e34a70b0e31f5aab0e9cfb399de3
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IDeleteUserService, IGetUserService {
+public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService {
 
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     public static final String MSG_EMAIL_NOT_FOUND = "Este mail no es un usuario registrado. ";
@@ -35,6 +41,7 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+<<<<<<< HEAD
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return getUser(username);
@@ -104,6 +111,53 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
     private boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
     }
+=======
+  @Autowired
+  private UserMapper userMapper;
+
+  @Autowired
+  private ModelMapper modelMapper;
+
+  @Autowired
+  private UserDto userRequestDto;
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return getUser(username);
+  }
+
+  @Override
+  public User getBy(String authorizationHeader) {
+    return getUser(jwtUtil.extractUsername(authorizationHeader));
+  }
+
+  @Override
+  public void delete(Long id) throws EntityNotFoundException {
+    User user = getUser(id);
+    user.setSoftDeleted(true);
+    userRepository.save(user);
+  }
+
+  private User getUser(Long id) {
+    Optional<User> userOptional = userRepository.findById(id);
+    if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
+      throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
+    }
+    return userOptional.get();
+  }
+
+  private User getUser(String username) {
+    User user = userRepository.findByEmail(username);
+    if (user == null) {
+      throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+    }
+    return user;
+  }
+
+  private boolean emailExists(String email) {
+    return userRepository.findByEmail(email) != null;
+  }
+>>>>>>> 927862f5d456e34a70b0e31f5aab0e9cfb399de3
 
     public User getUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
@@ -113,4 +167,11 @@ public class UserServiceImpl implements UserDetailsService, IDeleteUserService, 
         return user;
     }
 
+  @Override
+  public UserDto save(UserDto userRequestDto) {
+    User user = userMapper.userDtoToEntity(userRequestDto);
+    User userSaved = userRepository.save(user);
+    UserDto result = userMapper.entityToUserDto(userSaved);
+    return result;
+  }
 }
