@@ -31,7 +31,7 @@ public class UserController {
 
   @PostMapping("/auth/register")
 
- public ResponseEntity<?> postRegisterUser(@RequestBody UserDto userDto) throws InvalidCredentialsException {
+ public ResponseEntity<UserDto> postUser(@RequestBody UserDto userDto) throws InvalidCredentialsException {
 
     UserDto newUser = userService.save(userDto);
 
