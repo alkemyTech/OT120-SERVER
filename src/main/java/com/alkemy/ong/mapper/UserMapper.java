@@ -18,12 +18,14 @@ public class UserMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-  
+    @Autowired
+    private PasswordEncoder encodePassword;
+
     public UsersResponseDto usersDtoResponse (User entity){
         return modelMapper.map(entity, UsersResponseDto.class);
     }
   
-    private PasswordEncoder encodePassword;
+
 
     public User userDtoToEntity (UserDto userDto) {
         User user = new User();
