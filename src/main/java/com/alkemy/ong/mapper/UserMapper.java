@@ -22,7 +22,6 @@ public class UserMapper {
     @Lazy
     private RoleMapper roleMapper;
 
-    
     private ModelMapper modelMapper;
     private PasswordEncoder encodePassword;
 
@@ -60,9 +59,7 @@ public class UserMapper {
 
     public List<UserDtoResponse> userEntityList2DTOList(List<User> userList, Boolean loadRoles){
         List<UserDtoResponse> dtoList = new ArrayList<>();
-        for(User entity : userList){
-            dtoList.add(this.userEntity2Dto(entity, loadRoles));
-        }
+        userList.stream().map(entity -> dtoList.add(userEntity2Dto(entity, loadRoles)));
         return dtoList;
     }
     

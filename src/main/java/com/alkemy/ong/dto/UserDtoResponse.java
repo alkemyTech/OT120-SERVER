@@ -21,4 +21,5 @@ public class UserDtoResponse {
     private String photo;
     private List<RoleDto> roles;
     private Timestamp timestamp;
+    private String token;
 }

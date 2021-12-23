@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         return getUser(jwtUtil.extractUsername(authorizationHeader));
     }
 
+
     @Override
     public void delete(Long id) throws EntityNotFoundException {
         User user = getUser(id);
