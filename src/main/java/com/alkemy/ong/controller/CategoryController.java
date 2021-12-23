@@ -1,6 +1,6 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.model.request.CategoryDto;
+import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.dto.CategoryRequest;
 import com.alkemy.ong.dto.CategoryResponse;
@@ -23,6 +23,15 @@ public class CategoryController {
 
     @Autowired
     private CategoryServiceImpl categoryService;
+
+    @Autowired
+    private ICategoryService iCategoryService;
+
+    @PostMapping("/categories")
+    public ResponseEntity<CategoryDto> save(@RequestBody CategoryDto categoryDto) {
+        CategoryDto newCategory = iCategoryService.save(categoryDto);
+        return new ResponseEntity<>(newCategory, HttpStatus.OK);
+    }
 
     @DeleteMapping(value = "/categories/{id}")
     public ResponseEntity<Empty> delete(@PathVariable long id) throws EntityNotFoundException {

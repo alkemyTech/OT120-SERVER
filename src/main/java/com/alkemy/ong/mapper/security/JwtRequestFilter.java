@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.security;
+package com.alkemy.ong.mapper.security;
 
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.service.UserServiceImpl;

@@ -5,7 +5,9 @@ import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.mapper.UserMapper;
-import com.alkemy.ong.dto.UserDto;
+import com.alkemy.ong.dto.UserDtoRequest;
+import com.alkemy.ong.dto.UserDtoResponse;
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
@@ -40,7 +42,7 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     private ModelMapper modelMapper;
 
     @Autowired
-    private UserDto userRequestDto;
+    private UserDtoRequest userRequestDto;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     public User getBy(String authorizationHeader) {
         return getUser(jwtUtil.extractUsername(authorizationHeader));
     }
+
 
     @Override
     public void delete(Long id) throws EntityNotFoundException {
@@ -75,6 +78,18 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         return user;
     }
 
+    @Override
+    public UserDtoResponse update(Long id, UserDtoRequest userDTORequest) {
+        Optional<User> userEntity = this.userRepository.findById(id);
+        if(!userEntity.isPresent()){
+        throw new ParamNotFound("User id not valid!");
+        }
+        this.userMapper.UserRefreshValues(userEntity.get(), userDTORequest);
+        User entitySaved = this.userRepository.save(userEntity.get());
+        UserDtoResponse result = this.userMapper.userEntity2Dto(entitySaved, true);
+        return result;
+    }
+
     private boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
     }
@@ -88,16 +103,15 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     }
 
     @Override
-    public UserDto save(UserDto userRequestDto) {
+    public UserDtoResponse save(UserDtoRequest userRequestDto) {
         User user = userMapper.userDtoToEntity(userRequestDto);
         User userSaved = userRepository.save(user);
-        UserDto result = userMapper.entityToUserDto(userSaved);
+        UserDtoResponse result = userMapper.userEntity2Dto(userSaved, false);
         return result;
     }
 
     @Override
     public List<UsersResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
-
     }
 }

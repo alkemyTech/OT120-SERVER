@@ -2,21 +2,23 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
-import com.alkemy.ong.model.request.CategoryDto;
 import com.alkemy.ong.dto.CategoryRequest;
 import com.alkemy.ong.dto.CategoryResponse;
+import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+
 public class CategoryServiceImpl implements ICategoryService {
+
 
     private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
 
@@ -25,6 +27,9 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public void delete(Long id) throws EntityNotFoundException {
@@ -42,7 +47,7 @@ public class CategoryServiceImpl implements ICategoryService {
         return categoryOptional.get();
     }
 
-    public List<CategoryDto> findAll() {     
+    public List<CategoryDto> findAll() {
         return categoryRepository.findAll().stream()
                 .map(category -> categoryMapper.categoryToCategoryDto(category))
                 .collect(Collectors.toList());
@@ -52,7 +57,7 @@ public class CategoryServiceImpl implements ICategoryService {
     public CategoryResponse update(long id, CategoryRequest categoryDto) throws EntityNotFoundException {
         Optional<Category> result = categoryRepository.findById(id);
 
-        if(result.isPresent()) {
+        if (result.isPresent()) {
 
             Category category = categoryMapper.categoryRequest2Entity(categoryDto);
             category.setName(categoryDto.name);
@@ -70,4 +75,12 @@ public class CategoryServiceImpl implements ICategoryService {
         }
     }
 
+    @Override
+    public CategoryDto save(CategoryDto categoryDto) {
+        Category category = categoryMapper.categoryDtotoCategory(categoryDto);
+        Category categorySaved = categoryRepository.save(category);
+        CategoryDto result = categoryMapper.categoryToCategoryDto(categorySaved);
+
+        return result;
+    }
 }
