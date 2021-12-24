@@ -10,13 +10,18 @@ import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+
 import com.alkemy.ong.service.abstraction.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +29,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService ,IGetAllUsers {
+public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService, IGetAllUsers {
 
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
@@ -80,13 +85,29 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     @Override
     public UserDtoResponse update(Long id, UserDtoRequest userDTORequest) {
         Optional<User> userEntity = this.userRepository.findById(id);
-        if(!userEntity.isPresent()){
-        throw new ParamNotFound("User id not valid!");
+        if (!userEntity.isPresent()) {
+            throw new ParamNotFound("User id not valid!");
         }
         this.userMapper.UserRefreshValues(userEntity.get(), userDTORequest);
         User entitySaved = this.userRepository.save(userEntity.get());
         UserDtoResponse result = this.userMapper.userEntity2Dto(entitySaved, true);
         return result;
+    }
+
+    @Override
+    public User getInfoUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        return userRepository.findByEmail(user.getEmail());
+    }
+
+    @Override
+
+    @Transactional
+    public User findByEmail(String email) {
+
+        return userRepository.findByEmail(email);
+
     }
 
     private boolean emailExists(String email) {
