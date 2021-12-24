@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.dto.OrganizationAllDto;
@@ -39,6 +40,7 @@ public class OrganizationServiceImpl implements IOrganizationService {
         Optional<Organization> optional = organizationRepository.findById(id);
         if (optional.isPresent()) {
             Organization organization = organizationMapper.organizationDto2EntityAll(dto);
+            organization.setId(id);
             organizationRepository.save(organization);
         } else {
             throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);

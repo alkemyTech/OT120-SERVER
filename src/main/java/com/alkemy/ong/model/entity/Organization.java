@@ -56,4 +56,7 @@ public class Organization {
   @Column(name = "SOFT_DELETE")
   private boolean softDelete;
 
+  public void setId(Long id) {
+    this.id = id; //Sin esto no me deja setear el ID en el UPDATE
+  }
 }

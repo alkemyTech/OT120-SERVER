@@ -17,7 +17,7 @@ public class OrganizationAllDto {
     @Size(min = 4, max = 255)
     private String image;
 
-    @Size(min = 8, max = 11)
+    //@Size(min = 8, max = 11)
     private Integer phone;
 
     @NotBlank
