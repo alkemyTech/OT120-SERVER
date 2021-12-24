@@ -38,8 +38,7 @@ public class OrganizationServiceImpl implements IOrganizationService {
     public OrganizationAllDto update(OrganizationAllDto dto, Long id) throws Exception {
         Optional<Organization> optional = organizationRepository.findById(id);
         if (optional.isPresent()) {
-            Organization organization = optional.get();
-            organization = organizationMapper.organizationDto2EntityAll(dto);
+            Organization organization = organizationMapper.organizationDto2EntityAll(dto);
             organizationRepository.save(organization);
         } else {
             throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
