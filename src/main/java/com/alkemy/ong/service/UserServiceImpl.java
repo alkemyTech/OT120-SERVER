@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
 import com.alkemy.ong.exception.ParamNotFound;
@@ -98,11 +99,13 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     public User getInfoUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = (User) auth.getPrincipal();
-        return userRepository.findByEmail(user.getEmail());
+        return userRepository.findByEmail(user.getUsername());
+
     }
-
+  //  String email = jwtUtil.extractUsername(token.substring(7));
+   // User user = userRepository.findByEmail(email);
+    //        return UserDtoResponse.userToDto(user);
     @Override
-
     @Transactional
     public User findByEmail(String email) {
 

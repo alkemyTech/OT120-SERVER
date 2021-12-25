@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     String[] adminAuthorized = {
 
-            "/auth/me"
+            "/auth/me",
+            "/auth/mi"
     };
 
     @Override
