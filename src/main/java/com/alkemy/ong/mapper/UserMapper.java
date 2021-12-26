@@ -18,14 +18,14 @@ public class UserMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-  
-    public UsersResponseDto usersDtoResponse (User entity){
-        return modelMapper.map(entity, UsersResponseDto.class);
-    }
-  
+    @Autowired
     private PasswordEncoder encodePassword;
 
-    public User userDtoToEntity (UserDto userDto) {
+    public UsersResponseDto usersDtoResponse(User entity) {
+        return modelMapper.map(entity, UsersResponseDto.class);
+    }
+
+    public User userDtoToEntity(UserDto userDto) {
         User user = new User();
         user.setEmail(userDto.getEmail());
         user.setFirstName(userDto.getFirstName());
@@ -35,7 +35,7 @@ public class UserMapper {
         return user;
     }
 
-    public UserDto entityToUserDto (User user) {
+    public UserDto entityToUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
         userDto.setFirstName(user.getFirstName());
