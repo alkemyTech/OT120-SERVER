@@ -10,4 +10,6 @@ public interface INewsService {
 
     NewsDto postNews(NewsDto newsDto) throws FieldInvalidException;
 
+    NewsDto updateNews (NewsDto newsDto, Long id);
+
 }
