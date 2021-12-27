@@ -1,6 +1,5 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;

@@ -6,6 +6,8 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class OrganizationDto {
@@ -22,5 +24,7 @@ public class OrganizationDto {
 
   @Size(min = 8, max = 255)
   private String address;
+
+  private List<SlideDtoGet> organizationSlides;
 
 }
