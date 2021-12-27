@@ -1,4 +1,4 @@
-package com.alkemy.ong.controller;
+package com.alkemy.ong.config.controller;
 
 import javax.validation.Valid;
 

@@ -1,6 +1,6 @@
-package com.alkemy.ong.controller;
+package com.alkemy.ong.config.controller;
 
-import com.alkemy.ong.service.abstraction.ISlideService;
+import com.alkemy.ong.service.abstraction.IMembersService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class SlideController {
+public class MemberController {
 
   @Autowired
-  private ISlideService SlideService;
+  private IMembersService MembersService;
 
-  @DeleteMapping(value = "/slides/{id}")
-  public ResponseEntity<Empty> delete(@PathVariable("id") long id) throws EntityNotFoundException {
-    SlideService.delete(id);
+  @DeleteMapping(value = "/members/{id}")
+  public ResponseEntity<Empty> delete(@PathVariable long id) throws EntityNotFoundException {
+    MembersService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
 }
-

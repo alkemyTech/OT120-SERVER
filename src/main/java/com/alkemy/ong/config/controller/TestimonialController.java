@@ -1,6 +1,6 @@
-package com.alkemy.ong.controller;
+package com.alkemy.ong.config.controller;
 
-import com.alkemy.ong.service.abstraction.IMembersService;
+import com.alkemy.ong.service.abstraction.ITestimonialService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MemberController {
+public class TestimonialController {
 
   @Autowired
-  private IMembersService MembersService;
+  private ITestimonialService TestimonialService;
 
-  @DeleteMapping(value = "/members/{id}")
-  public ResponseEntity<Empty> delete(@PathVariable long id) throws EntityNotFoundException {
-    MembersService.delete(id);
+  @DeleteMapping(value = "/testimonials/{id}")
+  public ResponseEntity<Empty> delete(@PathVariable Long id) throws EntityNotFoundException {
+    TestimonialService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
