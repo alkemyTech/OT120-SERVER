@@ -1,4 +1,4 @@
-package com.alkemy.ong.controller;
+package com.alkemy.ong.config.modelmapper.controller;
 
 import com.alkemy.ong.dto.LoginRequestDto;
 import com.alkemy.ong.dto.TokenDto;
