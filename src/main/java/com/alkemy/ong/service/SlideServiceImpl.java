@@ -20,7 +20,7 @@ public class SlideServiceImpl implements ISlideService {
   @Autowired
   private ISlideRepository slideRepository;
 
-  @Autowired
+  @Autowired(required = true)
   SlideMapper slideMapper;
 
   @Override
