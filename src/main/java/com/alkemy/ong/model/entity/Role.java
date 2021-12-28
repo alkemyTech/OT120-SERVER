@@ -1,12 +1,10 @@
 package com.alkemy.ong.model.entity;
 
 import java.sql.Timestamp;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,5 +33,9 @@ public class Role {
   @CreationTimestamp
   @Column(name = "TIMESTAMP")
   private Timestamp timestamp;
+
+
+
+
 
 }

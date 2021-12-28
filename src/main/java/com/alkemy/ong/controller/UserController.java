@@ -1,8 +1,9 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.UserDtoRequest;
+import com.alkemy.ong.dto.UserDtoResponse;
 import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
-import com.alkemy.ong.dto.UserDto;
 import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.dto.LoginRequestDto;
 import com.alkemy.ong.dto.TokenDto;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("users")
 public class UserController {
-
   @Autowired
-  public IUserService userService;
+  private IUserService userService;
 
   @Autowired
   AuthenticationService autoAuthenticationService;
@@ -30,17 +31,20 @@ public class UserController {
 
 
   @PostMapping("/auth/register")
-
- public ResponseEntity<UserDto> postUser(@RequestBody UserDto userDto) throws InvalidCredentialsException {
-
-    UserDto newUser = userService.save(userDto);
-
+  public ResponseEntity<UserDtoResponse> postUser(@RequestBody UserDtoRequest userDtoRequest) throws InvalidCredentialsException {
+    UserDtoResponse newUser = userService.save(userDtoRequest);
     LoginRequestDto loginRequest = new LoginRequestDto();
     loginRequest.setEmail(newUser.getEmail());
     loginRequest.setPassword(newUser.getPassword());
     TokenDto tokenDto = autoAuthenticationService.authenticateUser(loginRequest);
     newUser.setToken(tokenDto.getToken());
     return new ResponseEntity<>(newUser, HttpStatus.OK);
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<UserDtoResponse> update(@PathVariable Long id, @RequestBody UserDtoRequest userDtoRequest){
+    UserDtoResponse userResult = this.userService.update(id, userDtoRequest);
+    return ResponseEntity.ok().body(userResult);
   }
 
   @DeleteMapping(value = "/users/{id}")
