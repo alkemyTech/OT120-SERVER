@@ -97,9 +97,14 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
 
     @Override
     public User getInfoUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) auth.getPrincipal();
-        return userRepository.findByEmail(user.getUsername());
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            String username = ((User)principal).getUsername();
+        } else {
+            String username = principal.toString();
+        }
+
+        return userRepository.findByEmail(principal.toString());
 
     }
   //  String email = jwtUtil.extractUsername(token.substring(7));
