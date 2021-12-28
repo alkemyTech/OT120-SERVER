@@ -13,6 +13,7 @@ public class OrganizationMapper {
 
   public OrganizationDto organizationEntity2DTO(Organization entity, List<SlideDtoGet> organizationSlides) {
     OrganizationDto dto = new OrganizationDto();
+
     dto.setName(entity.getName());
     dto.setImage(entity.getImage());
     dto.setPhone(entity.getPhone());

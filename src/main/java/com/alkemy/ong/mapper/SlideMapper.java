@@ -18,9 +18,11 @@ public class SlideMapper {
 
         if (slides != null) {
             dtos = slides.stream().map(slide -> {
-                return new SlideDtoGet(slide.getImageUrl(), slide.getText(), slide.getOrder());
+                return new SlideDtoGet(slide.getImageUrl(), slide.getText(), slide.getOrder(), slide.getOrganizationId().getId());
             }).collect(Collectors.toList());
         }
         return dtos;
     }
+
+
 }

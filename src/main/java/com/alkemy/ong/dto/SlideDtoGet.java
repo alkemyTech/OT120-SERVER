@@ -14,4 +14,5 @@ public class SlideDtoGet {
     private String imageUrl;
     private String text;
     private int order;
+    private Long organizationId;
 }
