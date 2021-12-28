@@ -77,4 +77,12 @@ public class ExceptionHandler {
     return new ErrorResponse(message, httpStatus.value());
   }
 
+  @org.springframework.web.bind.annotation.ExceptionHandler(NullPointerException.class)
+  public ResponseEntity<ErrorResponse> nullPException(
+          HttpServletRequest request,
+          NullPointerException e){
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(buildResponse(e,HttpStatus.INTERNAL_SERVER_ERROR));
+  }
+
 }
