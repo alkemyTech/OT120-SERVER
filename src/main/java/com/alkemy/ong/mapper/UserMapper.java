@@ -22,7 +22,7 @@ public class UserMapper {
     public UsersResponseDto usersDtoResponse (User entity){
         return modelMapper.map(entity, UsersResponseDto.class);
     }
-  
+    @Autowired
     private PasswordEncoder encodePassword;
 
     public User userDtoToEntity (UserDto userDto) {
