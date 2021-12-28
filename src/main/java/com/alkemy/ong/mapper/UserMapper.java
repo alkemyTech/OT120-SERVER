@@ -23,6 +23,8 @@ public class UserMapper {
     private RoleMapper roleMapper;
 
     private ModelMapper modelMapper;
+
+    @Autowired
     private PasswordEncoder encodePassword;
 
     public UsersResponseDto usersDtoResponse (User entity){
@@ -62,7 +64,7 @@ public class UserMapper {
         userList.stream().map(entity -> dtoList.add(userEntity2Dto(entity, loadRoles)));
         return dtoList;
     }
-    
+
     public User userDtoToEntity (UserDtoRequest userDtoRequest) {
         User user = new User();
         user.setEmail(userDtoRequest.getEmail());
@@ -73,5 +75,4 @@ public class UserMapper {
         return user;
     }
 
-    
 }
