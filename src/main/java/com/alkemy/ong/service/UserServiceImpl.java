@@ -8,15 +8,19 @@ import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.IUserRepository;
+import com.alkemy.ong.service.abstraction.IEmailService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
 import com.alkemy.ong.service.abstraction.IGetUserService;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+
 import com.alkemy.ong.service.abstraction.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +28,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService ,IGetAllUsers {
+public class UserServiceImpl implements UserDetailsService, IGetUserService, IUserService, IGetAllUsers {
 
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
 
@@ -42,6 +46,16 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
 
     @Autowired
     private UserDtoRequest userRequestDto;
+
+    @Autowired
+    IEmailService emailService;
+
+    @Value("${emailSettings.senderEmail}")
+    private String senderEmail;
+    @Value("${emailSettings.subject}")
+    private String subject;
+    @Value("${emailSettings.content}")
+    private String content;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -80,8 +94,8 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     @Override
     public UserDtoResponse update(Long id, UserDtoRequest userDTORequest) {
         Optional<User> userEntity = this.userRepository.findById(id);
-        if(!userEntity.isPresent()){
-        throw new ParamNotFound("User id not valid!");
+        if (!userEntity.isPresent()) {
+            throw new ParamNotFound("User id not valid!");
         }
         this.userMapper.UserRefreshValues(userEntity.get(), userDTORequest);
         User entitySaved = this.userRepository.save(userEntity.get());
@@ -101,11 +115,15 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         return user;
     }
 
+
     @Override
     public UserDtoResponse save(UserDtoRequest userRequestDto) {
         User user = userMapper.userDtoToEntity(userRequestDto);
         User userSaved = userRepository.save(user);
         UserDtoResponse result = userMapper.userEntity2Dto(userSaved, false);
+        if (result != null) {
+            emailService.sendEmail(user.getEmail(), senderEmail, content, subject);
+        }
         return result;
     }
 
