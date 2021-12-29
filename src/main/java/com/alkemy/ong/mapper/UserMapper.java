@@ -22,8 +22,9 @@ public class UserMapper {
     @Lazy
     private RoleMapper roleMapper;
 
-    @Autowired
+
     private ModelMapper modelMapper;
+
     @Autowired
     private PasswordEncoder encodePassword;
 
