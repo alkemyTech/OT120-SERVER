@@ -107,9 +107,7 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         return userRepository.findByEmail(principal.toString());
 
     }
-  //  String email = jwtUtil.extractUsername(token.substring(7));
-   // User user = userRepository.findByEmail(email);
-    //        return UserDtoResponse.userToDto(user);
+
     @Override
     @Transactional
     public User findByEmail(String email) {
