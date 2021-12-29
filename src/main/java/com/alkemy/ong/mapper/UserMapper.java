@@ -65,7 +65,7 @@ public class UserMapper {
         userList.stream().map(entity -> dtoList.add(userEntity2Dto(entity, loadRoles)));
         return dtoList;
     }
-    
+
     public User userDtoToEntity (UserDtoRequest userDtoRequest) {
         User user = new User();
         user.setEmail(userDtoRequest.getEmail());
@@ -76,5 +76,4 @@ public class UserMapper {
         return user;
     }
 
-    
 }
