@@ -24,7 +24,6 @@ public class Organization {
 
   @Id
   @Column(name = "ORGANIZATIONS_ID")
-  @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
