@@ -23,6 +23,8 @@ public class UserMapper {
     private RoleMapper roleMapper;
 
     private ModelMapper modelMapper;
+
+    @Autowired
     private PasswordEncoder encodePassword;
 
     public UsersResponseDto usersDtoResponse (User entity){

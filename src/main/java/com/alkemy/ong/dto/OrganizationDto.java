@@ -6,9 +6,13 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class OrganizationDto {
+
+  private Long id;
 
   @Size(min= 3, max = 255)
   private String name;
@@ -22,5 +26,11 @@ public class OrganizationDto {
 
   @Size(min = 8, max = 255)
   private String address;
+
+  private List<SlideDtoGet> organizationSlides;
+
+  private String facebook;
+  private String instagram;
+  private String linkedin;
 
 }
