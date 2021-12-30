@@ -3,6 +3,7 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
+import com.alkemy.ong.enums.MailMessage;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.mapper.UserMapper;
@@ -49,13 +50,6 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
 
     @Autowired
     IEmailService emailService;
-
-    @Value("${emailSettings.senderEmail}")
-    private String senderEmail;
-    @Value("${emailSettings.subject}")
-    private String subject;
-    @Value("${emailSettings.content}")
-    private String content;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -122,7 +116,7 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         User userSaved = userRepository.save(user);
         UserDtoResponse result = userMapper.userEntity2Dto(userSaved, false);
         if (result != null) {
-            emailService.sendEmail(user.getEmail(), senderEmail, content, subject);
+            emailService.sendWelcomeEmail(userRequestDto);
         }
         return result;
     }
