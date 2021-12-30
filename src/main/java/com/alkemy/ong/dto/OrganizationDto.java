@@ -32,6 +32,6 @@ public class OrganizationDto {
 
   private String linkedin;
 
-  private List<SlideDtoGet> organizationSlides;
+
 
 }

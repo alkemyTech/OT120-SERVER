@@ -62,12 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-<<<<<<< HEAD
-                .antMatchers(HttpMethod.GET, "/organization/public/**").permitAll()
-                .antMatchers(HttpMethod.POST,"/users/auth/**").permitAll()
-=======
+
                 .antMatchers(adminAuthorized).permitAll()
->>>>>>> c1fe61b75a539e04d3827216d0e279893964932d
+
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())

@@ -1,11 +1,9 @@
 package com.alkemy.ong.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.alkemy.ong.dto.SlideDtoGet;
 import com.alkemy.ong.service.abstraction.ISlideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,9 +30,12 @@ public class OrganizationServiceImpl implements IOrganizationService {
 
   @Override
   public OrganizationDto getById(Long id) {
-    Organization organization = organizationRepository.getById(id);
-    List<SlideDtoGet> organizationSlides = slideService.getAllSlidesByOrganization(organization);
-    return organizationMapper.organizationEntity2DTO(organization, organizationSlides);
+    Optional<Organization> organizationOptional = organizationRepository.findById(id);
+    if (organizationOptional.isEmpty() || organizationOptional.get().isSoftDelete()) {
+      throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
+    }
+    return organizationMapper.organizationEntity2DTO(organizationOptional.get());
   }
+
 
 }

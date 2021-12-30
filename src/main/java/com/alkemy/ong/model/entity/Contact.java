@@ -28,5 +28,7 @@ public class Contact {
 
     private String message;
 
+
+
     private boolean deletedAt = Boolean.FALSE;
 }

@@ -21,17 +21,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
   @Autowired
   private IUserService userService;
 
   @Autowired
   AuthenticationService autoAuthenticationService;
 
-<<<<<<< HEAD
-
-=======
   @Autowired
->>>>>>> c1fe61b75a539e04d3827216d0e279893964932d
   public IGetAllUsers getAllUsers;
 
 
