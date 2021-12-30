@@ -9,8 +9,9 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ExceptionHandler {
 
   @org.springframework.web.bind.annotation.ExceptionHandler(EntityNotFoundException.class)
@@ -68,6 +69,17 @@ public class ExceptionHandler {
     return ResponseEntity.status(HttpStatus.FORBIDDEN)
         .body(buildResponse(e, HttpStatus.FORBIDDEN));
   }
+
+
+
+  @org.springframework.web.bind.annotation.ExceptionHandler(NullPointerException.class)
+  public ResponseEntity<ErrorResponse> nullPointerException(
+          HttpServletRequest request,
+          NullPointerException e){
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body(buildResponse(e,HttpStatus.INTERNAL_SERVER_ERROR));
+  }
+
 
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());

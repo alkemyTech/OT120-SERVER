@@ -45,6 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    String[] adminAuthorized = {
+
+            "/auth/me",
+            "/users/auth/register"
+
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
@@ -55,12 +62,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+<<<<<<< HEAD
                 .antMatchers(HttpMethod.GET, "/organization/public/**").permitAll()
                 .antMatchers(HttpMethod.POST,"/users/auth/**").permitAll()
+=======
+                .antMatchers(adminAuthorized).permitAll()
+>>>>>>> c1fe61b75a539e04d3827216d0e279893964932d
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/testimonials").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/users/auth/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.DELETE, "/categories/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
