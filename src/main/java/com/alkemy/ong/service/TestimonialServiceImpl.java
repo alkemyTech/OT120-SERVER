@@ -1,5 +1,7 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.dto.TestimonialRequestDto;
+import com.alkemy.ong.mapper.TestimonialMapper;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.repository.ITestimonialRepository;
 import com.alkemy.ong.service.abstraction.ITestimonialService;
@@ -16,6 +18,9 @@ public class TestimonialServiceImpl implements ITestimonialService {
   @Autowired
   private ITestimonialRepository testimonialRepository;
 
+  @Autowired
+  TestimonialMapper testimonialMapper;
+
   @Override
   public void delete(Long id) throws EntityNotFoundException {
     Testimonial testimonial = getTestimonial(id);
@@ -31,4 +36,9 @@ public class TestimonialServiceImpl implements ITestimonialService {
     return testimonialOptional.get();
   }
 
+  @Override
+  public Testimonial save(TestimonialRequestDto testimonialRequest) {
+    Testimonial testimonial = testimonialMapper.dto2Entity(testimonialRequest);
+    return testimonialRepository.save(testimonial);
+  }
 }

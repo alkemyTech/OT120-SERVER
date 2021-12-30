@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 public class UserController {
   @Autowired
   private IUserService userService;
@@ -27,6 +27,7 @@ public class UserController {
   @Autowired
   AuthenticationService autoAuthenticationService;
 
+  @Autowired
   public IGetAllUsers getAllUsers;
 
 
