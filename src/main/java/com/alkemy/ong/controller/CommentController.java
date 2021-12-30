@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.controller;
+package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.service.abstraction.ICommentsService;

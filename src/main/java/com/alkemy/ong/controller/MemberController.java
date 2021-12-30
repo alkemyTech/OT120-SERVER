@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.controller;
+package com.alkemy.ong.controller;
 
 import com.alkemy.ong.service.abstraction.IMembersService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;

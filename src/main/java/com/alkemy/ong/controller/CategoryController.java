@@ -1,7 +1,9 @@
-package com.alkemy.ong.config.controller;
+package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.model.entity.Category;
+import com.alkemy.ong.dto.CategoryRequest;
+import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.service.CategoryServiceImpl;
 import com.alkemy.ong.service.abstraction.ICategoryService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
@@ -42,6 +44,13 @@ public class CategoryController {
     @GetMapping("/categories/{id}")
     public ResponseEntity<Category> getOne(@PathVariable long id) throws EntityNotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.getCategory(id));
+    }
+
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<CategoryResponse> update(@PathVariable long id, @RequestBody CategoryRequest categoryDto)
+            throws EntityNotFoundException {
+        CategoryResponse updatedCategory = categoryService.update(id, categoryDto);
+        return ResponseEntity.ok().body(updatedCategory);
     }
 
 }
