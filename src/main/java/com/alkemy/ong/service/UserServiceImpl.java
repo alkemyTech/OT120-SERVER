@@ -16,10 +16,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
-
+import javax.transaction.Transactional;
 import com.alkemy.ong.service.abstraction.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -101,6 +102,27 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         User entitySaved = this.userRepository.save(userEntity.get());
         UserDtoResponse result = this.userMapper.userEntity2Dto(entitySaved, true);
         return result;
+    }
+
+    @Override
+    public User getInfoUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            String username = ((User)principal).getUsername();
+        } else {
+            String username = principal.toString();
+        }
+
+        return userRepository.findByEmail(principal.toString());
+
+    }
+
+    @Override
+    @Transactional
+    public User findByEmail(String email) {
+
+        return userRepository.findByEmail(email);
+
     }
 
     private boolean emailExists(String email) {
