@@ -1,4 +1,4 @@
-package com.alkemy.ong.comm;
+package com.alkemy.ong.config.comm;
 
 import com.sendgrid.SendGrid;
 import org.springframework.beans.factory.annotation.Value;
