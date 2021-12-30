@@ -1,4 +1,4 @@
-package com.alkemy.ong.mapper.security;
+package com.alkemy.ong.config.modelmapper.security;
 
 public enum ApplicationRole {
 

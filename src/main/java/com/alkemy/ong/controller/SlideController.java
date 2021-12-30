@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.modelmapper.controller;
+package com.alkemy.ong.controller;
 
 import com.alkemy.ong.service.abstraction.ISlideService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;

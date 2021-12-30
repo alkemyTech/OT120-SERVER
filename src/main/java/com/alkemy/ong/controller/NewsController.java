@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.modelmapper.controller;
+package com.alkemy.ong.controller;
 
 import com.alkemy.ong.exception.FieldInvalidException;
 import org.springframework.beans.factory.annotation.Autowired;

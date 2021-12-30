@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.modelmapper.controller;
+package com.alkemy.ong.controller;
 
 import javax.validation.Valid;
 
