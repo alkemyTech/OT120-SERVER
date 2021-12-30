@@ -1,5 +1,6 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.dto.ContactDto;
 import com.alkemy.ong.service.abstraction.IEmailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -51,6 +52,12 @@ public class EmailServiceImpl implements IEmailService {
         }
 
         return response;
+    }
+
+    @Override
+    public Response sendContactRegisterEmail(ContactDto user) throws IOException {
+
+        return null;
     }
 
 }

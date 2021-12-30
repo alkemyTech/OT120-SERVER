@@ -2,6 +2,8 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
+import com.alkemy.ong.dto.CategoryRequest;
+import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
@@ -45,12 +47,33 @@ public class CategoryServiceImpl implements ICategoryService {
         return categoryOptional.get();
     }
 
-    public List<CategoryDto> findAll() {     
+    public List<CategoryDto> findAll() {
         return categoryRepository.findAll().stream()
                 .map(category -> categoryMapper.categoryToCategoryDto(category))
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public CategoryResponse update(long id, CategoryRequest categoryDto) throws EntityNotFoundException {
+        Optional<Category> result = categoryRepository.findById(id);
+
+        if (result.isPresent()) {
+
+            Category category = categoryMapper.categoryRequest2Entity(categoryDto);
+            category.setName(categoryDto.name);
+            category.setDescription(categoryDto.description);
+            category.setImage(categoryDto.image);
+
+            category.setId(id);
+            categoryRepository.save(category);
+            CategoryResponse updatedCategory = categoryMapper.category2Dto(category);
+
+            return updatedCategory;
+
+        } else {
+            throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE);
+        }
+    }
 
     @Override
     public CategoryDto save(CategoryDto categoryDto) {
