@@ -46,7 +46,7 @@ public class NewsServiceImpl implements INewsService {
 
     private News getNews(Long id) {
     Optional<News> newsOptional = newsRepository.findById(id);
-    if (newsOptional.isEmpty() || newsOptional.get().isSoftDelete()) {
+    if (newsOptional.isEmpty()) {
         throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
     }
     return newsOptional.get();
