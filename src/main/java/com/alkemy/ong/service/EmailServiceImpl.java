@@ -1,7 +1,6 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.ContactDto;
-import com.alkemy.ong.email.MailMessage;
 import com.alkemy.ong.service.abstraction.IEmailService;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
