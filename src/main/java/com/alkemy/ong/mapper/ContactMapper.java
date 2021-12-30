@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ContactMapper {
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     public ContactDto contactDtoToContact (Contact entity){
         return modelMapper.map(entity, ContactDto.class);

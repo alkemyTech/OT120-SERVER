@@ -17,9 +17,9 @@ import java.util.List;
 public class ContactController {
 
     @Autowired
-    IContactService contactService;
+    private IContactService contactService;
 
-    @GetMapping(value = "")
+    @GetMapping
     public ResponseEntity<List<ContactDto>> getContacts() {
         return new ResponseEntity<List<ContactDto>>(contactService.findAll(), HttpStatus.OK);
     }
