@@ -1,12 +1,13 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+
+import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.dto.UsersResponseDto;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
 import com.alkemy.ong.exception.ParamNotFound;
-import com.alkemy.ong.dto.UsersResponseDto;
-import com.alkemy.ong.mapper.UserMapper;
-import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IEmailService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
@@ -152,6 +153,5 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     @Override
     public List<UsersResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
-
     }
 }
