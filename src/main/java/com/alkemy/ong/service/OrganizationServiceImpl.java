@@ -30,11 +30,8 @@ public class OrganizationServiceImpl implements IOrganizationService {
 
   @Override
   public OrganizationDto getById(Long id) {
-    Optional<Organization> organizationOptional = organizationRepository.findById(id);
-    if (organizationOptional.isEmpty() || organizationOptional.get().isSoftDelete()) {
-      throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
-    }
-    return organizationMapper.organizationEntity2DTO(organizationOptional.get());
+    Organization organization = organizationRepository.getById(id);
+    return organizationMapper.organizationEntity2DTO(organization);
   }
 
 

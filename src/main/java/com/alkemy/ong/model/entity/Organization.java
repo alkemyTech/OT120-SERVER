@@ -23,10 +23,11 @@ import org.hibernate.annotations.Where;
 @Entity
 @SQLDelete(sql = "UPDATE organization SET is_deleted=true WHERE id=?")
 @Where(clause = "is_deleted=false")
+@Table(name = "organization")
 public class Organization {
 
   @Id
-  @Column(name = "ORGANIZATIONS_ID")
+  @Column(name = "organization_id")
   @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
@@ -46,26 +47,26 @@ public class Organization {
   @Column(name = "org_linkedin_url")
   private String linkedin;
 
-  @Column(name = "ADDRESS")
+  @Column(name = "address")
   private String address;
 
-  @Column(name = "PHONE")
+  @Column(name = "phone")
   private Integer phone;
 
-  @Column(name = "EMAIL", nullable = false)
+  @Column(name = "email", nullable = false)
   private String email;
 
-  @Column(name = "WELCOME_TEXT", nullable = false)
+  @Column(name = "welcome_text", nullable = false)
   private String welcomeText;
 
-  @Column(name = "ABOUT_US_TEXT")
+  @Column(name = "about_us_text")
   private String aboutUsText;
 
-  @Column(name = "TIMESTAMP")
+  @Column(name = "timestamp")
   @CreationTimestamp
   private Timestamp timeStamp;
 
-  @Column(name = "SOFT_DELETE")
+  @Column(name = "soft_delete")
   private boolean softDelete;
 
 
