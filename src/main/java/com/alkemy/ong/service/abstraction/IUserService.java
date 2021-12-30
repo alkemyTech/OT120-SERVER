@@ -12,5 +12,5 @@ public interface IUserService {
     void delete(Long id) throws EntityNotFoundException;
 
     UserDtoResponse update(Long id, UserDtoRequest userDTORequest);
-    
+
 }
