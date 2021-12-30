@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.modelmapper;
+package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.dto.NewsDto;

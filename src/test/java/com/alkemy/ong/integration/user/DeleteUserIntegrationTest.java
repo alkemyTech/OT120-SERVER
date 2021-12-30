@@ -5,7 +5,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 import com.alkemy.ong.common.AbstractBaseIntegrationTest;
-import com.alkemy.ong.config.modelmapper.security.ApplicationRole;
+import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.model.response.ErrorResponse;
 import java.util.Optional;

@@ -1,5 +1,6 @@
-package com.alkemy.ong.config.modelmapper.security;
+package com.alkemy.ong.config.security;
 
+import com.alkemy.ong.config.ApplicationRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
