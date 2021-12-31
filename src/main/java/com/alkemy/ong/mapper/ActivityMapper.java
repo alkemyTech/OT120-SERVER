@@ -27,4 +27,11 @@ public class ActivityMapper {
         activityDto.setTimestamp(activityEntity.getTimestamps());
         return activityDto;
     }
+
+    public void activityEntityUpdate(Activity activity, ActivityDto activityDto) {
+        activityDto.setName(activity.getName());
+        activityDto.setContent(activity.getContent());
+        activityDto.setImage(activity.getImage());
+        activityDto.setTimestamp(activity.getTimestamps());
+    }
 }

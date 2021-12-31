@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.ActivityDto;
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.ActivityMapper;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.repository.IActivityRepository;
@@ -8,6 +9,8 @@ import com.alkemy.ong.service.abstraction.IActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ActivityServiceImpl implements IActivityService {
@@ -35,6 +38,20 @@ public class ActivityServiceImpl implements IActivityService {
         Activity activityEntity = activityMapper.activityDto2Entity(activityDto);
         Activity activitySaved = this.activityRepository.save(activityEntity);
         ActivityDto result = activityMapper.activityEntity2Dto(activitySaved);
+        return result;
+    }
+
+    @Override
+    public ActivityDto update(ActivityDto activityDto, Long id) {
+        Optional<Activity> activityOp = activityRepository.findById(id);
+
+        if (!activityOp.isPresent()) {
+            throw new ParamNotFound("El id ingresado no existe.");
+        }
+        activityMapper.activityEntityUpdate(activityOp.get(), activityDto);
+        Activity activityUpdated = activityRepository.save(activityOp.get());
+        ActivityDto result = activityMapper.activityEntity2Dto(activityUpdated);
+
         return result;
     }
 }
