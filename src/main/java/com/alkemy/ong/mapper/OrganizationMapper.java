@@ -42,6 +42,7 @@ public class OrganizationMapper {
 
         return entity;
     }
+
     public OrganizationAllDto organizationEntity2DtoAll(Organization entity) {
         OrganizationAllDto dto = new OrganizationAllDto();
         dto.setName(entity.getName());
@@ -53,6 +54,17 @@ public class OrganizationMapper {
         dto.setAboutUsText(entity.getAboutUsText());
 
         return dto;
+    }
+
+    public Organization updateValues(OrganizationAllDto dto, Organization entity) {
+        entity.setName(dto.getName());
+        entity.setImage(dto.getImage());
+        entity.setPhone(dto.getPhone());
+        entity.setAddress(dto.getAddress());
+        entity.setEmail(dto.getEmail());
+        entity.setWelcomeText(dto.getWelcomeText());
+        entity.setAboutUsText(dto.getAboutUsText());
+        return entity;
     }
 
 }

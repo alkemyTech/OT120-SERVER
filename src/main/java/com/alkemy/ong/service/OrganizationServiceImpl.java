@@ -36,17 +36,11 @@ public class OrganizationServiceImpl implements IOrganizationService {
     }
 
     @Override
-    public OrganizationAllDto update(OrganizationAllDto dto, Long id) throws Exception {
+    public OrganizationAllDto update(OrganizationAllDto dto, Long id) {
         Optional<Organization> optional = organizationRepository.findById(id);
         if (optional.isPresent()) {
-            Organization organization = organizationMapper.organizationDto2EntityAll(dto);
-            organization.setId(id);
-            organizationRepository.save(organization);
-        } else {
-            throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
-        }
-
-        return dto;
+            return organizationMapper.organizationEntity2DtoAll(organizationRepository.save(organizationMapper.updateValues(dto, optional.get())));
+        } else throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
 
     }
 

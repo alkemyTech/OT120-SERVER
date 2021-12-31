@@ -7,5 +7,5 @@ public interface IOrganizationService {
 
     OrganizationDto getById(Long id);
 
-    OrganizationAllDto update(OrganizationAllDto dto, Long id) throws Exception;
+    OrganizationAllDto update(OrganizationAllDto dto, Long id);
 }

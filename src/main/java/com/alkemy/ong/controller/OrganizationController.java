@@ -25,7 +25,7 @@ public class OrganizationController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<OrganizationAllDto> update(@Valid @RequestBody OrganizationAllDto dto, @PathVariable Long id) throws Exception {
+  public ResponseEntity<OrganizationAllDto> update(@Valid @RequestBody OrganizationAllDto dto, @PathVariable Long id){
     OrganizationAllDto organization = organizationService.update(dto,id);
             return ResponseEntity.ok(organization);
   }
