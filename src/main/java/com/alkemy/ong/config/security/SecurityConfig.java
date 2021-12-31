@@ -50,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             "/auth/me",
             "/users/auth/register"
-
     };
 
     @Override
@@ -63,7 +62,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/contact").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(adminAuthorized).permitAll()
+                .antMatchers(HttpMethod.GET,"/organization/public/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ApplicationRole.ADMIN.getName())

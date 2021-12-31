@@ -1,6 +1,5 @@
 package com.alkemy.ong.model.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
@@ -28,6 +27,8 @@ public class Contact {
     private String email;
 
     private String message;
+
+
 
     private boolean deletedAt = Boolean.FALSE;
 }

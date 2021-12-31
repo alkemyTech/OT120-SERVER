@@ -24,12 +24,9 @@ public class CategoryController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
-    @Autowired
-    private ICategoryService iCategoryService;
-
     @PostMapping("/categories")
     public ResponseEntity<CategoryDto> save(@RequestBody CategoryDto categoryDto) {
-        CategoryDto newCategory = iCategoryService.save(categoryDto);
+        CategoryDto newCategory = CategoryService.save(categoryDto);
         return new ResponseEntity<>(newCategory, HttpStatus.OK);
     }
 
