@@ -14,6 +14,7 @@ public class SlideServiceImpl implements ISlideService {
   @Autowired
   private ISlideRepository slideRepository;
 
+
   @Override
   public void delete(Long id) throws EntityNotFoundException {
     if (!slideRepository.existsById(id)) {
@@ -21,6 +22,7 @@ public class SlideServiceImpl implements ISlideService {
     }
     slideRepository.deleteById(id);
   }
+
 
 }
 
