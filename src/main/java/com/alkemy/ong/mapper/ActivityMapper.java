@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Component
 public class ActivityMapper {
 
-    public Activity activityDto2Entity(ActivityDto activityDto){
+    public Activity activityDto2Entity(ActivityDto activityDto) {
         Activity activityEntity = new Activity();
         activityEntity.setName(activityDto.getName());
         activityEntity.setContent(activityDto.getContent());
@@ -18,7 +18,7 @@ public class ActivityMapper {
         return activityEntity;
     }
 
-    public ActivityDto activityEntity2Dto(Activity activityEntity){
+    public ActivityDto activityEntity2Dto(Activity activityEntity) {
         ActivityDto activityDto = new ActivityDto();
         activityDto.setId(activityEntity.getId());
         activityDto.setName(activityEntity.getName());
