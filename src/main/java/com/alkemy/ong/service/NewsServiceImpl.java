@@ -1,6 +1,6 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.config.modelmapper.NewsMapper;
+import com.alkemy.ong.mapper.NewsMapper;
 import com.alkemy.ong.model.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +42,21 @@ public class NewsServiceImpl implements INewsService {
         Optional<News> optional = newsRepository.findById(id);
         if (optional.isPresent()) {
             return newsMapper.newsEntityToDto(newsRepository.save(newsMapper.updateValues(newsDto, optional.get())));
-        } else throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
+        } else
+            throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
+    }
+
+    public void delete(Long id) throws EntityNotFoundException {
+        News news = getNews(id);
+        news.setSoftDelete(true);
+        newsRepository.save(news);
+    }
+
+    private News getNews(Long id) {
+        Optional<News> newsOptional = newsRepository.findById(id);
+        if (newsOptional.isEmpty()) {
+            throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
+        }
+        return newsOptional.get();
     }
 }

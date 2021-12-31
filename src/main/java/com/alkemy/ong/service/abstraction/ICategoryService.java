@@ -1,14 +1,18 @@
 package com.alkemy.ong.service.abstraction;
 
+import com.alkemy.ong.dto.CategoryRequest;
+import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.model.entity.Category;
 import javax.persistence.EntityNotFoundException;
 import com.alkemy.ong.dto.CategoryDto;
 
 public interface ICategoryService {
 
-    CategoryDto save(CategoryDto categoryDto);
+  void delete(Long id) throws EntityNotFoundException;
 
-    void delete(Long id) throws EntityNotFoundException;
+  CategoryResponse update(long id, CategoryRequest updatedCategory) throws EntityNotFoundException;
 
-    Category getCategory(Long id);
+  CategoryDto save(CategoryDto categoryDto);
+
+  Category getCategory(Long id);
 }

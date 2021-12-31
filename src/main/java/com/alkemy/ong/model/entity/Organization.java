@@ -13,13 +13,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ORGANIZATIONS")
+@SQLDelete(sql = "UPDATE organization SET is_deleted=true WHERE id=?")
+@Where(clause = "is_deleted=false")
 public class Organization {
 
   @Id
@@ -28,11 +31,20 @@ public class Organization {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @Column(name = "NAME", nullable = false)
+  @Column(name = "org_name", nullable = false)
   private String name;
 
-  @Column(name = "IMAGE", nullable = false)
+  @Column(name = "org_image_url", nullable = false)
   private String image;
+
+  @Column(name = "org_facebook_url")
+  private String facebook;
+
+  @Column(name = "org_instagram_url")
+  private String instagram;
+
+  @Column(name = "org_linkedin_url")
+  private String linkedin;
 
   @Column(name = "ADDRESS")
   private String address;
