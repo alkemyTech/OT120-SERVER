@@ -29,9 +29,9 @@ public class ActivityMapper {
     }
 
     public void activityEntityUpdate(Activity activity, ActivityDto activityDto) {
-        activityDto.setName(activity.getName());
-        activityDto.setContent(activity.getContent());
-        activityDto.setImage(activity.getImage());
-        activityDto.setTimestamp(activity.getTimestamps());
+        activity.setName(activityDto.getName());
+        activity.setContent(activityDto.getContent());
+        activity.setImage(activityDto.getImage());
+        activity.setTimestamps(activityDto.getTimestamp());
     }
 }

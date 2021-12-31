@@ -43,7 +43,7 @@ public class ActivityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(activitySaved);
     }
 
-    @PutMapping("/{idActivity}")
+    @PutMapping("/{id}")
     public ResponseEntity<ActivityDto> update(@RequestBody ActivityDto activity, @PathVariable Long id) {
 
         ActivityDto activityUpdated = activityService.update(activity, id);
