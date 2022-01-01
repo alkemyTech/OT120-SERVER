@@ -1,7 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.ActivityDto;
-import com.alkemy.ong.exception.ParamNotFound;
+import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.mapper.ActivityMapper;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.repository.IActivityRepository;
@@ -46,7 +46,7 @@ public class ActivityServiceImpl implements IActivityService {
         Optional<Activity> activityOp = activityRepository.findById(id);
 
         if (!activityOp.isPresent()) {
-            throw new ParamNotFound("El id ingresado no existe.");
+            throw new OperationNotAllowedException("El id ingresado no existe.");
         }
         activityMapper.activityEntityUpdate(activityOp.get(), activityDto);
         Activity activityUpdated = activityRepository.save(activityOp.get());

@@ -48,7 +48,7 @@ public class ActivityController {
 
         ActivityDto activityUpdated = activityService.update(activity, id);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(activityUpdated);
+        return ResponseEntity.status(HttpStatus.OK).body(activityUpdated);
     }
 
 }
