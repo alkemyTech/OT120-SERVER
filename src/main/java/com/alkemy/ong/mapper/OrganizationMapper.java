@@ -10,10 +10,15 @@ public class OrganizationMapper {
 
   public OrganizationDto organizationEntity2DTO(Organization entity) {
     OrganizationDto dto = new OrganizationDto();
+
     dto.setName(entity.getName());
     dto.setImage(entity.getImage());
     dto.setPhone(entity.getPhone());
     dto.setAddress(entity.getAddress());
+    dto.setFacebook(entity.getFacebook());
+    dto.setLinkedin(entity.getLinkedin());
+    dto.setInstagram(entity.getInstagram());
+
     return dto;
   }
 

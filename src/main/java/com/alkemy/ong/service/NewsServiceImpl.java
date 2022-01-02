@@ -1,6 +1,5 @@
 package com.alkemy.ong.service;
 
-
 import com.alkemy.ong.mapper.NewsMapper;
 import com.alkemy.ong.model.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
