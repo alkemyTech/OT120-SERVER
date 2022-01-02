@@ -55,5 +55,4 @@ public class TestimonialServiceImpl implements ITestimonialService {
     testimonialRepository.save(entity);
     return testimonialMapper.entity2Dto(testimonialRepository.getById(id));
   }
-  
 }
