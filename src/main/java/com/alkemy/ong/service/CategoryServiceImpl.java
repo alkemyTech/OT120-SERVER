@@ -2,8 +2,6 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
-import com.alkemy.ong.dto.CategoryRequest;
-import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
@@ -54,19 +52,18 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public CategoryResponse update(long id, CategoryRequest categoryDto) throws EntityNotFoundException {
+    public CategoryDto update(Long id, CategoryDto categoryDto) throws EntityNotFoundException {
         Optional<Category> result = categoryRepository.findById(id);
 
         if (result.isPresent()) {
 
-            Category category = categoryMapper.categoryRequest2Entity(categoryDto);
-            category.setName(categoryDto.name);
-            category.setDescription(categoryDto.description);
-            category.setImage(categoryDto.image);
-
-            category.setId(id);
+            Category category = categoryMapper.categoryDtoToCategory(categoryDto);
+            category.setId(categoryDto.getId());
+            category.setName(categoryDto.getName());
+            category.setDescription(categoryDto.getDescription());
+            category.setImage(categoryDto.getImage());
             categoryRepository.save(category);
-            CategoryResponse updatedCategory = categoryMapper.category2Dto(category);
+            CategoryDto updatedCategory = categoryMapper.categoryToCategoryDto(category);
 
             return updatedCategory;
 
@@ -77,7 +74,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public CategoryDto save(CategoryDto categoryDto) {
-        Category category = categoryMapper.categoryDtotoCategory(categoryDto);
+        Category category = categoryMapper.categoryDtoToCategory(categoryDto);
         Category categorySaved = categoryRepository.save(category);
         CategoryDto result = categoryMapper.categoryToCategoryDto(categorySaved);
 

@@ -18,17 +18,8 @@ public class CategoryMapper {
         return modelMapper.map(entity, CategoryDto.class);
     }
 
-    public Category categoryRequest2Entity(CategoryRequest categoryDto) {
+    public Category categoryDtoToCategory(CategoryDto categoryDto) {
         return modelMapper.map(categoryDto, Category.class);
     }
 
-    public CategoryResponse category2Dto(Category entity) {
-        return modelMapper.map(entity, CategoryResponse.class);
-    }
-
-    public Category categoryDtotoCategory(CategoryDto dto) {
-        Category category = new Category();
-        category.setName(dto.getName());
-        return category;
-    }
 }
