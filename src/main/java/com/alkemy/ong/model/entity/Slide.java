@@ -27,7 +27,6 @@ public class Slide {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "SLIDES_ID", nullable = false)
-  @Setter(AccessLevel.NONE)
   private long id;
 
   @Column(name = "IMAGE_URL")
