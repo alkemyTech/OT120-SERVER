@@ -1,8 +1,6 @@
 package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.model.entity.Category;
-import com.alkemy.ong.dto.CategoryRequest;
-import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.dto.CategoryDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
