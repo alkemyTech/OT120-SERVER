@@ -1,10 +1,13 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.dto.OrganizationDto;
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.dto.SlideResponseDto;
+import com.alkemy.ong.mapper.OrganizationMapper;
 import com.alkemy.ong.mapper.SlideMapper;
 import com.alkemy.ong.model.entity.Organization;
 import com.alkemy.ong.model.entity.Slide;
+import com.alkemy.ong.repository.IOrganizationRepository;
 import com.alkemy.ong.repository.ISlideRepository;
 import com.alkemy.ong.service.abstraction.ISlideService;
 import javax.persistence.EntityNotFoundException;
@@ -23,6 +26,12 @@ public class SlideServiceImpl implements ISlideService {
 
   @Autowired
   private SlideMapper slideMapper;
+
+  @Autowired
+  private IOrganizationRepository organizationRepository;
+
+  @Autowired
+  private OrganizationMapper organizationMapper;
 
   @Override
   public void delete(Long id) throws EntityNotFoundException {
@@ -43,19 +52,15 @@ public class SlideServiceImpl implements ISlideService {
       slide.setText(slideReqDto.text);
       slide.setOrder(slideReqDto.order);
 
-      Organization organization = new Organization();
-      organization.setId(slideReqDto.organizationId);
+      Organization organization = organizationRepository.getById(slideReqDto.organizationId);
       slide.setOrganizationId(organization);
 
       slide.setId(id);
       slideRepository.save(slide);
-      SlideResponseDto updatedSlide = slideMapper.slideEntity2Dto(slide);
-
-      return updatedSlide;
+      return slideMapper.slideEntity2Dto(slide);
 
     } else {
       throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
-
     }
   }
 }

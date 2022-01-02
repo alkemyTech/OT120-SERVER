@@ -23,10 +23,11 @@ import org.hibernate.annotations.Where;
 @Entity
 @SQLDelete(sql = "UPDATE organization SET is_deleted=true WHERE id=?")
 @Where(clause = "is_deleted=false")
+@Table(name = "organizations")
 public class Organization {
 
   @Id
-  @Column(name = "ORGANIZATIONS_ID")
+  @Column(name = "ORGANIZATION_ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
