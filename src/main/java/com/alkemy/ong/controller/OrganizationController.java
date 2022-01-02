@@ -3,6 +3,7 @@ package com.alkemy.ong.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,11 +18,11 @@ import com.alkemy.ong.service.abstraction.IOrganizationService ;
 public class OrganizationController {
 
   @Autowired
-  private IOrganizationService organizationService;	
+  private IOrganizationService organizationService;
 
   @GetMapping("/{id}")
   public ResponseEntity<OrganizationDto> getOrganizationById(@PathVariable Long id) {
-    OrganizationDto organization = organizationService.getById(id);	
+    OrganizationDto organization = organizationService.getById(id);
     return ResponseEntity.ok(organization);
   }
 

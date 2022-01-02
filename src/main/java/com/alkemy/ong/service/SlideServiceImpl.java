@@ -1,6 +1,5 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.dto.OrganizationDto;
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.dto.SlideResponseDto;
 import com.alkemy.ong.mapper.OrganizationMapper;
@@ -63,5 +62,6 @@ public class SlideServiceImpl implements ISlideService {
       throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
     }
   }
+
 }
 
