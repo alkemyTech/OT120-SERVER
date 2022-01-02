@@ -53,23 +53,16 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Override
     public CategoryDto update(Long id, CategoryDto categoryDto) throws EntityNotFoundException {
-        Optional<Category> result = categoryRepository.findById(id);
+        Optional<Category> categoryEntity = this.categoryRepository.findById(id);
 
-        if (result.isPresent()) {
-
-            Category category = categoryMapper.categoryDtoToCategory(categoryDto);
-            category.setId(categoryDto.getId());
-            category.setName(categoryDto.getName());
-            category.setDescription(categoryDto.getDescription());
-            category.setImage(categoryDto.getImage());
-            categoryRepository.save(category);
-            CategoryDto updatedCategory = categoryMapper.categoryToCategoryDto(category);
-
-            return updatedCategory;
-
-        } else {
+        if (!categoryEntity.isPresent()) {
             throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE);
         }
+        this.categoryMapper.categoryRefreshValue(categoryEntity.get(), categoryDto);
+        Category categorySaved = this.categoryRepository.save(categoryEntity.get());
+        CategoryDto result = this.categoryMapper.categoryToCategoryDto(categorySaved);
+
+        return result;
     }
 
     @Override

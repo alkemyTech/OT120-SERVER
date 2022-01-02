@@ -20,4 +20,10 @@ public class CategoryMapper {
         return modelMapper.map(categoryDto, Category.class);
     }
 
+    public void categoryRefreshValue (Category entity, CategoryDto dto) {
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setImage(dto.getImage());
+    }
+
 }
