@@ -101,12 +101,7 @@ public class EmailServiceImpl implements IEmailService {
         return response;
     }
 
-    @Override
-    public Response sendContactRegisterEmail(ContactDto contact){
-        Content content = new Content("text/plain", MailMessage.GetRegisterContactMsg(contact.getName()));
-        Response response = sendEmail(contact.getEmail(), "Gracias por tu registro! ", content);
-        return response;
-    }
+
 
 
 
