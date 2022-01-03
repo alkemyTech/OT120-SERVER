@@ -26,7 +26,7 @@ public class UserController {
   private IUserService userService;
 
   @Autowired
-  AuthenticationService autoAuthenticationService;
+  private AuthenticationService autoAuthenticationService;
 
   @Autowired
   public IGetAllUsers getAllUsers;
