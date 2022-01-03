@@ -21,11 +21,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
   @Autowired
   private IUserService userService;
 
   @Autowired
-  AuthenticationService autoAuthenticationService;
+  private AuthenticationService autoAuthenticationService;
 
   @Autowired
   public IGetAllUsers getAllUsers;
