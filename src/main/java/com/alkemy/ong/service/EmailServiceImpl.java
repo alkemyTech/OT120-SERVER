@@ -43,7 +43,7 @@ public class EmailServiceImpl implements IEmailService {
     @Override
     public Response sendEmail(String email, String subject, Content content) {
 
-        String apiKey = env.getProperty("EMAIL_API_KEY");
+        String apiKey = env.getProperty("SENDGRID_APIKEY");
 
         Response response = new Response();
 
@@ -87,7 +87,7 @@ public class EmailServiceImpl implements IEmailService {
         context.setVariable("instagramContact", MailMessage.CONTACT_INSTAGRAM.getValue());
         context.setVariable("emailContact", MailMessage.CONTACT_MAIL.getValue());
         context.setVariable("phoneContact", MailMessage.CONTACT_PHONE.getValue());
-        context.setVariable("imageResourceName", MailMessage.WELCOME_IMAGE.getValue());
+        //context.setVariable("imageResourceName", MailMessage.WELCOME_IMAGE.getValue());
 
         return templateEngine.process("plantilla_email.html", context);
 

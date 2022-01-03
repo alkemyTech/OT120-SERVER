@@ -3,10 +3,8 @@ package com.alkemy.ong.enums;
 public enum MailMessage {
 
     REGISTER_TITLE("Registro de cuenta: "),
-    ACTIVITY_TITLE("Actividad detectada: "),
     WELCOME_SUBJECT("Bienvenido/a a SOMOS MÁS!"),
-    WELCOME_IMAGE("logo.png"),
-    ACTIVITY_SUBJECT("Alerta de actividad: "),
+    //WELCOME_IMAGE("logo.png"),
     CONTACT_MAIL("Mail: somosfundacionmas@gmail.com"),
     CONTACT_FACEBOOK("Somos_M&aacutes"),
     CONTACT_INSTAGRAM("SomosM&aacutes"),
@@ -26,6 +24,9 @@ public enum MailMessage {
     public static String getWelcomeMsg(String firstName, String lastName){
         return "Bienvenido/a " + firstName + " " + lastName + ", gracias por haberte registrado en nuestro sitio web!";
     }
+
+
+
 
     public static String GetRegisterContactMsg(String firstName){
         return "Hola " + firstName + "! Gracias por tu registro en Somos Más!";
