@@ -50,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             "/auth/me",
             "/users/auth/register"
-
     };
 
     @Override
@@ -73,10 +72,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/contact").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(adminAuthorized).permitAll()
+                .antMatchers(HttpMethod.GET,"/organization/public/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/testimonials").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/users/auth/**").permitAll()

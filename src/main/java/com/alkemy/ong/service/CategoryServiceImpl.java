@@ -2,8 +2,6 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
-import com.alkemy.ong.dto.CategoryRequest;
-import com.alkemy.ong.dto.CategoryResponse;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
@@ -54,30 +52,22 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
     @Override
-    public CategoryResponse update(long id, CategoryRequest categoryDto) throws EntityNotFoundException {
-        Optional<Category> result = categoryRepository.findById(id);
+    public CategoryDto update(Long id, CategoryDto categoryDto) throws EntityNotFoundException {
+        Optional<Category> categoryEntity = this.categoryRepository.findById(id);
 
-        if (result.isPresent()) {
-
-            Category category = categoryMapper.categoryRequest2Entity(categoryDto);
-            category.setName(categoryDto.name);
-            category.setDescription(categoryDto.description);
-            category.setImage(categoryDto.image);
-
-            category.setId(id);
-            categoryRepository.save(category);
-            CategoryResponse updatedCategory = categoryMapper.category2Dto(category);
-
-            return updatedCategory;
-
-        } else {
+        if (!categoryEntity.isPresent()) {
             throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE);
         }
+        this.categoryMapper.categoryRefreshValue(categoryEntity.get(), categoryDto);
+        Category categorySaved = this.categoryRepository.save(categoryEntity.get());
+        CategoryDto result = this.categoryMapper.categoryToCategoryDto(categorySaved);
+
+        return result;
     }
 
     @Override
     public CategoryDto save(CategoryDto categoryDto) {
-        Category category = categoryMapper.categoryDtotoCategory(categoryDto);
+        Category category = categoryMapper.categoryDtoToCategory(categoryDto);
         Category categorySaved = categoryRepository.save(category);
         CategoryDto result = categoryMapper.categoryToCategoryDto(categorySaved);
 

@@ -1,5 +1,7 @@
 package com.alkemy.ong.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alkemy.ong.dto.OrganizationDto;
@@ -11,6 +13,7 @@ import java.sql.Timestamp;
 @Component
 public class OrganizationMapper {
 
+<<<<<<< HEAD
     public OrganizationDto organizationEntity2Dto(Organization entity) {
         OrganizationDto dto = new OrganizationDto();
         dto.setName(entity.getName());
@@ -66,5 +69,27 @@ public class OrganizationMapper {
         entity.setAboutUsText(dto.getAboutUsText());
         return entity;
     }
+=======
+  @Autowired
+  private ModelMapper modelMapper;
+
+  public OrganizationDto organizationEntity2DTO(Organization entity) {
+    OrganizationDto dto = new OrganizationDto();
+
+    dto.setName(entity.getName());
+    dto.setImage(entity.getImage());
+    dto.setPhone(entity.getPhone());
+    dto.setAddress(entity.getAddress());
+    dto.setFacebook(entity.getFacebook());
+    dto.setLinkedin(entity.getLinkedin());
+    dto.setInstagram(entity.getInstagram());
+
+    return dto;
+  }
+>>>>>>> c08ee483849c29cef24dbaf657093e712912151c
+
+  public Organization organizationDto2Entity(OrganizationDto organizationDto) {
+    return modelMapper.map(organizationDto, Organization.class);
+  }
 
 }
