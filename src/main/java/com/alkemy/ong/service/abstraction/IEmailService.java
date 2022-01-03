@@ -9,5 +9,5 @@ public interface IEmailService {
 
     Response sendEmail(String email, String senderEmail, String contentStr, String subject);
 
-    Response sendContactRegisterEmail(ContactDto user) throws IOException;
+    
 }

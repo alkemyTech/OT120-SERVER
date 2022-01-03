@@ -55,10 +55,7 @@ public class EmailServiceImpl implements IEmailService {
         return response;
     }
 
-    @Override
-    public Response sendContactRegisterEmail(ContactDto user) throws IOException {
 
-        return null;
-    }
+
 
 }
