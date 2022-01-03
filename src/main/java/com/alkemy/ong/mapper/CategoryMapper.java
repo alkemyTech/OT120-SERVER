@@ -8,17 +8,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryMapper {
-    
+
     @Autowired
     private ModelMapper modelMapper;
-    
-    public CategoryDto categoryToCategoryDto(Category entity){
+
+    public CategoryDto categoryToCategoryDto(Category entity) {
         return modelMapper.map(entity, CategoryDto.class);
     }
 
-    public Category categoryDtotoCategory (CategoryDto dto) {
-        Category category = new Category();
-        category.setName(dto.getName());
-        return category;
+    public Category categoryDtoToCategory(CategoryDto categoryDto) {
+        return modelMapper.map(categoryDto, Category.class);
     }
+
+    public void categoryRefreshValue (Category entity, CategoryDto dto) {
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setImage(dto.getImage());
+    }
+
 }

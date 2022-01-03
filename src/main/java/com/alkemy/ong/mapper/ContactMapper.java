@@ -16,12 +16,11 @@ public class ContactMapper {
         return modelMapper.map(entity, ContactDto.class);
     }
 
-    public Contact contactDtotoContact(ContactDto dto){
+    public Contact contactDtoToContact(ContactDto dto){
         Contact contact = new Contact();
         contact.setName(dto.getName());
         contact.setPhone(dto.getPhone());
         contact.setEmail(dto.getEmail());
-        contact.setMessage(dto.getMessage());
         return contact;
     }
 }

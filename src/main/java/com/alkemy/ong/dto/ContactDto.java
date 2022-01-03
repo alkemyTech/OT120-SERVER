@@ -1,48 +1,34 @@
 package com.alkemy.ong.dto;
 
-import lombok.AllArgsConstructor;
-<<<<<<< HEAD
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class ContactDto implements Serializable {
+import lombok.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
-    @NotBlank(message = "El nombre no puede estar vacío ni ser nulo")
-    private String name;
-
-    private Long phone;
-
-    @NotBlank (message = "El email no puede estar vacío ni ser nulo")
-    private String email;
-
-    private String message;
-
-    private boolean deletedAt = Boolean.FALSE;
-=======
-import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
 public class ContactDto {
 
-    @NotBlank(message = "Email is mandatory.")
-    private String email;
+    @NotEmpty(message = "El mail es mandatorio")
+    @Size(min = 3, max = 255)
+    public String name;
 
-    @NotBlank(message = "name is mandatory.")
-    private String name;
+    @Positive
+    @NotEmpty(message = "El teléfono es mandatorio")
+    @Size(min = 3, max = 255)
+    public Long phone;
 
-    private long phone;
+    @NotEmpty
+    @Size(min = 3, max = 255)
+    @Email
+    public String email;
 
 
->>>>>>> 2eb43957eb46d80cd3aeae3b4cf9eaaad10d4817
 }

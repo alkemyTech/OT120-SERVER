@@ -1,5 +1,6 @@
 package com.alkemy.ong.config.security;
 
+import com.alkemy.ong.config.ApplicationRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -49,7 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             "/auth/me",
             "/users/auth/register"
-
     };
 
     @Override
@@ -62,11 +62,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/contact").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(adminAuthorized).permitAll()
+                .antMatchers(HttpMethod.GET,"/organization/public/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/contacts/**").hasRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/testimonials").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/users/auth/**").permitAll()
@@ -90,3 +95,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
         }
     }
+
+

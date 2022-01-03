@@ -69,6 +69,17 @@ public class ExceptionHandler {
         .body(buildResponse(e, HttpStatus.FORBIDDEN));
   }
 
+
+
+  @org.springframework.web.bind.annotation.ExceptionHandler(NullPointerException.class)
+  public ResponseEntity<ErrorResponse> nullPointerException(
+          HttpServletRequest request,
+          NullPointerException e){
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body(buildResponse(e,HttpStatus.INTERNAL_SERVER_ERROR));
+  }
+
+
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
   }
