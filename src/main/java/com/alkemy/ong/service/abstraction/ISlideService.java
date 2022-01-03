@@ -10,9 +10,6 @@ public interface ISlideService {
 
   void delete(Long id) throws EntityNotFoundException;
 
-<<<<<<< HEAD
   SlideResponseDto update(long id, SlideRequestDto slideReqDto) throws EntityNotFoundException;
-=======
 
->>>>>>> ba78f839e6195d5665569e23a32e33054a904670
 }
