@@ -33,5 +33,10 @@ public class SlideController {
     return ResponseEntity.ok().body(updatedSlide);
   }
 
+  @GetMapping("/Slides/{id}")
+  public ResponseEntity<SlideResponseDto> getOne(@PathVariable long id) throws EntityNotFoundException{
+    return ResponseEntity.status(HttpStatus.OK).body(SlideService.getById(id));
+  }
+
 }
 

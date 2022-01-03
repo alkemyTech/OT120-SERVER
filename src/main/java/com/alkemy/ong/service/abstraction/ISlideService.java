@@ -12,4 +12,6 @@ public interface ISlideService {
 
   SlideResponseDto update(long id, SlideRequestDto slideReqDto) throws EntityNotFoundException;
 
+  SlideResponseDto getById(Long id) throws EntityNotFoundException;
+
 }
