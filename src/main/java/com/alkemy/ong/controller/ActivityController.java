@@ -31,16 +31,24 @@ public class ActivityController {
 
     @PostMapping
     public ResponseEntity<ActivityDto> save(@Valid @RequestBody ActivityDto activityDto, BindingResult errors) {
-        if(errors.hasFieldErrors()){
+        if (errors.hasFieldErrors()) {
             StringBuilder stringBuilder = new StringBuilder();
             List<ObjectError> errorList = errors.getAllErrors();
-            for(ObjectError error : errorList){
+            for (ObjectError error : errorList) {
                 stringBuilder.append(error.getDefaultMessage());
             }
 
         }
         ActivityDto activitySaved = activityService.save(activityDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(activitySaved);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ActivityDto> update(@RequestBody ActivityDto activity, @PathVariable Long id) {
+
+        ActivityDto activityUpdated = activityService.update(activity, id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(activityUpdated);
     }
 
 }
