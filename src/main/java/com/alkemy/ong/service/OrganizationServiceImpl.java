@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
-import com.alkemy.ong.dto.SlideDtoGet;
 import com.alkemy.ong.service.abstraction.ISlideService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +34,8 @@ public class OrganizationServiceImpl implements IOrganizationService {
       if(organization == null){
          throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
       }
-
       return organizationMapper.organizationEntity2DTO(organization);
   }
+
 
 }

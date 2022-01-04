@@ -1,5 +1,6 @@
 package com.alkemy.ong.dto;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Positive ;
 import javax.validation.constraints.Size;
 

@@ -13,47 +13,50 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ORGANIZATIONS")
+@SQLDelete(sql = "UPDATE organizations SET is_deleted=true WHERE id=?")
+@Where(clause = "is_deleted=false")
+@Table(name = "organizations")
 public class Organization {
 
   @Id
   @Column(name = "ORGANIZATIONS_ID")
-  @Setter(AccessLevel.NONE)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @Column(name = "NAME", nullable = false)
+  @Column(name = "org_name", nullable = false)
   private String name;
 
-  @Column(name = "IMAGE", nullable = false)
+  @Column(name = "org_image_url", nullable = false)
   private String image;
 
-  @Column(name = "ADDRESS")
+  @Column(name = "address")
   private String address;
 
-  @Column(name = "PHONE")
+  @Column(name = "phone")
   private Integer phone;
 
-  @Column(name = "EMAIL", nullable = false)
+  @Column(name = "email", nullable = false)
   private String email;
 
-  @Column(name = "WELCOME_TEXT", nullable = false)
+  @Column(name = "welcome_text", nullable = false)
   private String welcomeText;
 
-  @Column(name = "ABOUT_US_TEXT")
+  @Column(name = "about_us_text")
   private String aboutUsText;
 
-  @Column(name = "TIMESTAMP")
+  @Column(name = "timestamp")
   @CreationTimestamp
   private Timestamp timeStamp;
 
-  @Column(name = "SOFT_DELETE")
+  @Column(name = "soft_delete")
   private boolean softDelete;
 
   @Column(name = "org_facebook_url")
@@ -64,7 +67,6 @@ public class Organization {
 
   @Column(name = "org_linkedin_url")
   private String linkedin;
-
-
+  
 
 }
