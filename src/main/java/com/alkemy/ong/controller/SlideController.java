@@ -22,7 +22,7 @@ public class SlideController {
 
   @DeleteMapping(value = "/slides/{id}")
   public ResponseEntity<Empty> delete(@PathVariable("id") long id) throws EntityNotFoundException {
-    SlideService.delete(id);
+    slideService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
