@@ -22,6 +22,7 @@ import java.io.IOException;
 @Service
 public class EmailServiceImpl implements IEmailService {
 
+
         private final String endpoint = "mail/send";
         private static final String TEXT_HTML  = "text/html";
 
@@ -33,6 +34,7 @@ public class EmailServiceImpl implements IEmailService {
 
         @Autowired
         SendGrid sendGrid;
+
 
     @Override
     public Response sendEmail(String email, String subject, Content content) {
@@ -57,9 +59,16 @@ public class EmailServiceImpl implements IEmailService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return response;
     }
 
+
+    @Override
+    public Response sendWelcomeEmail(UserDtoRequest userRequestDto) {
+
+        return null;
+    }
 
     @Override
     public Response sendContactRegisterEmail(ContactDto contact){
@@ -68,10 +77,6 @@ public class EmailServiceImpl implements IEmailService {
         return response;
     }
 
-    @Override
-    public Response sendWelcomeEmail(UserDtoRequest userRequestDto) {
 
-        return null;
-    }
 
 }
