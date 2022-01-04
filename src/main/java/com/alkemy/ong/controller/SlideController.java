@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class SlideController {
 
   @Autowired
-  private ISlideService SlideService;
+  private ISlideService slideService;
 
   @Autowired
-  private SlideServiceImpl slideService;
+  private SlideServiceImpl slideServiceImpl;
 
   @DeleteMapping(value = "/slides/{id}")
   public ResponseEntity<Empty> delete(@PathVariable("id") long id) throws EntityNotFoundException {
@@ -29,13 +29,13 @@ public class SlideController {
   @PutMapping("/slides/{id}")
   public ResponseEntity<SlideResponseDto> update(@PathVariable long id, @RequestBody SlideRequestDto slideRequestDto)
           throws EntityNotFoundException {
-    SlideResponseDto updatedSlide = slideService.update(id, slideRequestDto);
+    SlideResponseDto updatedSlide = slideServiceImpl.update(id, slideRequestDto);
     return ResponseEntity.ok().body(updatedSlide);
   }
 
   @GetMapping("/Slides/{id}")
   public ResponseEntity<SlideResponseDto> getOne(@PathVariable long id) throws EntityNotFoundException{
-    return ResponseEntity.status(HttpStatus.OK).body(SlideService.getById(id));
+    return ResponseEntity.status(HttpStatus.OK).body(slideService.getById(id));
   }
 
 }
