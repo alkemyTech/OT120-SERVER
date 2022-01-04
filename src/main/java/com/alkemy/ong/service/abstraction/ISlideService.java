@@ -10,6 +10,5 @@ public interface ISlideService {
 
   void delete(Long id) throws EntityNotFoundException;
 
-  List<SlideDtoGet> getAllSlidesByOrganization(Organization organization);
 
 }

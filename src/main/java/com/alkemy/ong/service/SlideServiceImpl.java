@@ -1,9 +1,7 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.dto.SlideDtoGet;
+
 import com.alkemy.ong.mapper.SlideMapper;
-import com.alkemy.ong.model.entity.Organization;
-import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.repository.ISlideRepository;
 import com.alkemy.ong.service.abstraction.ISlideService;
 import javax.persistence.EntityNotFoundException;
@@ -31,14 +29,7 @@ public class SlideServiceImpl implements ISlideService {
     slideRepository.deleteById(id);
   }
 
-  @Override
-  public List<SlideDtoGet> getAllSlidesByOrganization(Organization organization) {
-    List<Slide> slideList = slideRepository.findAllByOrganizationId(organization);
-    if(slideList.isEmpty()){
-      throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
-    }
-    return  slideMapper.toSlideDtoGetList(slideList);
-  }
+
 
 }
 

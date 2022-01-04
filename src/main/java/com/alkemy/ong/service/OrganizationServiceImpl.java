@@ -33,10 +33,10 @@ public class OrganizationServiceImpl implements IOrganizationService {
   public OrganizationDto getById(Long id){
       Organization organization = organizationRepository.getById(id);
       if(organization == null){
-          throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
+         throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
       }
-      List<SlideDtoGet> organizationSlides = slideService.getAllSlidesByOrganization(organization);
-      return organizationMapper.organizationEntity2DTO(organization, organizationSlides);
+
+      return organizationMapper.organizationEntity2DTO(organization);
   }
 
 }
