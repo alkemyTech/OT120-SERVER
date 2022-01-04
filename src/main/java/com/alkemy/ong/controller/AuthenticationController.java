@@ -40,11 +40,6 @@ public class AuthenticationController {
         return new ResponseEntity<>(userService.getInfoUser(), HttpStatus.OK);
     }
 
-    /**
-     @GetMapping(path = "/auth/mi")
-     ResponseEntity<?> getUserInfo(@Parameter(hidden = true) @AuthenticationPrincipal UserDetailsImpl user) {
-     return ResponseEntity.ok(user.getUser());
-     }
-     **/
+
 
 }
