@@ -23,6 +23,9 @@ public class ContactServiceImpl implements IContactService {
     @Autowired
     private ContactMapper contactMapper;
 
+    @Autowired
+    EmailServiceImpl emailService;
+
     @Override
     public List<ContactDto> findAll() {
         if (contactRepository.findAll() == null) {
@@ -32,6 +35,7 @@ public class ContactServiceImpl implements IContactService {
     }
 
     public Contact save(ContactDto contactDto) throws IOException {
+        emailService.sendContactRegisterEmail(contactDto);
         return null;
     }
 }
