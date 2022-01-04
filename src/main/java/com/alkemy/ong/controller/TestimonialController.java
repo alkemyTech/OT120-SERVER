@@ -38,7 +38,7 @@ public class TestimonialController {
   @PutMapping(value = "/testimonials/{id}")
   public ResponseEntity<TestimonialRequestDto> updateTestimonial(@Valid @RequestBody TestimonialRequestDto testimonialRequest, @PathVariable Long id) {
     TestimonialRequestDto dto = testimonialService.update(testimonialRequest, id);
-	return new ResponseEntity<TestimonialRequestDto>(dto, HttpStatus.CREATED);
+	return new ResponseEntity<TestimonialRequestDto>(dto, HttpStatus.OK);
   }
    
 }
