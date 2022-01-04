@@ -7,9 +7,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryRequest {
+public class SlideRequestDto {
 
-    public String name;
-    public String description;
-    public String image;
+    public String imageUrl;
+    public String text;
+    public int order;
+    public long organizationId;
 }

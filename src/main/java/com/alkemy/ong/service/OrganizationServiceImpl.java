@@ -1,11 +1,7 @@
 package com.alkemy.ong.service;
 
 import java.util.Optional;
-
 import javax.persistence.EntityNotFoundException;
-
-
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.dto.OrganizationAllDto;
@@ -21,15 +17,15 @@ public class OrganizationServiceImpl implements IOrganizationService {
     private static final String ORGANIZATION_NOT_FOUND_MESSAGE = "Organization not found.";
 
     @Autowired
-    private IOrganizationRepository organizationRepository;
+    IOrganizationRepository organizationRepository;
 
     @Autowired
-    private OrganizationMapper organizationMapper;
+    OrganizationMapper organizationMapper;
 
     @Override
     public OrganizationDto getById(Long id) {
         Optional<Organization> organizationOptional = organizationRepository.findById(id);
-        if (organizationOptional.isEmpty() || organizationOptional.get().isSoftDelete()) {
+        if (organizationOptional.isEmpty()) {
             throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
         }
         return organizationMapper.organizationEntity2Dto(organizationOptional.get());
@@ -41,7 +37,5 @@ public class OrganizationServiceImpl implements IOrganizationService {
         if (optional.isPresent()) {
             return organizationMapper.organizationEntity2DtoAll(organizationRepository.save(organizationMapper.updateValues(dto, optional.get())));
         } else throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
-
     }
-
 }

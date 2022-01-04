@@ -14,11 +14,8 @@ public interface INewsService {
 
     NewsDto postNews(NewsDto newsDto) throws FieldInvalidException;
 
-<<<<<<< HEAD
     NewsDto updateNews (NewsDto newsDto, Long id);
 
-=======
     void delete(Long id) throws EntityNotFoundException;
-    ;
->>>>>>> 3c40176f36fc1b45c5f9c616069d5dffba4b32ef
+
 }
