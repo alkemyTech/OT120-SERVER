@@ -24,6 +24,9 @@ public class ContactServiceImpl implements IContactService {
     @Autowired
     private IContactRepository contactRepository;
 
+    @Autowired
+    EmailServiceImpl emailService;
+
     public final String LISTA_VACIA = "La Lista se encuentra vacía";
 
     @Override
@@ -39,17 +42,17 @@ public class ContactServiceImpl implements IContactService {
         Contact contact = contactMapper.contactDtoToContact(contactDto);
         Contact contactSaved = contactRepository.save(contact);
         ContactDto result = contactMapper.contactToContactDto(contactSaved);
+        emailService.sendContactRegisterEmail(contactDto);
         return result;
     }
 
-    @Override
+     @Override
     public List<ContactDto> findAll() {
         if (contactRepository.findAll() == null) {
             throw new NotFoundExceptions(LISTA_VACIA);
         }
         return contactRepository.findAll().stream().map(contactMapper::contactDtoToContact).collect(Collectors.toList());
     }
-
 
 }
 
