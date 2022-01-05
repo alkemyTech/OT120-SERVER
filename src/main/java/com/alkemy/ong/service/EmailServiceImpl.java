@@ -19,6 +19,8 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 
+
+
 import java.io.IOException;
 
 @Service
@@ -40,6 +42,7 @@ public class EmailServiceImpl implements IEmailService {
     @Autowired
     SendGrid sendGrid;
 
+
     @Override
     public Response sendEmail(String email, String subject, Content content) {
 
@@ -60,19 +63,20 @@ public class EmailServiceImpl implements IEmailService {
             request.setMethod(Method.POST);
             request.setEndpoint(this.endpoint);
             request.setBody(mail.build());
-
             response = sendGrid.api(request);
-
             if(response != null) {
-
                 System.out.println("Response code from SendGrid " + response.getHeaders());
             }
-
         } catch (IOException e) {
-
             e.printStackTrace();
         }
+        return response;
+    }
 
+    @Override
+    public Response sendContactRegisterEmail(ContactDto contact){
+        Content content = new Content("text/plain", MailMessage.GetRegisterContactMsg(contact.getName()));
+        Response response = sendEmail(contact.getEmail(), "Gracias por tu registro! ", content);
         return response;
     }
 
@@ -87,7 +91,7 @@ public class EmailServiceImpl implements IEmailService {
         context.setVariable("instagramContact", MailMessage.CONTACT_INSTAGRAM.getValue());
         context.setVariable("emailContact", MailMessage.CONTACT_MAIL.getValue());
         context.setVariable("phoneContact", MailMessage.CONTACT_PHONE.getValue());
-        //context.setVariable("imageResourceName", MailMessage.WELCOME_IMAGE.getValue());
+        context.setVariable("imageResourceName", MailMessage.WELCOME_IMAGE.getValue());
 
         return templateEngine.process("plantilla_email.html", context);
 

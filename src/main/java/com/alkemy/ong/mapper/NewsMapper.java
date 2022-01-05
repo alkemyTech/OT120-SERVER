@@ -1,4 +1,4 @@
-package com.alkemy.ong.config.modelmapper;
+package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.dto.NewsDto;
@@ -40,6 +40,14 @@ public class NewsMapper {
                 .image(news.getImage())
                 .category(news.getCategory().getId())
                 .build();
+    }
+
+    public News updateValues(NewsDto dto, News entity) {
+        entity.setName(dto.getName());
+        entity.setContent(dto.getContent());
+        entity.setImage(dto.getImage());
+        entity.setCategory(categoryService.getCategory(dto.getCategory()));
+        return entity;
     }
 }
 

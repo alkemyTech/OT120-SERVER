@@ -12,9 +12,8 @@ public interface IEmailService {
 
     Response sendEmail(String email, String subject, Content content);
 
-    Response sendWelcomeEmail(UserDtoRequest user);
+    Response sendContactRegisterEmail(ContactDto user) throws IOException;
 
-    Response sendContactRegisterEmail(ContactDto contact);
-
+    Response sendWelcomeEmail(UserDtoRequest userRequestDto);
 
 }

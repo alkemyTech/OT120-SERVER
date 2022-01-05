@@ -1,13 +1,14 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.common.JwtUtil;
+
+import com.alkemy.ong.model.entity.User;
+import com.alkemy.ong.dto.UsersResponseDto;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
 import com.alkemy.ong.enums.MailMessage;
 import com.alkemy.ong.exception.ParamNotFound;
-import com.alkemy.ong.dto.UsersResponseDto;
-import com.alkemy.ong.mapper.UserMapper;
-import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IEmailService;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
@@ -17,10 +18,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
-
+import javax.transaction.Transactional;
 import com.alkemy.ong.service.abstraction.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
 
     @Autowired
     IEmailService emailService;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -97,6 +100,27 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         return result;
     }
 
+    @Override
+    public User getInfoUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof User) {
+            String username = ((User)principal).getUsername();
+        } else {
+            String username = principal.toString();
+        }
+
+        return userRepository.findByEmail(principal.toString());
+
+    }
+
+    @Override
+    @Transactional
+    public User findByEmail(String email) {
+
+        return userRepository.findByEmail(email);
+
+    }
+
     private boolean emailExists(String email) {
         return userRepository.findByEmail(email) != null;
     }
@@ -124,6 +148,5 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     @Override
     public List<UsersResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
-
     }
 }
