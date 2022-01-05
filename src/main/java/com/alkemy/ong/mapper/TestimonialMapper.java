@@ -1,10 +1,11 @@
 package com.alkemy.ong.mapper;
 
-import com.alkemy.ong.dto.TestimonialRequestDto;
-import com.alkemy.ong.model.entity.Testimonial;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.alkemy.ong.dto.TestimonialRequestDto;
+import com.alkemy.ong.model.entity.Testimonial;
 
 @Component
 public class TestimonialMapper {
@@ -18,6 +19,16 @@ public class TestimonialMapper {
 
         return testimonial;
     }
+    
+    public Testimonial refreshValues(TestimonialRequestDto dto, Testimonial entity) {
+    	modelMapper.map(dto, entity);
+        return entity;
+    }
 
+    public TestimonialRequestDto entity2Dto(Testimonial entity) {
+    	TestimonialRequestDto dto = modelMapper.map(entity, TestimonialRequestDto.class);
+    	return dto;
+    }
 
+    
 }
