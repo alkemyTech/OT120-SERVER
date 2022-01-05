@@ -4,6 +4,7 @@ import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.dto.SlideResponseDto;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 
 public interface ISlideService {

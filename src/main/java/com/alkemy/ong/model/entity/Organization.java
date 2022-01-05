@@ -21,13 +21,13 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SQLDelete(sql = "UPDATE organization SET is_deleted=true WHERE id=?")
+@SQLDelete(sql = "UPDATE organizations SET is_deleted=true WHERE id=?")
 @Where(clause = "is_deleted=false")
 @Table(name = "organizations")
 public class Organization {
 
   @Id
-  @Column(name = "ORGANIZATION_ID")
+  @Column(name = "ORGANIZATIONS_ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
@@ -36,15 +36,6 @@ public class Organization {
 
   @Column(name = "org_image_url", nullable = false)
   private String image;
-
-  @Column(name = "org_facebook_url")
-  private String facebook;
-
-  @Column(name = "org_instagram_url")
-  private String instagram;
-
-  @Column(name = "org_linkedin_url")
-  private String linkedin;
 
   @Column(name = "address")
   private String address;
@@ -67,5 +58,15 @@ public class Organization {
 
   @Column(name = "soft_delete")
   private boolean softDelete;
+
+  @Column(name = "org_facebook_url")
+  private String facebook;
+
+  @Column(name = "org_instagram_url")
+  private String instagram;
+
+  @Column(name = "org_linkedin_url")
+  private String linkedin;
+  
 
 }
