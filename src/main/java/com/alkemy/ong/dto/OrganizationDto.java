@@ -13,6 +13,8 @@ import java.util.List;
 @Setter
 public class OrganizationDto {
 
+  private Long id;
+
   @Size(min= 3, max = 255)
   private String name;
 
@@ -27,13 +29,9 @@ public class OrganizationDto {
   private String address;
 
   private String facebook;
-
   private String instagram;
-
   private String linkedin;
 
-
-
-
-
 }
+
+

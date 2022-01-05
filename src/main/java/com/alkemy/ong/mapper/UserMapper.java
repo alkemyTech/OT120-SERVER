@@ -22,7 +22,7 @@ public class UserMapper {
     @Lazy
     private RoleMapper roleMapper;
 
-
+    @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
@@ -31,6 +31,7 @@ public class UserMapper {
     public UsersResponseDto usersDtoResponse (User entity){
         return modelMapper.map(entity, UsersResponseDto.class);
     }
+
 
     //Entity to DTO
     public UserDtoResponse userEntity2Dto(User userEntity, boolean loadRoles){
