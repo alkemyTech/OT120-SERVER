@@ -76,18 +76,8 @@ public class SlideServiceImpl implements ISlideService {
             slide.setText(slideReqDto.text);
             slide.setOrder(slideReqDto.order);
 
-  public SlideResponseDto getById(Long id) throws EntityNotFoundException{
-    Slide slide = slideRepository.getById(id);
-    if(slide==null){
-      throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
-    }
-    return slideMapper.slideEntity2Dto(slide);
-  }
-
-}
             Organization organization = organizationRepository.getById(slideReqDto.organizationId);
             slide.setOrganizationId(organization);
-
             slide.setId(id);
             slideRepository.save(slide);
             return slideMapper.slideEntity2Dto(slide);
@@ -96,4 +86,14 @@ public class SlideServiceImpl implements ISlideService {
             throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
         }
     }
+
+    public SlideResponseDto getById(Long id) throws EntityNotFoundException{
+    Slide slide = slideRepository.getById(id);
+    if(slide==null){
+      throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
+    }
+    return slideMapper.slideEntity2Dto(slide);
+  }
+
 }
+

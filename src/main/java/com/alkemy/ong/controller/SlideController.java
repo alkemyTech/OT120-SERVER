@@ -30,7 +30,7 @@ public class SlideController {
   }
   @GetMapping("")
   public ResponseEntity<List<SlideRequestDto>> listAll(){
-    return ResponseEntity.ok(SlideService.listAll()) ;
+    return ResponseEntity.ok(slideServiceImpl.listAll());
   }
 
   @PutMapping("/slides/{id}")

@@ -1,10 +1,8 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.dto.SlideDto;
+
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.dto.SlideResponseDto;
-import com.alkemy.ong.model.entity.Slide;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
