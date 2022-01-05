@@ -14,4 +14,5 @@ public interface ISlideRepository extends JpaRepository<Slide, Long> {
 
     List<Slide> findAllByOrganizationId(Organization organization);
 
+
 }
