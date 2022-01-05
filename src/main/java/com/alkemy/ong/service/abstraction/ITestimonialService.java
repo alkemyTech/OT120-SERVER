@@ -10,4 +10,6 @@ public interface ITestimonialService {
   void delete(Long id) throws EntityNotFoundException;
 
    Testimonial save(TestimonialRequestDto testimonialRequest);
+
+TestimonialRequestDto update(TestimonialRequestDto testimonialRequest, Long id);
 }
