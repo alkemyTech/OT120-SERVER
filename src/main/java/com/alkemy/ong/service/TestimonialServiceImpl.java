@@ -19,7 +19,7 @@ public class TestimonialServiceImpl implements ITestimonialService {
   private ITestimonialRepository testimonialRepository;
 
   @Autowired
-  TestimonialMapper testimonialMapper;
+  private TestimonialMapper testimonialMapper;
 
   @Override
   public void delete(Long id) throws EntityNotFoundException {

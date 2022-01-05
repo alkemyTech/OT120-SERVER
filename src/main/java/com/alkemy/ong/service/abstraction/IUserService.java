@@ -18,6 +18,8 @@ public interface IUserService {
 
     UserDtoResponse update(Long id, UserDtoRequest userDTORequest);
 
+
     User getInfoUser() throws NotFoundExceptions;
+
 
 }
