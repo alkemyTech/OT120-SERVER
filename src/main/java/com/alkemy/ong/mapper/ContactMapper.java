@@ -12,7 +12,15 @@ public class ContactMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    public ContactDto contactDtoToContact (Contact entity){
+    public ContactDto contactToContactDto(Contact entity){
         return modelMapper.map(entity, ContactDto.class);
+    }
+
+    public Contact contactDtoToContact(ContactDto dto){
+        Contact contact = new Contact();
+        contact.setName(dto.getName());
+        contact.setPhone(dto.getPhone());
+        contact.setEmail(dto.getEmail());
+        return contact;
     }
 }
