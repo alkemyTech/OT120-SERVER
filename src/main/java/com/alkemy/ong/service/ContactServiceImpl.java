@@ -44,13 +44,12 @@ public class ContactServiceImpl implements IContactService {
         return result;
     }
 
-    @Override
+     @Override
     public List<ContactDto> findAll() {
         if (contactRepository.findAll() == null) {
             throw new NotFoundExceptions(LISTA_VACIA);
         }
         return contactRepository.findAll().stream().map(contactMapper::contactDtoToContact).collect(Collectors.toList());
     }
-
 
 }
