@@ -1,6 +1,6 @@
 package com.alkemy.ong.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -26,14 +26,16 @@ public class OrganizationServiceImpl implements IOrganizationService {
     @Autowired
     private OrganizationMapper organizationMapper;
 
+
     @Override
-    public OrganizationDto getById(Long id) {
-        Optional<Organization> organizationOptional = organizationRepository.findById(id);
-        if (organizationOptional.isEmpty() || organizationOptional.get().isSoftDelete()) {
-            throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
-        }
-        return organizationMapper.organizationEntity2Dto(organizationOptional.get());
-    }
+  public OrganizationDto getById(Long id){
+      Organization organization = organizationRepository.getById(id);
+      if(organization == null){
+         throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
+      }
+      return organizationMapper.organizationEntity2DTO(organization);
+  }
+
 
     @Override
     public OrganizationAllDto update(OrganizationAllDto dto, Long id) {

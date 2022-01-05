@@ -3,7 +3,6 @@ package com.alkemy.ong.mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.alkemy.ong.dto.OrganizationDto;
 import com.alkemy.ong.dto.OrganizationAllDto;
 import com.alkemy.ong.model.entity.Organization;
@@ -18,18 +17,16 @@ public class OrganizationMapper {
 
   public OrganizationDto organizationEntity2Dto(Organization entity) {
     OrganizationDto dto = new OrganizationDto();
-
+    dto.setId(entity.getId());
     dto.setName(entity.getName());
     dto.setImage(entity.getImage());
     dto.setPhone(entity.getPhone());
     dto.setAddress(entity.getAddress());
     dto.setFacebook(entity.getFacebook());
-    dto.setLinkedin(entity.getLinkedin());
     dto.setInstagram(entity.getInstagram());
-
+    dto.setLinkedin(entity.getLinkedin());
     return dto;
   }
-
 
   public Organization organizationDto2Entity(OrganizationDto organizationDto) {
     return modelMapper.map(organizationDto, Organization.class);
@@ -72,6 +69,5 @@ public class OrganizationMapper {
         entity.setAboutUsText(dto.getAboutUsText());
         return entity;
     }
-
 
 }
