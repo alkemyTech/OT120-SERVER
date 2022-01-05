@@ -1,12 +1,9 @@
 package com.alkemy.ong.controller;
 
-<<<<<<< HEAD
 import com.alkemy.ong.dto.SlideDto;
-=======
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.dto.SlideResponseDto;
 import com.alkemy.ong.service.SlideServiceImpl;
->>>>>>> c08ee483849c29cef24dbaf657093e712912151c
 import com.alkemy.ong.service.abstraction.ISlideService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
@@ -14,11 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
-
 import java.util.List;
-=======
->>>>>>> c08ee483849c29cef24dbaf657093e712912151c
 
 @RestController
 @RequestMapping("slides")
@@ -35,8 +28,8 @@ public class SlideController {
     SlideService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
-  @GetMapping("/")
-  public ResponseEntity<List<SlideDto>> listAll(){
+  @GetMapping("")
+  public ResponseEntity<List<SlideRequestDto>> listAll(){
     return ResponseEntity.ok(SlideService.listAll()) ;
   }
 

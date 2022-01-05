@@ -4,12 +4,8 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
-<<<<<<< HEAD
-
-import org.aspectj.weaver.ast.Or;
-=======
 import com.alkemy.ong.service.abstraction.ISlideService;
->>>>>>> c08ee483849c29cef24dbaf657093e712912151c
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.dto.OrganizationAllDto;
@@ -46,18 +42,5 @@ public class OrganizationServiceImpl implements IOrganizationService {
             return organizationMapper.organizationEntity2DtoAll(organizationRepository.save(organizationMapper.updateValues(dto, optional.get())));
         } else throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
 
-<<<<<<< HEAD
     }
-=======
-  @Autowired
-  ISlideService slideService;
-
-  @Override
-  public OrganizationDto getById(Long id) {
-    Organization organization = organizationRepository.getById(id);
-    return organizationMapper.organizationEntity2DTO(organization);
-  }
->>>>>>> c08ee483849c29cef24dbaf657093e712912151c
-
-
 }
