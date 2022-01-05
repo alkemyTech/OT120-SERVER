@@ -32,6 +32,7 @@ public class UserMapper {
         return modelMapper.map(entity, UsersResponseDto.class);
     }
 
+
     //Entity to DTO
     public UserDtoResponse userEntity2Dto(User userEntity, boolean loadRoles){
         UserDtoResponse userDtoResponse = new UserDtoResponse();
