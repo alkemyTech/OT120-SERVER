@@ -87,13 +87,15 @@ public class SlideServiceImpl implements ISlideService {
         }
     }
 
+
+
     public SlideResponseDto getById(Long id) throws EntityNotFoundException{
-    Slide slide = slideRepository.getById(id);
-    if(slide==null){
-      throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
-    }
+        Slide slide = slideRepository.getById(id);
+        if(slide==null){
+            throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
+        }
     return slideMapper.slideEntity2Dto(slide);
-  }
+    }
 
 }
 
