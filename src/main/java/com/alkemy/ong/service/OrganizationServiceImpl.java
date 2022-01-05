@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -33,7 +34,7 @@ public class OrganizationServiceImpl implements IOrganizationService {
       if(organization == null){
          throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
       }
-      return organizationMapper.organizationEntity2DTO(organization);
+      return organizationMapper.organizationEntity2Dto(organization);
   }
 
 

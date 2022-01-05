@@ -1,7 +1,5 @@
 package com.alkemy.ong.dto;
 
-
-
 import lombok.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -29,6 +27,8 @@ public class ContactDto {
     @Size(min = 3, max = 255)
     @Email
     public String email;
+
+    private String message;
 
 
 }
