@@ -67,6 +67,5 @@ public class Organization {
 
   @Column(name = "org_linkedin_url")
   private String linkedin;
-  
-
+ 
 }

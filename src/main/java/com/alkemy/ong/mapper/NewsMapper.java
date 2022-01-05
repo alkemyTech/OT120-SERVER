@@ -41,6 +41,14 @@ public class NewsMapper {
                 .category(news.getCategory().getId())
                 .build();
     }
+
+    public News updateValues(NewsDto dto, News entity) {
+        entity.setName(dto.getName());
+        entity.setContent(dto.getContent());
+        entity.setImage(dto.getImage());
+        entity.setCategory(categoryService.getCategory(dto.getCategory()));
+        return entity;
+    }
 }
 
 
