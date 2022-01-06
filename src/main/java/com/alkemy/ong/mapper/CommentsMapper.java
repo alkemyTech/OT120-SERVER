@@ -1,0 +1,18 @@
+package com.alkemy.ong.mapper;
+
+import com.alkemy.ong.dto.CommentsBodyDto;
+import com.alkemy.ong.model.entity.Comment;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class CommentsMapper {
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public CommentsBodyDto categoryToCategoryDto(Comment entity) {
+        return modelMapper.map(entity, CommentsBodyDto.class);
+    }
+}
