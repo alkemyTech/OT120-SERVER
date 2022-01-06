@@ -1,19 +1,26 @@
 package com.alkemy.ong.dto;
 
-import com.alkemy.ong.common.ValidationMessages;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 
-public class MemberDto {
+@Getter
+@Setter
+@NoArgsConstructor
+public class MemberRequestDto {
 
-    @NotBlank(message = ValidationMessages.REQUEST_PARAM_EMPTY_ERROR_MESSAGE)
-    @Pattern(regexp = ValidationMessages.REGEX_VALIDATION_STRING, message = ValidationMessages.REGEX_VALIDATION_STRING_MESSAGE)
-    @Size(max = 250, message = ValidationMessages.REQUEST_PARAM_MAX_ERROR_MESSAGE)
-    private String nombre;
-
+    @NotBlank(message = "El atributo %s no puede estar vacio")
+    @Pattern(regexp = "^([a-zA-Z]+)$", message = "Este campo no debe contener números")
+    @Size(max = 250, message = "El atributo %s no debe tener mas de {max} caracteres")
+    private String name;
+    private Long id;
     private String image;
     private String description;
-    private String timestamps;
+    private Timestamp timestamps;
 
 }

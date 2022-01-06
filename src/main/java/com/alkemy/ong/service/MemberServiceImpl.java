@@ -1,5 +1,7 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.dto.MemberRequestDto;
+import com.alkemy.ong.mapper.MemberMapper;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.repository.IMemberRepository;
 import com.alkemy.ong.service.abstraction.IMembersService;
@@ -16,6 +18,9 @@ public class MemberServiceImpl implements IMembersService {
   @Autowired
   private IMemberRepository memberRepository;
 
+  @Autowired
+  private MemberMapper memberMapper;
+
   @Override
   public void delete(Long id) throws EntityNotFoundException {
     Member member = getMember(id);
@@ -29,6 +34,14 @@ public class MemberServiceImpl implements IMembersService {
       throw new EntityNotFoundException(MEMBER_NOT_FOUND_MESSAGE);
     }
     return memberOptional.get();
+  }
+
+  @Override
+  public MemberRequestDto save(MemberRequestDto memberDto) {
+    Member member = memberMapper.memberDto2Entity(memberDto);
+    Member memberSaved = memberRepository.save(member);
+    MemberRequestDto resul = memberMapper.memberEntity2Dto(memberSaved);
+    return resul;
   }
 
 }
