@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.INewsService;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
@@ -37,6 +38,14 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
+    public NewsDto updateNews(NewsDto newsDto, Long id) {
+        Optional<News> optional = newsRepository.findById(id);
+        if (optional.isPresent()) {
+            return newsMapper.newsEntityToDto(newsRepository.save(newsMapper.updateValues(newsDto, optional.get())));
+        } else
+            throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
+    }
+
     public void delete(Long id) throws EntityNotFoundException {
         News news = getNews(id);
         news.setSoftDelete(true);
@@ -44,10 +53,10 @@ public class NewsServiceImpl implements INewsService {
     }
 
     private News getNews(Long id) {
-    Optional<News> newsOptional = newsRepository.findById(id);
-    if (newsOptional.isEmpty()) {
-        throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
-    }
-    return newsOptional.get();
+        Optional<News> newsOptional = newsRepository.findById(id);
+        if (newsOptional.isEmpty()) {
+            throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
+        }
+        return newsOptional.get();
     }
 }

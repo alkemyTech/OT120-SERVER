@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface ISlideRepository extends JpaRepository<Slide, Long> {
 
-
     List<Slide> findAllByOrganizationId(Organization organization);
+
 
 }
