@@ -1,7 +1,6 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.MemberDto;
-import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.service.abstraction.IMembersService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
@@ -19,17 +18,17 @@ import java.util.List;
 public class MemberController {
 
   @Autowired
-  private IMembersService MembersService;
+  private IMembersService membersService;
 
   @DeleteMapping(value = "/members/{id}")
   public ResponseEntity<Empty> delete(@PathVariable long id) throws EntityNotFoundException {
-    MembersService.delete(id);
+    membersService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
   @GetMapping(value = "/members")
   public  ResponseEntity<List<MemberDto>> getAllMember(){
-    return new ResponseEntity(MembersService.getAllMember(),HttpStatus.OK);
+    return new ResponseEntity(membersService.getAllMember(),HttpStatus.OK);
   }
 
 }
