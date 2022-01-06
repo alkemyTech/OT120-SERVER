@@ -51,7 +51,7 @@ public class ContactServiceImpl implements IContactService {
         if (contactRepository.findAll() == null) {
             throw new NotFoundExceptions(LISTA_VACIA);
         }
-        return contactRepository.findAll().stream().map(contactMapper::contactDtoToContact).collect(Collectors.toList());
+        return contactRepository.findAll().stream().map(contactMapper::contactToContactDto).collect(Collectors.toList());
     }
 
 }
