@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
@@ -87,6 +86,14 @@ public class ExceptionHandler {
 
   private ErrorResponse buildResponse(String message, HttpStatus httpStatus) {
     return new ErrorResponse(message, httpStatus.value());
+  }
+
+  @org.springframework.web.bind.annotation.ExceptionHandler(ParamNotFound.class)
+  public ResponseEntity<ErrorResponse> paramDtoEmptyException(
+          HttpServletRequest request,
+          Exception e){
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(buildResponse(e,HttpStatus.BAD_REQUEST));
   }
 
 }
