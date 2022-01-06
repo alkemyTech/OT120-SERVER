@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.MemberDto;
+import com.alkemy.ong.exception.EmptyListException;
 import com.alkemy.ong.mapper.MemberMapper;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.repository.IMemberRepository;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class MemberServiceImpl implements IMembersService {
 
   private static final String MEMBER_NOT_FOUND_MESSAGE = "Member not found.";
+  private static final String MEMBER_LIST_EMPTY_MESSAGE = "There are no members yet.";
 
   @Autowired
   private IMemberRepository memberRepository;
@@ -33,7 +35,11 @@ public class MemberServiceImpl implements IMembersService {
 
   @Override
   public List<MemberDto> getAllMember() {
-    return memberRepository.findAll().stream().map(memberMapper::memberToDto).collect(Collectors.toList());
+    List<MemberDto> members = memberRepository.findAll().stream().map(memberMapper::memberToDto).collect(Collectors.toList());
+    if(members.isEmpty()){
+      throw new EmptyListException(MEMBER_LIST_EMPTY_MESSAGE);
+    }
+    return members;
   }
 
   private Member getMember(Long id) {
