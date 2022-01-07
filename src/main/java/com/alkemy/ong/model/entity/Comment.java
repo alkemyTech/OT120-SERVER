@@ -35,12 +35,12 @@ public class Comment {
   @Column(name = "BODY", nullable = false)
   private String body;
 
-  @JoinColumn(name = "USERS_ID")
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "USERS_ID")
   private User userId;
 
-  @JoinColumn(name = "NEWS_ID")
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "NEWS_ID")
   private News newsId;
 
   @CreationTimestamp

@@ -10,6 +10,8 @@ import java.lang.reflect.Field;
 
 public interface INewsService {
 
+    News getNews(Long id);
+
     NewsDto findNewsById(Long id) throws OperationNotAllowedException;
 
     NewsDto postNews(NewsDto newsDto) throws FieldInvalidException;
