@@ -50,4 +50,17 @@ public class MemberServiceImpl implements IMembersService {
     return memberOptional.get();
   }
 
+  @Override
+  public MemberDto update(MemberDto memberDto, Long id){
+    Optional<Member> memberOptional = memberRepository.findById(id);
+    if(!memberOptional.isPresent()){
+      throw new EntityNotFoundException("Member not found");
+    }
+    memberMapper.memberEntityUpdate(memberOptional.get(), memberDto);
+    Member memberUpdated = memberRepository.save(memberOptional.get());
+    MemberDto result = memberMapper.memberToDto(memberUpdated);
+    return result;
+  }
+
+
 }

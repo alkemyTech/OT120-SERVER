@@ -63,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/members/{id}").hasRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.GET, "/slides/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/organization/public/{id}").hasRole(ApplicationRole.ADMIN.getName())

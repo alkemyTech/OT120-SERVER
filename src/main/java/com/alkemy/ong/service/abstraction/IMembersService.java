@@ -8,4 +8,5 @@ public interface IMembersService {
 
   void delete(Long id) throws EntityNotFoundException;
   List<MemberDto> getAllMember();
+  MemberDto update(MemberDto member, Long id);
 }
