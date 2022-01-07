@@ -94,6 +94,8 @@ public class SlideServiceImpl implements ISlideService {
         if(slide==null){
             throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
         }
-        return slideMapper.slideEntity2Dto(slide);
-        }
+    return slideMapper.slideEntity2Dto(slide);
+    }
+
 }
+
