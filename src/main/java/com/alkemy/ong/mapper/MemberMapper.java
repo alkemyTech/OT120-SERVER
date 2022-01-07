@@ -15,4 +15,12 @@ public class MemberMapper {
     public MemberDto memberToDto (Member entity){
         return modelMapper.map(entity, MemberDto.class);
     }
+
+    public void memberEntityUpdate(Member member, MemberDto memberDto){
+        member.setName(memberDto.getName());
+        member.setImage(memberDto.getImage());
+        member.setDescription(memberDto.getDescription());
+        member.setTimestamps(memberDto.getTimestamps());
+    }
+
 }
