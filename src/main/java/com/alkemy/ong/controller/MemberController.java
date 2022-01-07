@@ -5,8 +5,6 @@ import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.service.abstraction.IMembersService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
