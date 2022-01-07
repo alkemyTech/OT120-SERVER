@@ -5,12 +5,17 @@ import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
+
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -72,5 +77,11 @@ public class CategoryServiceImpl implements ICategoryService {
         CategoryDto result = categoryMapper.categoryToCategoryDto(categorySaved);
 
         return result;
+    }
+
+    @Override
+    public Page<Category> pagination(int pageSize, int pageNumber) {
+        Pageable page = PageRequest.of(pageNumber, pageSize);
+        return categoryRepository.findAll(page);
     }
 }

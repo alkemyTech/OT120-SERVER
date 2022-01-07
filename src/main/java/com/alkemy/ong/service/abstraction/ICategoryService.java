@@ -3,6 +3,8 @@ package com.alkemy.ong.service.abstraction;
 import com.alkemy.ong.model.entity.Category;
 import javax.persistence.EntityNotFoundException;
 import com.alkemy.ong.dto.CategoryDto;
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface ICategoryService {
@@ -16,4 +18,6 @@ public interface ICategoryService {
   Category getCategory(Long id);
 
   List<CategoryDto> findAll();
+
+  Page<Category> pagination(int pageSize, int pageNumber);
 }
