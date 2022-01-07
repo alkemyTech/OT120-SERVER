@@ -39,10 +39,10 @@ public class CommentServiceImpl implements ICommentService {
     if(commentDto.getBody().trim().isEmpty()){
       throw new NullPointerException(COMMENT_NOT_EMPTY_MESSAGE);
     }
-    if(commentDto.getNewsId().toString().trim().isEmpty()){
+    if(commentDto.getNewsId() == null){
       throw new NullPointerException(NEWSID_NOT_EMPTY_MESSAGE);
     }
-    if(commentDto.getUserId().toString().trim().isEmpty()){
+    if(commentDto.getUserId() == null){
       throw new NullPointerException(USERID_NOT_EMPTY_MESSAGE);
     }
     Comment commentEntity = commentMapper.commentDto2Entity(commentDto);

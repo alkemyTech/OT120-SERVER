@@ -21,7 +21,7 @@ public class CommentDto {
     private static final String NEWSID_NOT_NULL_MESSAGE = "You must choose a post to leave a comment!";
     private static final String USERID_NOT_NULL_MESSAGE = "You must log in before leaving a comment!";
 
-    private long id;
+    private Long id;
 
     @NotBlank(message = COMMENT_NOT_BLANK_MESSAGE)
     private String body;

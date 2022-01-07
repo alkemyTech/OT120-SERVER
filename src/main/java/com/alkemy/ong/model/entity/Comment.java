@@ -30,7 +30,7 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "COMMENTS_ID", nullable = false)
   @Setter(AccessLevel.NONE)
-  private long id;
+  private Long id;
 
   @Column(name = "BODY", nullable = false)
   private String body;
