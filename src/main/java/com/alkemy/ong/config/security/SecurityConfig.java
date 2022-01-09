@@ -81,24 +81,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/users/auth/**"
     };
     final String[] adminAndUserPutAuthorized = {
-    		"/comments/**"
+    		"/comments/{id}"
     };
     
     final String[] adminAndUserDeleteAuthorized = {
-    		"/categories/**",
-    		"/testimonials/**",
-    		"/members/**",
-    		"/comments/**"
+    		"/categories/{id}",
+    		"/comments/{id}",
+    		"/members/{id}",
+    		"/testimonials/{id}"
+
     };
     
     final String[] adminGetAuthorized = {
-    		"/slides/**",
-    		"/news/**",
-    		"/users",
-    		"/contact",
-    		"/organization/public/**",
     		"/comments",
-    		"/comments/**"
+    		"/contact",
+    		"/news/{id}",
+     		"/organization/public/{id}",
+    		"/slides/{id}",
+    		"/users"
     };
     
     final String[] adminPostAuthorized = {
@@ -107,24 +107,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
     
     final String[] adminPutAuthorized = {
-    		"/slides/**",
+    		"/slides/{id}",
     };
     
     final String[] adminDeleteAuthorized = {
-    		"/slides/**",
+    		"/slides/{id}",
     };
     
     final String[] userPostAuthorized = {
-    		"/members",
-    		"/contacts/**"
+    		"/contacts/{id}",
+    		"/members"
+
     };
     
     final String[] userPutAuthorized = {
-    		"/members/**",
+    		"/members/{id}"
     };
     
     final String[] userDeleteAuthorized = {
-    		"/users/**",
+    		"/users/{id}"
     };
 
 }
