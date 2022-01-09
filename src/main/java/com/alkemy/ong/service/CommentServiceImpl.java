@@ -1,5 +1,16 @@
 package com.alkemy.ong.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.dto.CommentsBodyDto;
 import com.alkemy.ong.exception.OperationNotAllowedException;
@@ -10,20 +21,14 @@ import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.ICommentRepository;
 import com.alkemy.ong.service.abstraction.ICommentsService;
 import com.alkemy.ong.service.abstraction.IGetUserService;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CommentServiceImpl implements ICommentsService {
 
     private static final String COMMENT_NOT_FOUND_MESSAGE = "Comment not found.";
     private static final String USER_IS_NOT_ABLE_TO_DELETE_COMMENT_MESSAGE = "User is not able to delete comment.";
-
+    private static final String USER_IS_NOT_ABLE_TO_UPDATE_COMMENT_MESSAGE = "User is not able to update comment.";
+    
     @Autowired
     private ICommentRepository commentRepository;
 
@@ -32,6 +37,9 @@ public class CommentServiceImpl implements ICommentsService {
 
     @Autowired
     private CommentsMapper commentsMapper;
+    
+
+    private ModelMapper mapper = new ModelMapper();
 
     @Override
     public void delete(Long id, String authorizationHeader) throws OperationNotAllowedException {
@@ -50,7 +58,7 @@ public class CommentServiceImpl implements ICommentsService {
     }
 
     private void throwExceptionIfOperationIsNotAllowed(User user, Comment comment, String message) {
-        boolean isRoleAdmin = hasRole(ApplicationRole.ADMIN.getFullRoleName(), user.getRoles());
+        boolean isRoleAdmin = hasRole(ApplicationRole.ADMIN.getName(), user.getRoles());
         if (!comment.getUserId().getId().equals(user.getId()) && !isRoleAdmin) {
             throw new OperationNotAllowedException(message);
         }
@@ -70,5 +78,16 @@ public class CommentServiceImpl implements ICommentsService {
         return entities.stream()
                 .map(entity -> commentsMapper.categoryToCategoryDto(entity))
                 .collect(Collectors.toList());
+    }
+    
+    @Override
+    public void update(Long id, CommentsBodyDto dto, String authorizationHeader) throws OperationNotAllowedException {
+        Comment comment = getComment(id);
+        throwExceptionIfOperationIsNotAllowed(
+                getUserService.getBy(authorizationHeader),
+                comment,
+                USER_IS_NOT_ABLE_TO_UPDATE_COMMENT_MESSAGE);
+        mapper.map(dto, comment);
+        commentRepository.save(comment);
     }
 }
