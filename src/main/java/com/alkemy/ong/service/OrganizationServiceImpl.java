@@ -46,4 +46,13 @@ public class OrganizationServiceImpl implements IOrganizationService {
         } else throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
 
     }
+
+    @Override
+    public Organization getOrganizationId(Long id) {
+        Optional<Organization> organizationOp = organizationRepository.findById(id);
+        if (organizationOp.isEmpty()) {
+            throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
+        }
+        return organizationOp.get();
+    }
 }

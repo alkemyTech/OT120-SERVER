@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 
+import com.alkemy.ong.dto.SlideDto;
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.mapper.SlideMapper;
@@ -87,8 +88,6 @@ public class SlideServiceImpl implements ISlideService {
         }
     }
 
-
-
     public SlideResponseDto getById(Long id) throws EntityNotFoundException{
         Slide slide = slideRepository.getById(id);
         if(slide==null){
@@ -97,5 +96,14 @@ public class SlideServiceImpl implements ISlideService {
     return slideMapper.slideEntity2Dto(slide);
     }
 
+    @Override
+    public SlideDto save(SlideDto slideDto) throws EntityNotFoundException {
+
+        Slide slide = slideMapper.slideDTO2Entity(slideDto);
+        Slide slideSaved = slideRepository.save(slide);
+        SlideDto result = slideMapper.slideEntity2DTO(slideSaved);
+
+        return result;
+    }
 }
 
