@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Component
@@ -45,7 +47,14 @@ public class MemberMapper {
         dto.setDescription(entity.getDescription());
         dto.setTimestamps(entity.getTimestamps());
         return dto;
+    }
 
 
+    public List<MemberDto> memberEntities2membersDto(List<Member> members) {
+        List<MemberDto> membersDTO = new ArrayList<>();
+        for (Member member : members) {
+            membersDTO.add(this.memberToDto(member));
+        }
+        return membersDTO;
     }
 }

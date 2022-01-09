@@ -4,6 +4,7 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.dto.MemberRequestDto;
 import com.alkemy.ong.dto.MemberDto;
 import com.alkemy.ong.exception.EmptyListException;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.mapper.MemberMapper;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.repository.IMemberRepository;
@@ -14,6 +15,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -71,5 +76,14 @@ public class MemberServiceImpl implements IMembersService {
     return result;
   }
 
+  @Override
+  public Page<MemberDto> findAll(Pageable pageable) {
+    Page<Member> members = memberRepository.findAll(pageable);
+    List<MemberDto> membersDto = memberMapper.memberEntities2membersDto(members.getContent());
+    if(membersDto.isEmpty()){
+      throw new EmptyListException(MEMBER_LIST_EMPTY_MESSAGE);
+    }
+    return new PageImpl<>(membersDto, pageable, members.getTotalElements());
+  }
 
 }
