@@ -58,7 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(allAuthorized).permitAll()
+                .antMatchers(unsecured).permitAll()
+                .antMatchers(HttpMethod.PUT, adminAndUserPutAuthorized).hasAnyAuthority(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, adminAndUserDeleteAuthorized).hasAnyAuthority(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.POST, userPostAuthorized).hasAuthority(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.PUT, userPutAuthorized).hasAuthority(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.DELETE, userDeleteAuthorized).hasAuthority(ApplicationRole.USER.getName())
@@ -73,10 +75,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
     }
-    
-    final String[] allAuthorized = {
+        
+    final String[] unsecured = {
             "/auth/**",
             "/users/auth/**"
+    };
+    final String[] adminAndUserPutAuthorized = {
+    		"/comments/**"
+    };
+    
+    final String[] adminAndUserDeleteAuthorized = {
+    		"/categories/**",
+    		"/testimonials/**",
+    		"/members/**",
+    		"/comments/**"
     };
     
     final String[] adminGetAuthorized = {
@@ -85,31 +97,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		"/users",
     		"/contact",
     		"/organization/public/**",
-    		"/comments"
+    		"/comments",
+    		"/comments/**"
     };
     
     final String[] adminPostAuthorized = {
     		"/categories",
-    		"/news/**",
     		"/testimonials"  	
     };
     
     final String[] adminPutAuthorized = {
-    		"/news/{id}",
-    		"/organization/public/{id}",
-    		"/categories/{id}",
-    		"/testimonials/{id}",
-    		"/activities/{id}",
-    		"/slides/{id}",
-    		"/comments/**"
+    		"/slides/**",
     };
     
     final String[] adminDeleteAuthorized = {
-    		"/categories/**",
-    		"/testimonials/**",
-    		"/members/**",
     		"/slides/**",
-    		"/comments/**"
     };
     
     final String[] userPostAuthorized = {
@@ -118,16 +120,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     };
     
     final String[] userPutAuthorized = {
-    		"/members/{id}",
-    		"/comments/**"
+    		"/members/**",
     };
     
     final String[] userDeleteAuthorized = {
-    		"/categories/**",
     		"/users/**",
-    		"/testimonials/**",
-    		"/members/**",
-    		"/comments/**"
     };
 
 }
