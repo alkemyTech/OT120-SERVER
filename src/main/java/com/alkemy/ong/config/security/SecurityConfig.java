@@ -89,7 +89,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		"/comments/{id}",
     		"/members/{id}",
     		"/testimonials/{id}"
-
     };
     
     final String[] adminGetAuthorized = {
@@ -117,7 +116,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     final String[] userPostAuthorized = {
     		"/contacts/{id}",
     		"/members"
-
     };
     
     final String[] userPutAuthorized = {
