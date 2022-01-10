@@ -59,4 +59,5 @@ public class NewsServiceImpl implements INewsService {
         }
         return newsOptional.get();
     }
+
 }
