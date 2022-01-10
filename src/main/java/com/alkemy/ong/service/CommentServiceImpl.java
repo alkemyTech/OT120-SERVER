@@ -57,4 +57,8 @@ public class CommentServiceImpl implements ICommentsService {
     return commentOptional.get();
   }
 
+  public List<Comment> getAllComments() {
+    return commentRepository.findAll();
+  }
+
 }
