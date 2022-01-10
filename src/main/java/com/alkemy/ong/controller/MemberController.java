@@ -57,7 +57,6 @@ public class MemberController {
         Page<MemberDto> result = membersService.findAll(pageable);
 
         return new ResponseEntity(result, HttpStatus.OK);
-        //return new ResponseEntity(membersService.getAllMember(),HttpStatus.OK);
     }
 
 }
