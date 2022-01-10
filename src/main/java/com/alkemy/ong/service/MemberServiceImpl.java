@@ -1,5 +1,7 @@
 package com.alkemy.ong.service;
 
+
+import com.alkemy.ong.dto.MemberRequestDto;
 import com.alkemy.ong.dto.MemberDto;
 import com.alkemy.ong.exception.EmptyListException;
 import com.alkemy.ong.mapper.MemberMapper;
@@ -51,6 +53,13 @@ public class MemberServiceImpl implements IMembersService {
   }
 
   @Override
+  public MemberRequestDto save(MemberRequestDto memberDto) {
+    Member member = memberMapper.memberDto2Entity(memberDto);
+    Member memberSaved = memberRepository.save(member);
+    MemberRequestDto resul = memberMapper.memberEntity2Dto(memberSaved);
+    return resul;
+  }
+
   public MemberDto update(MemberDto memberDto, Long id){
     Optional<Member> memberOptional = memberRepository.findById(id);
     if(!memberOptional.isPresent()){
