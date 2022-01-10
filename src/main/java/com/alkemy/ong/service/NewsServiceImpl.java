@@ -3,12 +3,16 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.mapper.NewsMapper;
 import com.alkemy.ong.model.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.INewsService;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,4 +63,5 @@ public class NewsServiceImpl implements INewsService {
         }
         return newsOptional.get();
     }
+
 }
