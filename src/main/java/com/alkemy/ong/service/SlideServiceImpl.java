@@ -107,7 +107,6 @@ public class SlideServiceImpl implements ISlideService {
 
             Organization organization = organizationRepository.getById(slideReqDto.organizationId);
             slide.setOrganizationId(organization);
-
             slide.setId(id);
             slideRepository.save(slide);
             return slideMapper.slideEntity2Dto(slide);
@@ -117,6 +116,7 @@ public class SlideServiceImpl implements ISlideService {
         }
     }
 
+    @Override
     public SlideResponseDto getById(Long id) throws EntityNotFoundException{
         Slide slide = slideRepository.getById(id);
         if(slide==null){
@@ -125,3 +125,5 @@ public class SlideServiceImpl implements ISlideService {
         return slideMapper.slideEntity2Dto(slide);
     }
 }
+
+

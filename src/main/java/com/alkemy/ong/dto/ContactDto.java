@@ -28,5 +28,7 @@ public class ContactDto {
     @Email
     public String email;
 
+    private String message;
+
 
 }

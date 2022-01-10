@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 
 
@@ -23,7 +25,9 @@ import java.io.IOException;
 @Service
 public class EmailServiceImpl implements IEmailService {
 
+
     private final String endpoint = "mail/send";
+
     private static final String TEXT_HTML  = "text/html";
 
     @Value("${emailSettings.senderEmail}")
@@ -31,6 +35,9 @@ public class EmailServiceImpl implements IEmailService {
 
     @Autowired
     private Environment env;
+
+    @Autowired
+    private TemplateEngine templateEngine;
 
     @Autowired
     SendGrid sendGrid;
@@ -44,10 +51,14 @@ public class EmailServiceImpl implements IEmailService {
         Response response = new Response();
 
         try {
+
             Email fromEmail = new Email(this.senderEmail);
             Email toEmail = new Email(email);
+
             Mail mail = new Mail(fromEmail, subject, toEmail, content);
+
             SendGrid sendGrid = new SendGrid(apiKey);
+
             Request request = new Request();
             request.setMethod(Method.POST);
             request.setEndpoint(this.endpoint);
@@ -63,16 +74,38 @@ public class EmailServiceImpl implements IEmailService {
     }
 
     @Override
-    public Response sendWelcomeEmail(UserDtoRequest userRequestDto) {
-        return null;
-    }
-
-    @Override
     public Response sendContactRegisterEmail(ContactDto contact){
         Content content = new Content("text/plain", MailMessage.GetRegisterContactMsg(contact.getName()));
         Response response = sendEmail(contact.getEmail(), "Gracias por tu registro! ", content);
         return response;
     }
+
+
+    private String preparedWelcomeBodyEmail(UserDtoRequest user){
+
+        Context context = new Context();
+
+        context.setVariable("titleContent", MailMessage.REGISTER_TITLE.getValue());
+        context.setVariable("textContent", MailMessage.getWelcomeMsg(user.getFirstName(), user.getLastName()));
+        context.setVariable("facebookContact", MailMessage.CONTACT_FACEBOOK.getValue());
+        context.setVariable("instagramContact", MailMessage.CONTACT_INSTAGRAM.getValue());
+        context.setVariable("emailContact", MailMessage.CONTACT_MAIL.getValue());
+        context.setVariable("phoneContact", MailMessage.CONTACT_PHONE.getValue());
+        context.setVariable("imageResourceName", MailMessage.WELCOME_IMAGE.getValue());
+
+        return templateEngine.process("plantilla_email.html", context);
+
+    }
+
+    @Override
+    public Response sendWelcomeEmail(UserDtoRequest user) {
+        String mailBody = preparedWelcomeBodyEmail(user);
+        Content content = new Content(TEXT_HTML, mailBody);
+        Response response = sendEmail(user.getEmail(), MailMessage.WELCOME_SUBJECT.getValue(), content);
+        return response;
+    }
+
+
 
 
 
