@@ -2,6 +2,7 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.dto.CommentDto;
+import com.alkemy.ong.exception.NotEmptyException;
 import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.mapper.CommentMapper;
 import com.alkemy.ong.model.entity.Comment;
@@ -37,13 +38,13 @@ public class CommentServiceImpl implements ICommentService {
   @Override
   public CommentDto save(CommentDto commentDto){
     if(commentDto.getBody().trim().isEmpty()){
-      throw new NullPointerException(COMMENT_NOT_EMPTY_MESSAGE);
+      throw new NotEmptyException(COMMENT_NOT_EMPTY_MESSAGE);
     }
     if(commentDto.getNewsId() == null){
-      throw new NullPointerException(NEWSID_NOT_EMPTY_MESSAGE);
+      throw new NotEmptyException(NEWSID_NOT_EMPTY_MESSAGE);
     }
     if(commentDto.getUserId() == null){
-      throw new NullPointerException(USERID_NOT_EMPTY_MESSAGE);
+      throw new NotEmptyException(USERID_NOT_EMPTY_MESSAGE);
     }
     Comment commentEntity = commentMapper.commentDto2Entity(commentDto);
     Comment commentSaved = commentRepository.save(commentEntity);
