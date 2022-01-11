@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.sun.net.httpserver.HttpsServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,9 +51,10 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.update(id, categoryDto));
     }
 
-    @GetMapping("/page") //debe ser solo en el GET No /page VER PORQUE LIKE HASANYROLE NO FUNCIONA LA PETICION
-    Page<Category> pagination(@RequestParam(required = false, defaultValue = "10") int pageSize, @RequestParam int page) {
-        return categoryService.pagination(pageSize,page);
-           }
+    @GetMapping("/page")
+        //debe ser solo en el GET No /page VER PORQUE LIKE HASANYROLE NO FUNCIONA LA PETICION
+    ResponseEntity<Page<Category>> pagination(@RequestParam(required = false, defaultValue = "10") int pageSize, @RequestParam int page) {
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.pagination(pageSize, page));
+    }
 
 }

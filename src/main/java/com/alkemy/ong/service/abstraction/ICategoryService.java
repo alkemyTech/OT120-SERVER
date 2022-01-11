@@ -20,4 +20,5 @@ public interface ICategoryService {
   List<CategoryDto> findAll();
 
   Page<Category> pagination(int pageSize, int pageNumber);
+
 }

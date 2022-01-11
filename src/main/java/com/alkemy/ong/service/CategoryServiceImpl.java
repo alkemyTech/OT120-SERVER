@@ -7,6 +7,7 @@ import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
 
 import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -82,6 +83,11 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public Page<Category> pagination(int pageSize, int pageNumber) {
         Pageable page = PageRequest.of(pageNumber, pageSize);
+        Pageable prev = page.previousOrFirst();
+        Pageable next = page.next();
+
         return categoryRepository.findAll(page);
     }
+
+
 }
