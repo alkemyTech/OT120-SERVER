@@ -30,17 +30,17 @@ public class Comment {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "COMMENTS_ID", nullable = false)
   @Setter(AccessLevel.NONE)
-  private long id;
+  private Long id;
 
   @Column(name = "BODY", nullable = false)
   private String body;
 
-  @JoinColumn(name = "USERS_ID")
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "USERS_ID")
   private User userId;
 
-  @JoinColumn(name = "NEWS_ID")
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "NEWS_ID")
   private News newsId;
 
   @CreationTimestamp
