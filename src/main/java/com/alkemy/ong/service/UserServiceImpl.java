@@ -7,7 +7,6 @@ import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
-import com.alkemy.ong.enums.MailMessage;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.IUserRepository;
 import com.alkemy.ong.service.abstraction.IEmailService;
@@ -23,7 +22,6 @@ import com.alkemy.ong.service.abstraction.IUserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -72,7 +70,8 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         userRepository.save(user);
     }
 
-    private User getUser(Long id) {
+    @Override
+    public User getUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
             throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
@@ -149,4 +148,6 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     public List<UsersResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
     }
+
+
 }
