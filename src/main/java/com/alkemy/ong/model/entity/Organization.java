@@ -1,13 +1,9 @@
 package com.alkemy.ong.model.entity;
 
 import java.sql.Timestamp;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import lombok.AccessLevel;
+import java.util.*;
+import javax.persistence.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +17,13 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SQLDelete(sql = "UPDATE organizations SET is_deleted=true WHERE id=?")
-@Where(clause = "is_deleted=false")
+@SQLDelete(sql = "UPDATE organizations SET soft_delete=true WHERE id=?")
+@Where(clause = "soft_delete=false")
 @Table(name = "organizations")
 public class Organization {
 
   @Id
-  @Column(name = "ORGANIZATIONS_ID")
+  @Column(name = "ORGANIZATION_ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
@@ -67,5 +63,8 @@ public class Organization {
 
   @Column(name = "org_linkedin_url")
   private String linkedin;
+
+  @OneToMany(mappedBy = "organizationId", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private List<Slide> slideList = new ArrayList<>();
  
 }

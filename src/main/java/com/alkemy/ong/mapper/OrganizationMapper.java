@@ -1,5 +1,8 @@
 package com.alkemy.ong.mapper;
 
+import com.alkemy.ong.dto.SlideDtoOrganization;
+import com.alkemy.ong.dto.SlideRequestDto;
+import com.alkemy.ong.model.entity.Slide;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,6 +11,7 @@ import com.alkemy.ong.dto.OrganizationAllDto;
 import com.alkemy.ong.model.entity.Organization;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Component
 public class OrganizationMapper {
@@ -15,7 +19,10 @@ public class OrganizationMapper {
   @Autowired
   private ModelMapper modelMapper;
 
-  public OrganizationDto organizationEntity2Dto(Organization entity) {
+  @Autowired
+  private SlideMapper slideMapper;
+
+  public OrganizationDto organizationEntity2Dto(Organization entity, List<SlideDtoOrganization> slideDtoList) {
     OrganizationDto dto = new OrganizationDto();
     dto.setId(entity.getId());
     dto.setName(entity.getName());
@@ -25,6 +32,8 @@ public class OrganizationMapper {
     dto.setFacebook(entity.getFacebook());
     dto.setInstagram(entity.getInstagram());
     dto.setLinkedin(entity.getLinkedin());
+    dto.setSlideDtoList(slideDtoList);
+
     return dto;
   }
 
@@ -32,42 +41,42 @@ public class OrganizationMapper {
     return modelMapper.map(organizationDto, Organization.class);
   }
 
-    public Organization organizationDto2EntityAll(OrganizationAllDto dto) {
-        Organization entity = new Organization();
-        entity.setName(dto.getName());
-        entity.setImage(dto.getImage());
-        entity.setPhone(dto.getPhone());
-        entity.setAddress(dto.getAddress());
-        entity.setEmail(dto.getEmail());
-        entity.setWelcomeText(dto.getWelcomeText());
-        entity.setAboutUsText(dto.getAboutUsText());
-        entity.setTimeStamp(new Timestamp(System.currentTimeMillis()));
+  public Organization organizationDto2EntityAll(OrganizationAllDto dto) {
+      Organization entity = new Organization();
+      entity.setName(dto.getName());
+      entity.setImage(dto.getImage());
+      entity.setPhone(dto.getPhone());
+      entity.setAddress(dto.getAddress());
+      entity.setEmail(dto.getEmail());
+      entity.setWelcomeText(dto.getWelcomeText());
+      entity.setAboutUsText(dto.getAboutUsText());
+      entity.setTimeStamp(new Timestamp(System.currentTimeMillis()));
 
-        return entity;
-    }
+      return entity;
+  }
 
-    public OrganizationAllDto organizationEntity2DtoAll(Organization entity) {
-        OrganizationAllDto dto = new OrganizationAllDto();
-        dto.setName(entity.getName());
-        dto.setImage(entity.getImage());
-        dto.setPhone(entity.getPhone());
-        dto.setAddress(entity.getAddress());
-        dto.setEmail(entity.getEmail());
-        dto.setWelcomeText(entity.getWelcomeText());
-        dto.setAboutUsText(entity.getAboutUsText());
+  public OrganizationAllDto organizationEntity2DtoAll(Organization entity) {
+      OrganizationAllDto dto = new OrganizationAllDto();
+      dto.setName(entity.getName());
+      dto.setImage(entity.getImage());
+      dto.setPhone(entity.getPhone());
+      dto.setAddress(entity.getAddress());
+      dto.setEmail(entity.getEmail());
+      dto.setWelcomeText(entity.getWelcomeText());
+      dto.setAboutUsText(entity.getAboutUsText());
 
-        return dto;
-    }
+      return dto;
+  }
 
-    public Organization updateValues(OrganizationAllDto dto, Organization entity) {
-        entity.setName(dto.getName());
-        entity.setImage(dto.getImage());
-        entity.setPhone(dto.getPhone());
-        entity.setAddress(dto.getAddress());
-        entity.setEmail(dto.getEmail());
-        entity.setWelcomeText(dto.getWelcomeText());
-        entity.setAboutUsText(dto.getAboutUsText());
-        return entity;
-    }
+  public Organization updateValues(OrganizationAllDto dto, Organization entity) {
+      entity.setName(dto.getName());
+      entity.setImage(dto.getImage());
+      entity.setPhone(dto.getPhone());
+      entity.setAddress(dto.getAddress());
+      entity.setEmail(dto.getEmail());
+      entity.setWelcomeText(dto.getWelcomeText());
+      entity.setAboutUsText(dto.getAboutUsText());
+      return entity;
+  }
 
 }

@@ -1,10 +1,11 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CommentDto;
-import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.dto.CommentsBodyDto;
 import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.service.abstraction.ICommentService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
+
 
 @RestController
 @RequestMapping("/comments")
@@ -44,5 +45,9 @@ public class CommentController {
       commentsService.delete(id, authorizationHeader);
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
-
+  
+  @GetMapping(value = "/comments")
+  public ResponseEntity<List<CommentsBodyDto>> getCommentBody(){
+      return ResponseEntity.status(HttpStatus.OK).body(commentsService.getCommentsBody());
+  }
 }
