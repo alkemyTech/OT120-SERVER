@@ -37,11 +37,9 @@ public class TestimonialMapper {
     }
 
     private List<TestimonialRequestDto> toTestimonialDtoList(Page<Testimonial> testimonialPage) {
-
         List<TestimonialRequestDto> testimonialDtos = new ArrayList<>();
 
         if (testimonialPage.hasContent()) {
-
             testimonialDtos = testimonialPage.stream().map(testimonial -> {
                 return new TestimonialRequestDto(testimonial.getName(), testimonial.getImage(),testimonial.getContent());
             }).collect(Collectors.toList());
@@ -51,18 +49,14 @@ public class TestimonialMapper {
     }
 
     public PageDto<TestimonialRequestDto> toPageDto(Page<Testimonial>testimonialPage,Integer pageNumber,Integer totalPages) {
-
         PageDto<TestimonialRequestDto> pageDto = new PageDto<>();
-
         pageDto.setTotalPages(totalPages);
 
         if (testimonialPage.hasNext()) {
-
             pageDto.setNextPage("/alltestimonials?page=" + (pageNumber + 1));
         }
 
         if (testimonialPage.hasPrevious()) {
-
             pageDto.setPreviousPage("/alltestimonials?page=" + (pageNumber - 1));
         }
 
