@@ -6,6 +6,7 @@ import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
 
+import javassist.NotFoundException;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
 
     private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
+    private static final int SIZE_DEFAULT = 10;
 
     @Autowired
     private ICategoryRepository categoryRepository;
@@ -51,11 +53,11 @@ public class CategoryServiceImpl implements ICategoryService {
         return categoryOptional.get();
     }
 
-    public List<CategoryDto> findAll() {
-        return categoryRepository.findAll().stream()
-                .map(category -> categoryMapper.categoryToCategoryDto(category))
-                .collect(Collectors.toList());
-    }
+//    public List<CategoryDto> findAll() {
+//        return categoryRepository.findAll().stream()
+//                .map(category -> categoryMapper.categoryToCategoryDto(category))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public CategoryDto update(Long id, CategoryDto categoryDto) throws EntityNotFoundException {
@@ -90,4 +92,29 @@ public class CategoryServiceImpl implements ICategoryService {
     }
 
 
+    @Override
+    public List<CategoryDto> findAll() throws NotFoundException {
+        List<CategoryDto> dto = categoryRepository.findAll()
+                .stream()
+                .map(entity -> categoryMapper.categoryToCategoryDto(entity))
+                .collect(Collectors.toList());
+        if (dto.isEmpty()) {
+            throw new NotFoundException("Emtpy message");
+        }
+        return dto;
+    }
+
+    @Override
+    public Page<Category> readAll(Pageable pageable, int page) throws NotFoundException {
+        pageable = (Pageable) PageRequest.of(page, SIZE_DEFAULT);
+        if (page > categoryRepository.findAll(pageable).getTotalPages()) {
+            throw new NotFoundException("Page not found");
+        }
+        return categoryRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+    }
+
+    @Override
+    public Optional<Category> findByid(Long id) {
+        return categoryRepository.findById(id);
+    }
 }
