@@ -55,6 +55,7 @@ public class UserController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
+
   @GetMapping(value="/users")
   public ResponseEntity<List<UsersResponseDto>>getAllUsers(){
     return new ResponseEntity<List<UsersResponseDto>>(getAllUsers.getAllUsers(),HttpStatus.OK);

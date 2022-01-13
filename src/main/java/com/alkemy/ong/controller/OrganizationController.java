@@ -2,6 +2,8 @@ package com.alkemy.ong.controller;
 
 import javax.validation.Valid;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ public class OrganizationController {
   @Autowired
   private IOrganizationService organizationService;
 
+  //@ApiOperation(value="Fetch Category by Id", response=OrganizationDto.class, notes = "Buscar organizacion por id")
   @GetMapping("/{id}")
   public ResponseEntity<OrganizationDto> getOrganizationById(@PathVariable Long id) {
     OrganizationDto organization = organizationService.getById(id);

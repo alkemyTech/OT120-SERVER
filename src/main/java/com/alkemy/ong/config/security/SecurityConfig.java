@@ -52,6 +52,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/users/auth/register"
     };
 
+    private static final String[] SWAGGER = {
+            "/swagger-resources/**",
+            "/swagger-ui/**", "/v2/api-docs",
+            "/v3/api-docs",
+            "/api/docs",
+            "/api/docs/**",
+            "/api/docs/swagger-ui",
+            "/swagger-ui.html",
+            "/**/swagger-ui/**"
+    };
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
@@ -62,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(SWAGGER).permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/members").hasRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.PUT, "/members/{id}").hasRole(ApplicationRole.USER.getName())
