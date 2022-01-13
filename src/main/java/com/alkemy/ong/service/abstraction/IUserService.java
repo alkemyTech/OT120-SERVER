@@ -9,7 +9,6 @@ import javax.persistence.EntityNotFoundException;
 
 public interface IUserService {
 
-
     User findByEmail(String email);
 
     UserDtoResponse save(UserDtoRequest userRequestDto);
@@ -18,8 +17,11 @@ public interface IUserService {
 
     UserDtoResponse update(Long id, UserDtoRequest userDTORequest);
 
-
     User getInfoUser() throws NotFoundExceptions;
+
+    User getUser(Long id);
+
+
 
 
 }

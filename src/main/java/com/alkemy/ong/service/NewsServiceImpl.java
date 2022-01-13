@@ -52,7 +52,8 @@ public class NewsServiceImpl implements INewsService {
         newsRepository.save(news);
     }
 
-    private News getNews(Long id) {
+    @Override
+    public News getNews(Long id) {
         Optional<News> newsOptional = newsRepository.findById(id);
         if (newsOptional.isEmpty()) {
             throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);

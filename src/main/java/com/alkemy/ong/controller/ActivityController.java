@@ -29,7 +29,6 @@ public class ActivityController {
             for (ObjectError error : errorList) {
                 stringBuilder.append(error.getDefaultMessage());
             }
-
         }
         ActivityDto activitySaved = activityService.save(activityDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(activitySaved);
