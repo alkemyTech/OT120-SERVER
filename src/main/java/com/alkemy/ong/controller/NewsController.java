@@ -45,6 +45,6 @@ public class NewsController {
     @GetMapping("/{id}/comments")
     public ResponseEntity<List<Comment>> getCommentsForNewsId(@PathVariable Long id)
             throws EntityNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(newsService.findCommentsByNewsId(id));
+        return ResponseEntity.status(HttpStatus.OK).body(newsService.commentPerNews(id));
     }
 }

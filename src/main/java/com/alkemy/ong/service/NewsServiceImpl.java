@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.INewsService;
-
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NewsServiceImpl implements INewsService {
@@ -58,23 +58,24 @@ public class NewsServiceImpl implements INewsService {
         newsRepository.save(news);
     }
 
+
     @Override
-    public List<Comment> findCommentsByNewsId(Long id) {
-        List<Comment> comentariosPorNews = new ArrayList<>();
-        Comment comment = new Comment();
-        for (Comment comment1 : commentService.getAllComments()) {
-            if (comment1.getNewsId().equals(id)) {
-                comentariosPorNews.add(comment);
-            }
-        }
+    public List<Comment> commentPerNews(Long id) {
+        List<Comment> comentariosPorNews = commentService.getAllComments()
+                .stream()
+                .filter(comment -> comment.getNewsId().equals(id))
+                .collect(Collectors.toList());
+
         return comentariosPorNews;
     }
 
-    private News getNews(Long id) {
+    public News getNews(Long id) {
+
         Optional<News> newsOptional = newsRepository.findById(id);
         if (newsOptional.isEmpty()) {
             throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
         }
         return newsOptional.get();
     }
+
 }

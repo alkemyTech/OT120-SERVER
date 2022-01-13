@@ -20,11 +20,11 @@ import org.thymeleaf.context.Context;
 
 
 
-
 import java.io.IOException;
 
 @Service
 public class EmailServiceImpl implements IEmailService {
+
 
     private final String endpoint = "mail/send";
 

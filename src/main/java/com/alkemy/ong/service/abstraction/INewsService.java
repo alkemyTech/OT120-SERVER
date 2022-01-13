@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface INewsService {
 
+    News getNews(Long id);
+
     NewsDto findNewsById(Long id) throws OperationNotAllowedException;
 
     NewsDto postNews(NewsDto newsDto) throws FieldInvalidException;
@@ -20,5 +22,5 @@ public interface INewsService {
 
     void delete(Long id) throws EntityNotFoundException;
 
-    List<Comment> findCommentsByNewsId(Long id);
+    List<Comment> commentPerNews(Long id);
 }
