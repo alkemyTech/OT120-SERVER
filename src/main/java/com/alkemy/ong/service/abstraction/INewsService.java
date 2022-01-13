@@ -3,10 +3,12 @@ package com.alkemy.ong.service.abstraction;
 import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.dto.NewsDto;
+import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.News;
 
 import javax.persistence.EntityNotFoundException;
 import java.lang.reflect.Field;
+import java.util.List;
 
 public interface INewsService {
 
@@ -20,4 +22,5 @@ public interface INewsService {
 
     void delete(Long id) throws EntityNotFoundException;
 
+    List<Comment> commentPerNews(Long id);
 }

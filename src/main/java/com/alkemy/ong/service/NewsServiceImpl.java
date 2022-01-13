@@ -1,15 +1,18 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.mapper.NewsMapper;
+import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.News;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alkemy.ong.repository.INewsRepository;
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.INewsService;
-
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class NewsServiceImpl implements INewsService {
@@ -17,10 +20,13 @@ public class NewsServiceImpl implements INewsService {
     private static final String NEWS_NOT_FOUND_MESSAGE = "News not found.";
 
     @Autowired
-    INewsRepository newsRepository;
+    private INewsRepository newsRepository;
 
     @Autowired
-    NewsMapper newsMapper;
+    private NewsMapper newsMapper;
+
+    @Autowired
+    private CommentServiceImpl commentService;
 
     @Override
     public NewsDto findNewsById(Long id) throws EntityNotFoundException {
@@ -52,8 +58,19 @@ public class NewsServiceImpl implements INewsService {
         newsRepository.save(news);
     }
 
+
     @Override
+    public List<Comment> commentPerNews(Long id) {
+        List<Comment> comentariosPorNews = commentService.getAllComments()
+                .stream()
+                .filter(comment -> comment.getNewsId().equals(id))
+                .collect(Collectors.toList());
+
+        return comentariosPorNews;
+    }
+
     public News getNews(Long id) {
+
         Optional<News> newsOptional = newsRepository.findById(id);
         if (newsOptional.isEmpty()) {
             throw new EntityNotFoundException(NEWS_NOT_FOUND_MESSAGE);
