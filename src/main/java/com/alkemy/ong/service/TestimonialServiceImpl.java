@@ -4,7 +4,13 @@ import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
+import com.alkemy.ong.dto.PageDto;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.dto.TestimonialRequestDto;
@@ -54,5 +60,17 @@ public class TestimonialServiceImpl implements ITestimonialService {
     testimonialMapper.refreshValues(dto, entity);
     testimonialRepository.save(entity);
     return testimonialMapper.entity2Dto(testimonialRepository.getById(id));
+  }
+
+  @Override
+  public PageDto<TestimonialRequestDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundException {
+    Pageable pageable = PageRequest.of(page, sizePage, Sort.by(sortBy));
+    Page<Testimonial> pageRecovered = testimonialRepository.findAll(pageable);
+    Integer totalPages=pageRecovered.getTotalPages();
+
+    if(totalPages<page) {
+      throw new NotFoundException("The page does not exists");
+    }
+    return testimonialMapper.toPageDto(pageRecovered, page,totalPages);
   }
 }
