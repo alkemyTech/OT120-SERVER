@@ -1,4 +1,4 @@
-package com.alkemy.ong.dto.mapper;
+package com.alkemy.ong.mapper;
 
 
 import java.util.ArrayList;

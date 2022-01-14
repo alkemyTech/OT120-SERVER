@@ -1,4 +1,4 @@
-package com.alkemy.ong.dto.mapper;
+package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.dto.ActivityDto;
 import com.alkemy.ong.model.entity.Activity;

@@ -4,7 +4,7 @@ import com.alkemy.ong.common.JwtUtil;
 
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.dto.UsersResponseDto;
-import com.alkemy.ong.dto.mapper.UserMapper;
+import com.alkemy.ong.mapper.UserMapper;
 import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
 import com.alkemy.ong.enums.exception.ParamNotFound;
@@ -70,7 +70,8 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         userRepository.save(user);
     }
 
-    private User getUser(Long id) {
+    @Override
+    public User getUser(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty() || userOptional.get().isSoftDeleted()) {
             throw new EntityNotFoundException(USER_NOT_FOUND_MESSAGE);
@@ -147,4 +148,6 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     public List<UsersResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.alkemy.ong.controller;
 import com.alkemy.ong.dto.PageDto;
 import com.alkemy.ong.enums.exception.FieldInvalidException;
 import com.alkemy.ong.enums.exception.NotFoundExceptions;
+import com.alkemy.ong.model.entity.Comment;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.INewsService;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/news")
@@ -50,5 +52,11 @@ public class NewsController {
             @RequestParam(defaultValue = "10") Integer sizePage,
             @RequestParam(defaultValue = "id") String sortBy) throws NotFoundExceptions {
         return new ResponseEntity<>(newsService.getPage(page, sizePage, sortBy), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<List<Comment>> getCommentsForNewsId(@PathVariable Long id)
+            throws EntityNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(newsService.commentPerNews(id));
     }
 }

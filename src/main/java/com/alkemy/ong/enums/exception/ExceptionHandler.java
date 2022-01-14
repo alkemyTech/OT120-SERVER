@@ -80,6 +80,8 @@ public class ExceptionHandler {
   }
 
 
+
+
   private ErrorResponse buildResponse(Exception e, HttpStatus httpStatus) {
     return new ErrorResponse(e, httpStatus.value());
   }
@@ -88,6 +90,7 @@ public class ExceptionHandler {
     return new ErrorResponse(message, httpStatus.value());
   }
 
+
   @org.springframework.web.bind.annotation.ExceptionHandler(ParamNotFound.class)
   public ResponseEntity<ErrorResponse> paramDtoEmptyException(
           HttpServletRequest request,
@@ -95,5 +98,15 @@ public class ExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(buildResponse(e,HttpStatus.BAD_REQUEST));
   }
+
+  @org.springframework.web.bind.annotation.ExceptionHandler(NotEmptyException.class)
+  public ResponseEntity<ErrorResponse> handledNotEmptyException(
+          HttpServletRequest request,
+          Exception e){
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(buildResponse(e,HttpStatus.BAD_REQUEST));
+  }
+
+
 
 }
