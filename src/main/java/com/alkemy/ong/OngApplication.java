@@ -23,15 +23,4 @@ public class OngApplication {
         SpringApplication.run(OngApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner run(ICategoryRepository categoryRepository) {
-        return args -> IntStream.rangeClosed(1, 12).forEach(i -> {
-            Category category = new Category();
-            category.setName("user" + i);
-            category.setImage(i + "jpg");
-            category.setDescription(i + "decripcion Lorem ipsum");
-            categoryRepository.save(category);
-        });
-    }
-
 }
