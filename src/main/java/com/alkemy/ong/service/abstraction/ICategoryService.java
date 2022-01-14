@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.abstraction;
 
+import com.alkemy.ong.dto.PageDto;
 import com.alkemy.ong.model.entity.Category;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,7 +15,7 @@ import java.util.Optional;
 
 public interface ICategoryService {
 
-   
+
     void delete(Long id) throws EntityNotFoundException;
 
     CategoryDto update(Long id, CategoryDto categoryDto) throws EntityNotFoundException;
@@ -23,11 +24,12 @@ public interface ICategoryService {
 
     Category getCategory(Long id);
 
-    List<CategoryDto> findAll() throws NotFoundException;
-
-    Page<Category> readAll(Pageable pageable, int page) throws NotFoundException;
-
-    Page<Category> pagination(int pageSize, int pageNumber);
-
-    Optional<Category> findByid(Long id);
+    //    List<CategoryDto> findAll() throws NotFoundException;
+//
+//    Page<Category> readAll(Pageable pageable, int page) throws NotFoundException;
+//
+//    Page<Category> pagination(int pageSize, int pageNumber);
+//
+//    Optional<Category> findByid(Long id);
+    PageDto<CategoryDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundException;
 }

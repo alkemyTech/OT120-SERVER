@@ -1,5 +1,6 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.dto.PageDto;
 import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.dto.CategoryDto;
@@ -18,6 +19,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -82,39 +84,51 @@ public class CategoryServiceImpl implements ICategoryService {
         return result;
     }
 
+//    @Override
+//    public Page<Category> pagination(int pageSize, int pageNumber) {
+//        Pageable page = PageRequest.of(pageNumber, pageSize);
+//        Pageable prev = page.previousOrFirst();
+//        Pageable next = page.next();
+//
+//        return categoryRepository.findAll(page);
+//    }
+
+
+//    @Override
+//    public List<CategoryDto> findAll() throws NotFoundException {
+//        List<CategoryDto> dto = categoryRepository.findAll()
+//                .stream()
+//                .map(entity -> categoryMapper.categoryToCategoryDto(entity))
+//                .collect(Collectors.toList());
+//        if (dto.isEmpty()) {
+//            throw new NotFoundException("Emtpy message");
+//        }
+//        return dto;
+//    }
+//
+//    @Override
+//    public Page<Category> readAll(Pageable pageable, int page) throws NotFoundException {
+//        pageable = (Pageable) PageRequest.of(page, SIZE_DEFAULT);
+//        if (page > categoryRepository.findAll(pageable).getTotalPages()) {
+//            throw new NotFoundException("Page not found");
+//        }
+//        return categoryRepository.findAll((org.springframework.data.domain.Pageable) pageable);
+//    }
+//
+//    @Override
+//    public Optional<Category> findByid(Long id) {
+//        return categoryRepository.findById(id);
+//    }
+
     @Override
-    public Page<Category> pagination(int pageSize, int pageNumber) {
-        Pageable page = PageRequest.of(pageNumber, pageSize);
-        Pageable prev = page.previousOrFirst();
-        Pageable next = page.next();
+    public PageDto<CategoryDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundException {
+        Pageable pageable = PageRequest.of(page, sizePage, Sort.by(sortBy));
+        Page<Category> pageRecovered = categoryRepository.findAll(pageable);
+        Integer totalPages = pageRecovered.getTotalPages();
 
-        return categoryRepository.findAll(page);
-    }
-
-
-    @Override
-    public List<CategoryDto> findAll() throws NotFoundException {
-        List<CategoryDto> dto = categoryRepository.findAll()
-                .stream()
-                .map(entity -> categoryMapper.categoryToCategoryDto(entity))
-                .collect(Collectors.toList());
-        if (dto.isEmpty()) {
-            throw new NotFoundException("Emtpy message");
+        if (totalPages < page) {
+            throw new NotFoundException("The page does not exists");
         }
-        return dto;
-    }
-
-    @Override
-    public Page<Category> readAll(Pageable pageable, int page) throws NotFoundException {
-        pageable = (Pageable) PageRequest.of(page, SIZE_DEFAULT);
-        if (page > categoryRepository.findAll(pageable).getTotalPages()) {
-            throw new NotFoundException("Page not found");
-        }
-        return categoryRepository.findAll((org.springframework.data.domain.Pageable) pageable);
-    }
-
-    @Override
-    public Optional<Category> findByid(Long id) {
-        return categoryRepository.findById(id);
+        return categoryMapper.toPageDto(pageRecovered, page, totalPages);
     }
 }

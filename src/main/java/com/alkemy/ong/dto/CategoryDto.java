@@ -1,19 +1,18 @@
 package com.alkemy.ong.dto;
 
-import java.io.Serializable;
-
-import com.alkemy.ong.model.entity.Category;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.hateoas.RepresentationModel;
+
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryDto extends RepresentationModel<Category> implements Serializable{
+@AllArgsConstructor
+public class CategoryDto {
 
     @NotEmpty (message = "El nombre no puede estar vacío ni ser nulo")
     private String name;

@@ -5,6 +5,9 @@ import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.service.abstraction.ICategoryService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
+import org.springframework.web.bind.annotation.*;
+import com.alkemy.ong.dto.PageDto;
+import javassist.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletResponse;
@@ -66,25 +69,13 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.update(id, categoryDto));
     }
 
-//    @GetMapping("/page")
-//    //debe ser solo en el GET No /page VER PORQUE LIKE HASANYROLE NO FUNCIONA LA PETICION
-//    //VER DE BORRAR LO QUE ESTE DE MAS Y LA INYECCION DE CATEGORIAS, CREO QN EN EL MAIN ERA
-//    public ResponseEntity<Page<Category>> pagination(@RequestParam(required = false, defaultValue = "10") int pageSize, @RequestParam int page) {
-//        return ResponseEntity.status(HttpStatus.OK).body(categoryService.pagination(pageSize, page));
-//    }
 
+    @GetMapping(params = "allcategories")
+    public ResponseEntity<PageDto<CategoryDto>> getPage(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer sizePage,
+            @RequestParam(defaultValue = "id") String sortBy) throws NotFoundException {
+        return new ResponseEntity<>(categoryService.getPage(page, sizePage, sortBy), HttpStatus.OK);
 
-    @GetMapping(params = "page")
-    public ResponseEntity<PagedModel<CategoryDto>> findAll(Pageable pageable, @RequestParam("page") int page) throws NotFoundException {
-        Page<Category> entity = categoryService.readAll(pageable, page);
-        PagedModel<CategoryDto> dto = pagedResourcesAssembler.toModel(entity, categoryAssembler);
-
-        return new ResponseEntity<PagedModel<CategoryDto>>(dto, HttpStatus.OK);
-
-    }
-
-
-    public Optional<Category> findById(Long id) {
-        return categoryService.findByid(id);
     }
 }
