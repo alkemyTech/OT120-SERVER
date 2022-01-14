@@ -144,6 +144,10 @@
           <version>2.1.10</version>
       </dependency>
      -->
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-hateoas</artifactId>
+      </dependency>
   </dependencies>
   <description>ONG project with Spring Boot</description>
   <groupId>com.alkemy</groupId>

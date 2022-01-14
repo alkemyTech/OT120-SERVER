@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 
+import com.alkemy.ong.dto.MemberPageDto;
 import com.alkemy.ong.dto.MemberRequestDto;
 import com.alkemy.ong.dto.MemberDto;
 import com.alkemy.ong.exception.EmptyListException;
@@ -14,11 +15,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -77,13 +77,15 @@ public class MemberServiceImpl implements IMembersService {
   }
 
   @Override
-  public Page<MemberDto> findAll(Pageable pageable) {
-    Page<Member> members = memberRepository.findAll(pageable);
-    List<MemberDto> membersDto = memberMapper.memberEntities2membersDto(members.getContent());
-    if(membersDto.isEmpty()){
-      throw new EmptyListException(MEMBER_LIST_EMPTY_MESSAGE);
+  public MemberPageDto<MemberDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundException {
+    Pageable pageable = PageRequest.of(page, sizePage, Sort.by(sortBy));
+    Page<Member> pageRecovered = memberRepository.findAll(pageable);
+    Integer totalPages = pageRecovered.getTotalPages();
+
+    if (totalPages < page) {
+      throw new NotFoundException("The page does not exists");
     }
-    return new PageImpl<>(membersDto, pageable, members.getTotalElements());
+    return memberMapper.toPageDto(pageRecovered, page, totalPages);
   }
 
 }

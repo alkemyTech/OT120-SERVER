@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IMemberRepository extends JpaRepository<Member, Long> {
 
-    //Page<Member> findBy(Pageable pageable);
 }
