@@ -25,7 +25,7 @@ public class OngApplication {
 
     @Bean
     CommandLineRunner run(ICategoryRepository categoryRepository) {
-        return args -> IntStream.rangeClosed(1, 30).forEach(i -> {
+        return args -> IntStream.rangeClosed(1, 12).forEach(i -> {
             Category category = new Category();
             category.setName("user" + i);
             category.setImage(i + "jpg");
@@ -33,4 +33,5 @@ public class OngApplication {
             categoryRepository.save(category);
         });
     }
+
 }

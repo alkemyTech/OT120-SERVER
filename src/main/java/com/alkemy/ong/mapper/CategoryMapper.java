@@ -52,12 +52,12 @@ public class CategoryMapper {
 
         if (categoryPage.hasNext()) {
 
-            pageDto.setNextPage("/allcategories?page=" + (pageNumber + 1));
+            pageDto.setNextPage("/page?page=" + (pageNumber + 1));
         }
 
         if (categoryPage.hasPrevious()) {
 
-            pageDto.setPreviousPage("/allcategories?page=" + (pageNumber - 1));
+            pageDto.setPreviousPage("/page?page=" + (pageNumber - 1));
         }
         pageDto.setList(toCategoryDtoList((categoryPage)));
         return pageDto;

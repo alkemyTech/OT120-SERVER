@@ -82,7 +82,12 @@ public class CommentServiceImpl implements ICommentService {
           }
     }
 
-    private Comment getComment(Long id) {
+  public List<Comment> getAllComments() {
+    return commentRepository.findAll();
+  }
+
+
+  private Comment getComment(Long id) {
       Optional<Comment> commentOptional = commentRepository.findById(id);
           if (commentOptional.isEmpty()) {
               throw new EntityNotFoundException(COMMENT_NOT_FOUND_MESSAGE);

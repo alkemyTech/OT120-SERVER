@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.assembler.CategoryAssembler;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.service.abstraction.ICategoryService;
@@ -10,24 +9,13 @@ import com.alkemy.ong.dto.PageDto;
 import javassist.NotFoundException;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletResponse;
 
-import com.sun.net.httpserver.HttpsServer;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.hateoas.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/categories")
@@ -35,9 +23,6 @@ public class CategoryController {
 
     @Autowired
     private ICategoryService categoryService;
-
-    @Autowired
-    private CategoryAssembler categoryAssembler;
 
     @Autowired
     private PagedResourcesAssembler<Category> pagedResourcesAssembler;
@@ -53,10 +38,10 @@ public class CategoryController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping
-//    public ResponseEntity<List<CategoryDto>> findAll() throws Exception {
-//        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
-//    }
+    @GetMapping
+    public ResponseEntity<List<CategoryDto>> findAll() throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> getOne(@PathVariable long id) throws EntityNotFoundException {
@@ -70,7 +55,7 @@ public class CategoryController {
     }
 
 
-    @GetMapping(params = "allcategories")
+    @GetMapping(value = "page")
     public ResponseEntity<PageDto<CategoryDto>> getPage(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "10") Integer sizePage,
