@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.MemberRequestDto;
-import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.enums.exception.FieldInvalidException;
 import com.alkemy.ong.dto.MemberDto;
 import com.alkemy.ong.service.abstraction.IMembersService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;

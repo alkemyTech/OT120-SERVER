@@ -1,8 +1,8 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.ActivityDto;
-import com.alkemy.ong.exception.OperationNotAllowedException;
-import com.alkemy.ong.mapper.ActivityMapper;
+import com.alkemy.ong.enums.exception.OperationNotAllowedException;
+import com.alkemy.ong.dto.mapper.ActivityMapper;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.repository.IActivityRepository;
 import com.alkemy.ong.service.abstraction.IActivityService;

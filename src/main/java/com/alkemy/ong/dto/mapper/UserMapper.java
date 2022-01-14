@@ -1,4 +1,4 @@
-package com.alkemy.ong.mapper;
+package com.alkemy.ong.dto.mapper;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;

@@ -2,10 +2,10 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.SlideDtoOrganization;
 import com.alkemy.ong.dto.SlideRequestDto;
-import com.alkemy.ong.exception.NotFoundExceptions;
-import com.alkemy.ong.mapper.SlideMapper;
+import com.alkemy.ong.enums.exception.NotFoundExceptions;
+import com.alkemy.ong.dto.mapper.SlideMapper;
 import com.alkemy.ong.dto.SlideResponseDto;
-import com.alkemy.ong.mapper.OrganizationMapper;
+import com.alkemy.ong.dto.mapper.OrganizationMapper;
 import com.alkemy.ong.model.entity.Organization;
 import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.repository.IOrganizationRepository;

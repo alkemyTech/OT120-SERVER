@@ -1,4 +1,4 @@
-package com.alkemy.ong.mapper;
+package com.alkemy.ong.dto.mapper;
 
 import com.alkemy.ong.dto.ContactDto;
 import com.alkemy.ong.model.entity.Contact;

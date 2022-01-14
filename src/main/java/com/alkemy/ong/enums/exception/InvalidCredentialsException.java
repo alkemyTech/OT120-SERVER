@@ -1,4 +1,4 @@
-package com.alkemy.ong.exception;
+package com.alkemy.ong.enums.exception;
 
 public class InvalidCredentialsException extends Exception {
 

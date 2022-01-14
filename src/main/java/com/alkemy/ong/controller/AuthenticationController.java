@@ -2,8 +2,8 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.LoginRequestDto;
 import com.alkemy.ong.dto.TokenDto;
-import com.alkemy.ong.exception.InvalidCredentialsException;
-import com.alkemy.ong.exception.NotFoundExceptions;
+import com.alkemy.ong.enums.exception.InvalidCredentialsException;
+import com.alkemy.ong.enums.exception.NotFoundExceptions;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.service.AuthenticationService;
 import com.alkemy.ong.service.abstraction.IUserService;

@@ -1,8 +1,6 @@
-package com.alkemy.ong.mapper;
+package com.alkemy.ong.dto.mapper;
 
 import com.alkemy.ong.dto.SlideDtoOrganization;
-import com.alkemy.ong.dto.SlideRequestDto;
-import com.alkemy.ong.model.entity.Slide;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.mapper.CategoryMapper;
+import com.alkemy.ong.dto.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;

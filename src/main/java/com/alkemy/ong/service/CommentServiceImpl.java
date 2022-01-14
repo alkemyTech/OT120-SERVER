@@ -2,8 +2,8 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.dto.CommentsBodyDto;
-import com.alkemy.ong.exception.OperationNotAllowedException;
-import com.alkemy.ong.mapper.CommentsMapper;
+import com.alkemy.ong.enums.exception.OperationNotAllowedException;
+import com.alkemy.ong.dto.mapper.CommentsMapper;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.Role;
 import com.alkemy.ong.model.entity.User;

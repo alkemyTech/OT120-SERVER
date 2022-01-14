@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.ong.dto.TestimonialRequestDto;
-import com.alkemy.ong.mapper.TestimonialMapper;
+import com.alkemy.ong.dto.mapper.TestimonialMapper;
 import com.alkemy.ong.model.entity.Testimonial;
 import com.alkemy.ong.repository.ITestimonialRepository;
 import com.alkemy.ong.service.abstraction.ITestimonialService;

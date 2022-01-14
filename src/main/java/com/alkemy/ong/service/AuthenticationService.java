@@ -5,7 +5,7 @@ import com.alkemy.ong.common.JwtUtil;
 import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.dto.LoginRequestDto;
 import com.alkemy.ong.dto.TokenDto;
-import com.alkemy.ong.exception.InvalidCredentialsException;
+import com.alkemy.ong.enums.exception.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

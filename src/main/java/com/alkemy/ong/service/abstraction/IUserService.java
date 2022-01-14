@@ -2,7 +2,7 @@ package com.alkemy.ong.service.abstraction;
 
 import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
-import com.alkemy.ong.exception.NotFoundExceptions;
+import com.alkemy.ong.enums.exception.NotFoundExceptions;
 import com.alkemy.ong.model.entity.User;
 import javax.persistence.EntityNotFoundException;
 

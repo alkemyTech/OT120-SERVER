@@ -1,6 +1,6 @@
 package com.alkemy.ong.service.abstraction;
 
-import com.alkemy.ong.exception.OperationNotAllowedException;
+import com.alkemy.ong.enums.exception.OperationNotAllowedException;
 
 public interface ICommentsService {
 
