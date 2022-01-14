@@ -130,23 +130,20 @@
       <artifactId>thymeleaf</artifactId>
       <version>3.0.12.RELEASE</version>
     </dependency>
-
-
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-s3</artifactId>
       <version>1.11.343</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-hateoas</artifactId>
     </dependency>
       <!-- SWAGGER -->
       <dependency>
           <groupId>org.springdoc</groupId>
           <artifactId>springdoc-openapi-ui</artifactId>
           <version>1.6.3</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-hateoas</artifactId>
       </dependency>
       <dependency>
           <groupId>io.springfox</groupId>
@@ -163,8 +160,6 @@
           <artifactId>springfox-swagger-ui</artifactId>
           <version>3.0.0</version>
       </dependency>
-
-
   </dependencies>
   <description>ONG project with Spring Boot</description>
   <groupId>com.alkemy</groupId>
