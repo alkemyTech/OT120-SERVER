@@ -22,11 +22,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeleteUserIntegrationTest extends AbstractBaseIntegrationTest {
 
-  private final String PATH = "/users/" + USER_ID;
+  private final String PATH = "/users" + USER_ID;
 
   @Test
   public void shouldReturnForbiddenWhenUserIsNotUserRole() {
-    setAuthorizationHeaderBasedOn(ApplicationRole.ADMIN.getFullRoleName());
+    setAuthorizationHeaderBasedOn(ApplicationRole.ADMIN.getName());
 
     ResponseEntity<Object> response = restTemplate.exchange(
         createURLWithPort(PATH),
@@ -35,12 +35,13 @@ public class DeleteUserIntegrationTest extends AbstractBaseIntegrationTest {
         Object.class);
 
     assertEquals(response.getStatusCode(), HttpStatus.FORBIDDEN);
+    System.out.println("Rol equivocado");
   }
 
   @Test
   public void shouldReturnNotFoundWhenIdNoExist() {
     when(userRepository.findById(eq(USER_ID))).thenReturn(Optional.empty());
-    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getFullRoleName());
+    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getName());
 
     ResponseEntity<ErrorResponse> response = restTemplate.exchange(
         createURLWithPort(PATH),
@@ -54,10 +55,10 @@ public class DeleteUserIntegrationTest extends AbstractBaseIntegrationTest {
 
   @Test
   public void shouldSoftDeleteUserSuccessfully() {
-    User user = stubUser(ApplicationRole.USER.getFullRoleName());
+    User user = stubUser(ApplicationRole.USER.getName());
     when(userRepository.findById(eq(USER_ID))).thenReturn(Optional.of(user));
     when(userRepository.save(eq(user))).thenReturn(user);
-    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getFullRoleName());
+    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getName());
 
     ResponseEntity<Object> response = restTemplate.exchange(
         createURLWithPort(PATH),
