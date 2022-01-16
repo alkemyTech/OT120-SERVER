@@ -19,6 +19,8 @@ import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -99,7 +101,7 @@ public class SlideServiceImpl implements ISlideService {
     }
 
     @Override
-    public SlideDto save(SlideDto slideDto) throws EntityNotFoundException {
+    public SlideDto save(SlideDto slideDto) throws EntityNotFoundException, IOException {
         int order = getSlideOrder(slideDto.getOrder());
 
         Slide slide = slideMapper.slideDTO2Entity(slideDto, order);

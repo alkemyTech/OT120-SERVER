@@ -1,4 +1,4 @@
-package com.alkemy.ong.dto;
+package com.alkemy.ong.model.dto;
 
 import com.alkemy.ong.model.entity.User;
 import lombok.AllArgsConstructor;

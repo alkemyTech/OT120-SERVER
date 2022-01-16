@@ -1,4 +1,4 @@
-package com.alkemy.ong.dto;
+package com.alkemy.ong.model.dto;
 
 import java.sql.Timestamp;
 import java.util.List;

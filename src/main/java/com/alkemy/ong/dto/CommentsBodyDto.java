@@ -1,5 +1,5 @@
 
-package com.alkemy.ong.dto;
+package com.alkemy.ong.model.dto;
 
 import java.io.Serializable;
 import lombok.Getter;

@@ -1,22 +1,22 @@
 package com.alkemy.ong.mapper;
 
+import com.alkemy.ong.dto.Base64MultipartFileDto;
 import com.alkemy.ong.dto.SlideDto;
 import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
+import com.alkemy.ong.service.abstraction.IUploadImageService;
 import org.springframework.stereotype.Component;
 
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.dto.SlideResponseDto;
-import com.alkemy.ong.model.entity.Slide;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -28,6 +28,9 @@ public class SlideMapper {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    IUploadImageService uploadImageService;
 
     public SlideResponseDto slideEntity2Dto(Slide entity) {
         return modelMapper.map(entity, SlideResponseDto.class);
@@ -51,7 +54,7 @@ public class SlideMapper {
         return slidesDtoList;
     }
 
-    public Slide slideDTO2Entity(SlideDto slideDto, int order) throws EntityNotFoundException {
+    public Slide slideDTO2Entity(SlideDto slideDto, int order) throws EntityNotFoundException, IOException {
         Slide slide = new Slide();
         slide.setImageUrl(encodeImage(slideDto.getImageUrl()));
         slide.setText(slideDto.getText());
@@ -72,17 +75,13 @@ public class SlideMapper {
         return slideDTO;
     }
 
-    private String encodeImage(String imgUrl) throws EntityNotFoundException {
+    private String encodeImage(String imgUrl) throws EntityNotFoundException, IOException {
 
-        Base64.Encoder encoder = Base64.getEncoder();
-        byte[] encoded = encoder.encode(imgUrl.getBytes(StandardCharsets.UTF_8));
-        return new String(encoded);
+        byte[] encoded = Base64.getDecoder().decode(imgUrl);
+        Base64MultipartFileDto file = new Base64MultipartFileDto(encoded);
+        file.setName(UUID.randomUUID().toString() + ".jpg");
+
+        return uploadImageService.uploadImage(file);
     }
 
-    private String decodeImage(String imgUrl) throws EntityNotFoundException {
-
-        Base64.Decoder decoder = Base64.getDecoder();
-        byte[] decoded = decoder.decode(imgUrl.getBytes(StandardCharsets.UTF_8));
-        return new String(decoded);
-    }
 }
