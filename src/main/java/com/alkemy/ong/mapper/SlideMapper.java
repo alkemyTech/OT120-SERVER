@@ -51,11 +51,11 @@ public class SlideMapper {
         return slidesDtoList;
     }
 
-    public Slide slideDTO2Entity(SlideDto slideDto) throws EntityNotFoundException {
+    public Slide slideDTO2Entity(SlideDto slideDto, int order) throws EntityNotFoundException {
         Slide slide = new Slide();
         slide.setImageUrl(encodeImage(slideDto.getImageUrl()));
         slide.setText(slideDto.getText());
-        slide.setOrder(slideDto.getOrder());
+        slide.setOrder(order);
         slide.setOrganizationId(organizationService.getOrganizationId(slideDto.getOrganizationId()));
 
         return slide;

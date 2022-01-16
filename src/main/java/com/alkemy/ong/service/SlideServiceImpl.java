@@ -98,12 +98,22 @@ public class SlideServiceImpl implements ISlideService {
 
     @Override
     public SlideDto save(SlideDto slideDto) throws EntityNotFoundException {
+        int order = getSlideOrder(slideDto.getOrder());
 
-        Slide slide = slideMapper.slideDTO2Entity(slideDto);
+        Slide slide = slideMapper.slideDTO2Entity(slideDto, order);
         Slide slideSaved = slideRepository.save(slide);
         SlideDto result = slideMapper.slideEntity2DTO(slideSaved);
 
         return result;
     }
+
+    private int getSlideOrder(int order) {
+        if (order == 0) {
+            return slideRepository.getMaxOrder() + 1;
+        }
+        return order;
+    }
+
+
 }
 
