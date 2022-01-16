@@ -1,5 +1,6 @@
 package com.alkemy.ong.config.security;
 
+import com.alkemy.ong.config.ApplicationRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -16,8 +17,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import com.alkemy.ong.config.ApplicationRole;
 
 @EnableWebSecurity
 @Configuration
@@ -47,9 +46,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    private static final String[] publicEndpoint = {
+            "/swagger-resources/**",
+            "/swagger-ui/**", "/v2/api-docs",
+            "/v3/api-docs",
+            "/api/docs",
+            "/api/docs/**",
+            "/api/docs/swagger-ui",
+            "/swagger-ui.html",
+            "/**/swagger-ui/**",
+            "/auth/**",
+            "/auth/me",
+            "/users/auth/register",
+            "/users/auth/**",
+            "/news/{id}/comments"
+    };
+
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	
         http.csrf()
                 .disable()
                 .cors()
@@ -58,16 +73,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(unsecured).permitAll()
-                .antMatchers(HttpMethod.PUT, adminAndUserPutAuthorized).hasAnyAuthority(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.DELETE, adminAndUserDeleteAuthorized).hasAnyAuthority(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.POST, userPostAuthorized).hasAuthority(ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.PUT, userPutAuthorized).hasAuthority(ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.DELETE, userDeleteAuthorized).hasAuthority(ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.GET, adminGetAuthorized).hasAuthority(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.POST, adminPostAuthorized).hasAuthority(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.PUT, adminPutAuthorized).hasAuthority(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.DELETE, adminDeleteAuthorized).hasAuthority(ApplicationRole.ADMIN.getName())
+                .antMatchers(publicEndpoint).permitAll()
+                .antMatchers(HttpMethod.POST, "/members").hasRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.PUT, "/members/{id}").hasRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.GET, "/slides/**").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/organization/public/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.DELETE, "/categories/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/contact").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/members").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/members/page").hasRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.GET,"/organization/public/**").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/contacts/**").hasRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/testimonials/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/testimonials").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.DELETE, "/categories/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/users/**")
+                .hasAnyRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/testimonials/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/members/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/slides/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.GET,"/comments").hasAnyRole(ApplicationRole.ADMIN.getName())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -75,55 +118,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
     }
-        
-    final String[] unsecured = {
-            "/auth/**",
-            "/users/auth/**"
-    };
-    final String[] adminAndUserPutAuthorized = {
-    		"/comments/{id}"
-    };
-    
-    final String[] adminAndUserDeleteAuthorized = {
-    		"/categories/{id}",
-    		"/comments/{id}",
-    		"/members/{id}",
-    		"/testimonials/{id}"
-    };
-    
-    final String[] adminGetAuthorized = {
-    		"/comments",
-    		"/contact",
-    		"/news/{id}",
-     		"/organization/public/{id}",
-    		"/slides/{id}",
-    		"/users"
-    };
-    
-    final String[] adminPostAuthorized = {
-    		"/categories",
-    		"/testimonials"  	
-    };
-    
-    final String[] adminPutAuthorized = {
-    		"/slides/{id}",
-    };
-    
-    final String[] adminDeleteAuthorized = {
-    		"/slides/{id}",
-    };
-    
-    final String[] userPostAuthorized = {
-    		"/contacts/{id}",
-    		"/members"
-    };
-    
-    final String[] userPutAuthorized = {
-    		"/members/{id}"
-    };
-    
-    final String[] userDeleteAuthorized = {
-    		"/users/{id}"
-    };
-
 }

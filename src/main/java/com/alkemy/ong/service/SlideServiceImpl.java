@@ -1,6 +1,6 @@
 package com.alkemy.ong.service;
 
-
+import com.alkemy.ong.dto.SlideDtoOrganization;
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.mapper.SlideMapper;
@@ -29,7 +29,6 @@ public class SlideServiceImpl implements ISlideService {
     @Autowired
     private ISlideRepository slideRepository;
 
-
     @Autowired
     private SlideMapper slideMapper;
 
@@ -38,6 +37,9 @@ public class SlideServiceImpl implements ISlideService {
 
     @Autowired
     private OrganizationMapper organizationMapper;
+
+    @Autowired
+    private OrganizationServiceImpl organizationService;
 
     @Override
     public void delete(Long id) throws EntityNotFoundException {
@@ -64,6 +66,33 @@ public class SlideServiceImpl implements ISlideService {
         return listOrdered;
     }
 
+    @Override
+    public List<SlideDtoOrganization> orderSlideDtoOrganization(List<SlideDtoOrganization> inputSlideDtoList) {
+        if (inputSlideDtoList == null) {
+            throw new NotFoundExceptions(SLIDE_NOT_FOUND_MESSAGE);
+        }
+
+        Collections.sort(inputSlideDtoList, new Comparator<SlideDtoOrganization>() {
+            @Override
+            public int compare(SlideDtoOrganization one, SlideDtoOrganization two) {
+                return one.getOrder() - two.getOrder();
+            }
+        });
+
+        return inputSlideDtoList;
+    }
+
+    @Override
+    public List<SlideDtoOrganization> getOrganizationSlideList(Organization organization) {
+        if(organizationRepository.findById(organization.getId()).isPresent()) {
+
+            List<Slide> slideList = slideRepository.findAllByOrganizationId(organization);
+            return this.orderSlideDtoOrganization(slideMapper.slideList2DtoList(slideList));
+
+        } else {
+            throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
+        }
+    }
 
     @Override
     public SlideResponseDto update(long id, SlideRequestDto slideReqDto) throws EntityNotFoundException {
@@ -87,15 +116,14 @@ public class SlideServiceImpl implements ISlideService {
         }
     }
 
-
-
+    @Override
     public SlideResponseDto getById(Long id) throws EntityNotFoundException{
         Slide slide = slideRepository.getById(id);
         if(slide==null){
             throw new EntityNotFoundException(SLIDE_NOT_FOUND_MESSAGE);
         }
-    return slideMapper.slideEntity2Dto(slide);
+        return slideMapper.slideEntity2Dto(slide);
     }
-
 }
+
 

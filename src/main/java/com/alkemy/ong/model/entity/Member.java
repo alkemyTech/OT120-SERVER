@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.hateoas.RepresentationModel;
 
 @Entity
 @Table(name = "MEMBERS")
@@ -20,7 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+public class Member extends RepresentationModel<Member> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

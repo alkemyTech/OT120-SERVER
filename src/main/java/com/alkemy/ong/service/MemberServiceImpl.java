@@ -1,9 +1,11 @@
 package com.alkemy.ong.service;
 
 
+import com.alkemy.ong.dto.MemberPageDto;
 import com.alkemy.ong.dto.MemberRequestDto;
 import com.alkemy.ong.dto.MemberDto;
 import com.alkemy.ong.exception.EmptyListException;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.mapper.MemberMapper;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.repository.IMemberRepository;
@@ -13,7 +15,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -71,5 +76,16 @@ public class MemberServiceImpl implements IMembersService {
     return result;
   }
 
+  @Override
+  public MemberPageDto<MemberDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundException {
+    Pageable pageable = PageRequest.of(page, sizePage, Sort.by(sortBy));
+    Page<Member> pageRecovered = memberRepository.findAll(pageable);
+    Integer totalPages = pageRecovered.getTotalPages();
+
+    if (totalPages < page) {
+      throw new NotFoundException("The page does not exists");
+    }
+    return memberMapper.toPageDto(pageRecovered, page, totalPages);
+  }
 
 }

@@ -1,8 +1,7 @@
 package com.alkemy.ong.model.entity;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
