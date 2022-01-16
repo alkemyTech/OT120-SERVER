@@ -66,6 +66,7 @@ public class CommentController {
 		  @RequestHeader(value = "Authorization") String authorizationHeader)
       throws OperationNotAllowedException {
     commentsService.update(id, dto, authorizationHeader);
+    
     return new ResponseEntity<>(HttpStatus.OK);
   }
 }
