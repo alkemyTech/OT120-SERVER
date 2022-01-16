@@ -49,10 +49,10 @@ public abstract class AbstractBaseIntegrationTest {
 
   protected User stubUser(String role) {
     return new User(USER_ID,
-        "John",
-        "Doe",
-        "johnny@gmail.com",
-        "123456789",
+        "abel",
+        "fernando",
+        "marzoa3581@gmail.com",
+        "Abel3581",
         "https://foo.jpg",
         Lists.list(stubRole(role)),
         Timestamp.from(Instant.now()),
