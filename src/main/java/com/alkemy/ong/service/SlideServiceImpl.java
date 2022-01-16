@@ -3,7 +3,9 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.SlideDto;
 import com.alkemy.ong.dto.SlideRequestDto;
+import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.exception.NotFoundExceptions;
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.SlideMapper;
 import com.alkemy.ong.dto.SlideResponseDto;
 import com.alkemy.ong.mapper.OrganizationMapper;
@@ -107,9 +109,13 @@ public class SlideServiceImpl implements ISlideService {
         return result;
     }
 
-    private int getSlideOrder(int order) {
+    private int getSlideOrder(int order) throws ParamNotFound{
         if (order == 0) {
             return slideRepository.getMaxOrder() + 1;
+        }
+
+        if (slideRepository.existsByOrder(order)) {
+            throw new ParamNotFound("The selected slide order number already exists.");
         }
         return order;
     }

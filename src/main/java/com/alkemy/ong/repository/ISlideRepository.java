@@ -16,4 +16,7 @@ public interface ISlideRepository extends JpaRepository<Slide, Long> {
 
     @Query(value = "select max(s.order) from Slide s")
     int getMaxOrder();
+
+    boolean existsByOrder(int order);
+
 }
