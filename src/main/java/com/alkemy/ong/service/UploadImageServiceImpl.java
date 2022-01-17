@@ -1,17 +1,16 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.config.comm.AmazonS3Config;
+import com.alkemy.ong.dto.Base64MultipartFileDto;
 import com.alkemy.ong.service.abstraction.IUploadImageService;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
 import java.util.Date;
 
 @Service
@@ -20,21 +19,20 @@ public class UploadImageServiceImpl implements IUploadImageService {
     @Autowired
     private AmazonS3Config amazonS3Config;
 
-    public String uploadImage(MultipartFile file) throws IOException, SdkClientException {
+    public String uploadImage(Base64MultipartFileDto file) throws IOException, SdkClientException {
+        String fileObjKeyName = "";
 
-        byte[] bytes = file.getBytes();
-        String fileObjKeyName = generateFileName(file);
+        try {
+            File file1 = new File(file.getOriginalFilename());
+            FileOutputStream fos = new FileOutputStream(file1);
+            fos.write(file.getBytes());
+            fos.close();
 
-        ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType(file.getContentType());
-        metadata.setContentLength(file.getSize());
+            fileObjKeyName = generateFileName(file);
 
-        InputStream inputStream = new ByteArrayInputStream(bytes);
-
-        try{
-            PutObjectRequest request = new PutObjectRequest(amazonS3Config.getBucketName(), fileObjKeyName, inputStream, metadata);
+            PutObjectRequest request = new PutObjectRequest(amazonS3Config.getBucketName(), fileObjKeyName, file1);
             amazonS3Config.initialize().putObject(request);
-        }catch(AmazonServiceException e){
+        } catch (AmazonServiceException e) {
             e.printStackTrace();
         }
 
