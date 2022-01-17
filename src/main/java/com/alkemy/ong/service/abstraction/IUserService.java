@@ -6,7 +6,6 @@ import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.model.entity.User;
 import javax.persistence.EntityNotFoundException;
 
-
 public interface IUserService {
 
     User findByEmail(String email);
@@ -20,8 +19,5 @@ public interface IUserService {
     User getInfoUser() throws NotFoundExceptions;
 
     User getUser(Long id);
-
-
-
 
 }

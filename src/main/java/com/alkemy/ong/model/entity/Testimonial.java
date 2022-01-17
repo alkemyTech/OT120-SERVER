@@ -13,11 +13,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE testimonials SET soft_delete=true WHERE id=?")
+@Where(clause = "soft_delete=false")
 @Entity
 @Table(name = "TESTIMONIALS")
 public class Testimonial {

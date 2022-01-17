@@ -9,7 +9,6 @@ import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-
 public interface ISlideService {
 
     void delete(Long id) throws EntityNotFoundException;

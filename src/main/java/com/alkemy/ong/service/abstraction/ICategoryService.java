@@ -10,7 +10,6 @@ import java.util.List;
 
 public interface ICategoryService {
 
-
     void delete(Long id) throws EntityNotFoundException;
 
      CategoryDto update(Long id, CategoryDto categoryDto) throws EntityNotFoundException;
