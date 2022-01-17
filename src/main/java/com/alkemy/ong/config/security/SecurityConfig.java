@@ -55,7 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/docs/swagger-ui",
             "/swagger-ui.html",
             "/**/swagger-ui/**",
-            "/auth/**",
             "/auth/me",
             "/users/auth/register",
             "/users/auth/**",
@@ -74,10 +73,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/categories/**")
-                .hasAnyRole(ApplicationRole.USER.getName(), ApplicationRole.ADMIN.getName())
-                .antMatchers("/news/{id}/comments").permitAll()
-                .antMatchers(publicEndpoint).permitAll()
                 .antMatchers(HttpMethod.POST, "/members").hasRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.PUT, "/members/{id}").hasRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.GET, "/slides/**").hasRole(ApplicationRole.ADMIN.getName())
