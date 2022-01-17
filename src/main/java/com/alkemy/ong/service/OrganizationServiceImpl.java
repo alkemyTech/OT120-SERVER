@@ -58,4 +58,13 @@ public class OrganizationServiceImpl implements IOrganizationService {
         }
         return organizationOp.get();
     }
+
+    @Override
+    public OrganizationDto save(OrganizationDto organizationDto) {
+        Organization organization = organizationMapper.organizationDtoToEntity(organizationDto);
+        Organization organizationSaved = organizationRepository.save(organization);
+        OrganizationDto result = organizationMapper.organizationEntity2Dto(organizationSaved);
+
+        return result;
+    }
 }

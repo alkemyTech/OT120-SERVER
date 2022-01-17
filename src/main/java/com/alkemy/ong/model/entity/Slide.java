@@ -38,7 +38,7 @@ public class Slide {
     @Column(name = "SLIDE_ORDER")
     private int order;
 
-    @JoinColumn(name = "ORGANIZATIONS_ID")
+    @JoinColumn(name = "ORGANIZATION_ID")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Organization organizationId;
 

@@ -11,4 +11,6 @@ public interface IOrganizationService {
     OrganizationAllDto update(OrganizationAllDto dto, Long id);
 
     Organization getOrganizationId(Long id);
+
+    OrganizationDto save(OrganizationDto organizationDto);
 }
