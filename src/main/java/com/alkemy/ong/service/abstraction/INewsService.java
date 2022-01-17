@@ -13,7 +13,6 @@ import com.alkemy.ong.model.entity.News;
 
 import java.util.List;
 
-
 public interface INewsService {
 
     News getNews(Long id);

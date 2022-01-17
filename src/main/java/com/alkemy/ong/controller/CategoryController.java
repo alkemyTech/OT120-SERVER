@@ -4,11 +4,16 @@ import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.service.abstraction.ICategoryService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
+import org.springframework.web.bind.annotation.*;
+import com.alkemy.ong.dto.PageDto;
+import javassist.NotFoundException;
+
 import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +23,9 @@ public class CategoryController {
 
     @Autowired
     private ICategoryService categoryService;
+
+    @Autowired
+    private PagedResourcesAssembler<Category> pagedResourcesAssembler;
 
     @PostMapping
     public ResponseEntity<CategoryDto> save(@RequestBody CategoryDto categoryDto) {
@@ -46,4 +54,13 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.update(id, categoryDto));
     }
 
+
+    @GetMapping(value = "page")
+    public ResponseEntity<PageDto<CategoryDto>> getPage(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer sizePage,
+            @RequestParam(defaultValue = "id") String sortBy) throws NotFoundException {
+        return new ResponseEntity<>(categoryService.getPage(page, sizePage, sortBy), HttpStatus.OK);
+
+    }
 }

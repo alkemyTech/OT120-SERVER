@@ -1,5 +1,16 @@
 package com.alkemy.ong.service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.alkemy.ong.config.ApplicationRole;
 import com.alkemy.ong.dto.CommentsBodyDto;
 import com.alkemy.ong.exception.OperationNotAllowedException;
@@ -13,19 +24,13 @@ import com.alkemy.ong.model.entity.User;
 import com.alkemy.ong.repository.ICommentRepository;
 import com.alkemy.ong.service.abstraction.ICommentService;
 import com.alkemy.ong.service.abstraction.IGetUserService;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import javax.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class CommentServiceImpl implements ICommentService {
 
     private static final String COMMENT_NOT_FOUND_MESSAGE = "Comment not found.";
     private static final String USER_IS_NOT_ABLE_TO_DELETE_COMMENT_MESSAGE = "User is not able to delete comment.";
+    private static final String USER_IS_NOT_ABLE_TO_UPDATE_COMMENT_MESSAGE = "User is not able to update comment.";    
     private static final String COMMENT_NOT_EMPTY_MESSAGE = "Do not forget to leave a comment about the Post!";
     private static final String NEWSID_NOT_EMPTY_MESSAGE = "You must choose a post to leave a comment!";
     private static final String USERID_NOT_EMPTY_MESSAGE = "You must log in before leaving a comment!";
@@ -38,8 +43,9 @@ public class CommentServiceImpl implements ICommentService {
 
     @Autowired
     private IGetUserService getUserService;
+  
+    private ModelMapper mapper = new ModelMapper();
 
-    @Autowired
     private CommentMapper commentMapper;
 
     @Override
@@ -67,8 +73,8 @@ public class CommentServiceImpl implements ICommentService {
             getUserService.getBy(authorizationHeader),
             comment,
             USER_IS_NOT_ABLE_TO_DELETE_COMMENT_MESSAGE);
-
-          commentRepository.delete(comment);
+        
+        commentRepository.delete(comment);
     }
 
     private boolean hasRole(String nameRole, List<Role> roles) {
@@ -82,18 +88,17 @@ public class CommentServiceImpl implements ICommentService {
           }
     }
 
-  public List<Comment> getAllComments() {
-    return commentRepository.findAll();
-  }
+    public List<Comment> getAllComments() {
+    	return commentRepository.findAll();
+    }
 
-
-  private Comment getComment(Long id) {
-      Optional<Comment> commentOptional = commentRepository.findById(id);
-          if (commentOptional.isEmpty()) {
-              throw new EntityNotFoundException(COMMENT_NOT_FOUND_MESSAGE);
-          }
-          return commentOptional.get();
-      }
+    private Comment getComment(Long id) {
+    	Optional<Comment> commentOptional = commentRepository.findById(id);
+    	if (commentOptional.isEmpty()) {
+    		throw new EntityNotFoundException(COMMENT_NOT_FOUND_MESSAGE);
+        }
+        return commentOptional.get();
+    }
 
     @Override
     public List<CommentsBodyDto> getCommentsBody() {
@@ -102,5 +107,16 @@ public class CommentServiceImpl implements ICommentService {
         return entities.stream()
                 .map(entity -> commentsMapper.categoryToCategoryDto(entity))
                 .collect(Collectors.toList());
+    }
+    
+    @Override
+    public void update(Long id, CommentDto dto, String authorizationHeader) throws OperationNotAllowedException {
+        Comment comment = getComment(id);
+        throwExceptionIfOperationIsNotAllowed(
+                getUserService.getBy(authorizationHeader),
+                comment,
+                USER_IS_NOT_ABLE_TO_UPDATE_COMMENT_MESSAGE);
+        mapper.map(dto, comment);
+        commentRepository.save(comment);
     }
 }

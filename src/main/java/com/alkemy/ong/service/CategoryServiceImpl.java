@@ -1,16 +1,24 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.dto.PageDto;
 import com.alkemy.ong.mapper.CategoryMapper;
 import com.alkemy.ong.model.entity.Category;
 import com.alkemy.ong.dto.CategoryDto;
 import com.alkemy.ong.repository.ICategoryRepository;
 import com.alkemy.ong.service.abstraction.ICategoryService;
+import javassist.NotFoundException;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +27,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
 
     private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
+    private static final int SIZE_DEFAULT = 10;
 
     @Autowired
     private ICategoryRepository categoryRepository;
@@ -45,6 +54,7 @@ public class CategoryServiceImpl implements ICategoryService {
         return categoryOptional.get();
     }
 
+    @Override
     public List<CategoryDto> findAll() {
         return categoryRepository.findAll().stream()
                 .map(category -> categoryMapper.categoryToCategoryDto(category))
@@ -72,5 +82,17 @@ public class CategoryServiceImpl implements ICategoryService {
         CategoryDto result = categoryMapper.categoryToCategoryDto(categorySaved);
 
         return result;
+    }
+
+    @Override
+    public PageDto<CategoryDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundException {
+        Pageable pageable = PageRequest.of(page, sizePage, Sort.by(sortBy));
+        Page<Category> pageRecovered = categoryRepository.findAll(pageable);
+        Integer totalPages = pageRecovered.getTotalPages();
+
+        if (totalPages < page) {
+            throw new NotFoundException("The page does not exists");
+        }
+        return categoryMapper.toPageDto(pageRecovered, page, totalPages);
     }
 }

@@ -12,6 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 @Entity
 @Table(name = "CATEGORIES")
-public class Category {
+public class Category extends RepresentationModel<Category> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
