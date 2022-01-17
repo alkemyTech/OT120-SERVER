@@ -1,6 +1,5 @@
 package com.alkemy.ong.dto;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Positive ;
 import javax.validation.constraints.Size;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @Setter
 public class OrganizationDto {
 
-  private Long id;
+  private long id;
 
   @Size(min= 3, max = 255)
   private String name;
@@ -31,6 +30,8 @@ public class OrganizationDto {
   private String facebook;
   private String instagram;
   private String linkedin;
+
+  private List<SlideDtoOrganization> slideDtoList;
 
 }
 

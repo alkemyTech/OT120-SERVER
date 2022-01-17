@@ -2,6 +2,7 @@ package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.dto.Base64MultipartFileDto;
 import com.alkemy.ong.dto.SlideDto;
+import com.alkemy.ong.dto.SlideDtoOrganization;
 import com.alkemy.ong.model.entity.Slide;
 import com.alkemy.ong.service.abstraction.IOrganizationService;
 import com.alkemy.ong.service.abstraction.IUploadImageService;
@@ -40,7 +41,6 @@ public class SlideMapper {
         return modelMapper.map(slideReqDto, Slide.class);
     }
 
-
     public List<SlideRequestDto> entity2DtoList(List<Slide> slides) {
 
         List<SlideRequestDto> slidesDtoList = new ArrayList<>();
@@ -48,6 +48,35 @@ public class SlideMapper {
         for (Slide s : slides) {
             SlideRequestDto dto = new SlideRequestDto();
             dto.setImageUrl(s.getImageUrl());
+            dto.setText(s.getText());
+            dto.setOrder(s.getOrder());
+            slidesDtoList.add(dto);
+        }
+        return slidesDtoList;
+    }
+
+    public List<Slide> slideDtoList2EntityList(List<SlideRequestDto> slideReqDto) {
+
+        List<Slide> slideList = new ArrayList<>();
+
+        for (SlideRequestDto requestDto : slideReqDto) {
+            Slide slide = new Slide();
+            slide.setImageUrl((requestDto.getImageUrl()));
+            slide.setText(requestDto.getText());
+            slide.setOrder(requestDto.getOrder());
+            slideList.add(slide);
+        }
+        return slideList;
+    }
+
+    public List<SlideDtoOrganization> slideList2DtoList(List<Slide> slides) {
+
+        List<SlideDtoOrganization> slidesDtoList = new ArrayList<>();
+
+        for (Slide s : slides) {
+            SlideDtoOrganization dto = new SlideDtoOrganization();
+            dto.setImageUrl(s.getImageUrl());
+            dto.setText(s.getText());
             dto.setOrder(s.getOrder());
             slidesDtoList.add(dto);
         }
