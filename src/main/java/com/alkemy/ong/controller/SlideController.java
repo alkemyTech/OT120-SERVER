@@ -45,5 +45,13 @@ public class SlideController {
     return ResponseEntity.status(HttpStatus.OK).body(slideService.getById(id));
   }
 
+  @PostMapping
+  public ResponseEntity<SlideDto> save(@RequestBody SlideDto slide) throws Exception{
+
+    SlideDto slideSaved = slideService.save(slide);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(slideSaved);
+  }
+
 }
 
