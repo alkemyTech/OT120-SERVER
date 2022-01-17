@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.dto;
+package com.alkemy.ong.dto;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Positive ;

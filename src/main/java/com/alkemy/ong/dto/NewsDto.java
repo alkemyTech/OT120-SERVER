@@ -1,4 +1,4 @@
-package com.alkemy.ong.model.dto;
+package com.alkemy.ong.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
