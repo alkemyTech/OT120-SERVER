@@ -4,7 +4,7 @@ package com.alkemy.ong.service;
 import com.alkemy.ong.dto.MemberPageDto;
 import com.alkemy.ong.dto.MemberRequestDto;
 import com.alkemy.ong.dto.MemberDto;
-import com.alkemy.ong.enums.exception.EmptyListException;
+import com.alkemy.ong.exception.EmptyListException;
 import com.alkemy.ong.mapper.MemberMapper;
 import com.alkemy.ong.model.entity.Member;
 import com.alkemy.ong.repository.IMemberRepository;

@@ -1,7 +1,7 @@
 package com.alkemy.ong.service.abstraction;
 
 import com.alkemy.ong.dto.ContactDto;
-import com.alkemy.ong.enums.exception.ParamNotFound;
+import com.alkemy.ong.exception.ParamNotFound;
 
 
 import java.util.List;

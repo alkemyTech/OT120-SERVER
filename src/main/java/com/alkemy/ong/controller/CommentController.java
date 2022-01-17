@@ -2,7 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.CommentDto;
 import com.alkemy.ong.dto.CommentsBodyDto;
-import com.alkemy.ong.enums.exception.OperationNotAllowedException;
+import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.service.abstraction.ICommentService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import java.util.List;

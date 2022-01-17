@@ -2,7 +2,7 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.SlideDtoOrganization;
 import com.alkemy.ong.dto.SlideRequestDto;
-import com.alkemy.ong.enums.exception.NotFoundExceptions;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.mapper.SlideMapper;
 import com.alkemy.ong.dto.SlideResponseDto;
 import com.alkemy.ong.mapper.OrganizationMapper;

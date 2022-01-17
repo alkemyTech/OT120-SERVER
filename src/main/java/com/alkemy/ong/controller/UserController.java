@@ -4,7 +4,7 @@ import com.alkemy.ong.dto.UserDtoRequest;
 import com.alkemy.ong.dto.UserDtoResponse;
 import com.alkemy.ong.dto.UsersResponseDto;
 import com.alkemy.ong.service.abstraction.IGetAllUsers;
-import com.alkemy.ong.enums.exception.InvalidCredentialsException;
+import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.dto.LoginRequestDto;
 import com.alkemy.ong.dto.TokenDto;
 import com.alkemy.ong.service.AuthenticationService;

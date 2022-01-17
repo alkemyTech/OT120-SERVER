@@ -1,7 +1,7 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.PageDto;
-import com.alkemy.ong.enums.exception.NotFoundExceptions;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.mapper.NewsMapper;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.model.entity.News;

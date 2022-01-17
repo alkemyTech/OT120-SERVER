@@ -1,9 +1,9 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.ContactDto;
-import com.alkemy.ong.enums.exception.ParamNotFound;
+import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.mapper.ContactMapper;
-import com.alkemy.ong.enums.exception.NotFoundExceptions;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.repository.IContactRepository;
 import com.alkemy.ong.model.entity.Contact;
 import com.alkemy.ong.service.abstraction.IContactService;

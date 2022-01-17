@@ -1,8 +1,8 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.dto.PageDto;
-import com.alkemy.ong.enums.exception.FieldInvalidException;
-import com.alkemy.ong.enums.exception.NotFoundExceptions;
+import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.model.entity.Comment;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,6 @@ public class NewsController {
 
     @Autowired
     INewsService newsService;
-
-    public NewsController() {
-    }
 
     @PostMapping("")
     public ResponseEntity<NewsDto> postNews(@Valid @RequestBody NewsDto newsDto) throws FieldInvalidException {
