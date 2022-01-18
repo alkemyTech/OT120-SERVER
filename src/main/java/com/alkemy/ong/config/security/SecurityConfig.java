@@ -76,10 +76,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(publicEndpoint).permitAll()
                 .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ApplicationRole.ADMIN.getName())
 
-                .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.DELETE, "/categories/**")
-                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.GET,"/categories").hasAnyAuthority(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/categories").hasAnyAuthority(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.PUT, "/categories/{id}").hasAnyAuthority(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.DELETE, "/categories/{id}").hasAnyAuthority(ApplicationRole.ADMIN.getName())
 
                 .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.GET,"/comments").hasAnyRole(ApplicationRole.ADMIN.getName())
@@ -87,10 +87,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/contact").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/contacts/**").hasRole(ApplicationRole.USER.getName())
 
-                .antMatchers(HttpMethod.POST, "/members").hasRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.POST, "/members").hasAnyAuthority(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.PUT, "/members/{id}").hasRole(ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.GET, "/members").hasRole(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.GET, "/members/page").hasRole(ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.GET, "/members").hasAnyAuthority(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/members/page").hasAnyAuthority(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.DELETE, "/members/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
 
@@ -105,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/slides/**").hasRole(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.POST, "/slides").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/slides").hasAnyAuthority(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.DELETE, "/slides/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName())
 

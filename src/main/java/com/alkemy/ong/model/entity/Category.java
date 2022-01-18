@@ -12,12 +12,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@SQLDelete(sql = "UPDATE categories SET soft_delete=true WHERE id=?")
+@Where(clause = "soft_delete=false")
 @Table(name = "CATEGORIES")
 public class Category {
 

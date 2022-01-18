@@ -64,22 +64,21 @@ public class MemberMapper {
         return membersDto;
     }
 
-    public MemberPageDto<MemberDto> toPageDto(Page<Member> memberPage, Integer pageNumber, Integer totalPages) {
+    public MemberPageDto<MemberDto> toPageDto(Page<Member> memberPage, Integer pageNumber, Long totalElements, Integer totalPages) {
 
         MemberPageDto<MemberDto> pageDto = new MemberPageDto<>();
 
-        pageDto.setTotalPages(totalPages);
-
         if (memberPage.hasNext()) {
-
             pageDto.setNextPage("/members/page?page=" + (pageNumber + 1));
         }
 
         if (memberPage.hasPrevious()) {
-
             pageDto.setPreviousPage("/members/page?page=" + (pageNumber - 1));
         }
         pageDto.setList(memberEntityList2memberDtoList((memberPage)));
+        pageDto.setTotalElements(totalElements);
+        pageDto.setTotalPages(totalPages);
+
         return pageDto;
     }
 }
