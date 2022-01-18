@@ -11,6 +11,8 @@ import javax.validation.constraints.NotEmpty;
 @NoArgsConstructor
 public class CategoryDto implements Serializable{
 
+    public Long id;
+
     @NotEmpty (message = "El nombre no puede estar vacío ni ser nulo")
     private String name;
 
@@ -19,5 +21,4 @@ public class CategoryDto implements Serializable{
 
     public String image;
 
-    public Long id;
 }
