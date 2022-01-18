@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.alkemy.ong.dto.RoleDto;
 import com.alkemy.ong.dto.UserDtoResponse;
+import com.alkemy.ong.model.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import com.alkemy.ong.dto.UsersResponseDto;
@@ -46,7 +47,6 @@ public class UserMapper {
             List<RoleDto> roleDtoList = this.roleMapper.roleEntitySet2DtoList(userEntity.getRoles());
             userDtoResponse.setRoles(roleDtoList);
         }
-        userDtoResponse.setTimestamp(userEntity.getTimestamp());
 
         return userDtoResponse;
     }
@@ -68,11 +68,16 @@ public class UserMapper {
     }
 
     public User userDtoToEntity (UserDtoRequest userDtoRequest) {
+        List<Role> rol = new ArrayList<>();
+        rol.add(userDtoRequest.getRol());
+
         User user = new User();
         user.setEmail(userDtoRequest.getEmail());
         user.setFirstName(userDtoRequest.getFirstName());
         user.setLastName(userDtoRequest.getLastName());
         user.setPassword(encodePassword.encode(userDtoRequest.getPassword()));
+        user.setPhoto(userDtoRequest.getPhoto());
+        user.setRoles(rol);
 
         return user;
     }

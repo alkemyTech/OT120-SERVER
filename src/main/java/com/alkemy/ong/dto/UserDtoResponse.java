@@ -20,6 +20,4 @@ public class UserDtoResponse {
     private String password;
     private String photo;
     private List<RoleDto> roles;
-    private Timestamp timestamp;
-    private String token;
 }
