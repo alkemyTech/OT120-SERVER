@@ -7,18 +7,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
+@SQLDelete(sql = "UPDATE ACTIVITIES SET SOFT_DELETE=true WHERE id=?")
+@Where(clause = "SOFT_DELETE=false")
 @Table(name = "ACTIVITIES")
 public class Activity {
 
@@ -43,5 +45,6 @@ public class Activity {
 
   @Column(name = "SOFT_DELETE")
   private boolean softDelete;
+
 
 }
