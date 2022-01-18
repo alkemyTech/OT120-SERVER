@@ -64,7 +64,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui"
     };
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf()
@@ -75,6 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+
                 .antMatchers(publicEndpoint).permitAll()
                 .antMatchers(HttpMethod.POST, "/members").hasRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.PUT, "/members/{id}").hasRole(ApplicationRole.USER.getName())
@@ -82,17 +82,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/organization/public/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.DELETE, "/categories/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/categories/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/users").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/contact").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/members").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/organization/public/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/members/page").hasRole(ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.GET,"/organization/public/**").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.GET, "/organization/public/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/categories").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/contacts/**").hasRole(ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.POST, "/news/**").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/categories/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/testimonials/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.PUT, "/activities/{id}").hasRole(ApplicationRole.ADMIN.getName())
@@ -100,6 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/slides/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.POST, "/testimonials").hasRole(ApplicationRole.ADMIN.getName())
+                .antMatchers(HttpMethod.POST, "/slides").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.DELETE, "/categories/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
@@ -111,7 +113,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.DELETE, "/slides/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName())
-                .antMatchers(HttpMethod.DELETE, "/comments/**").hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
+                .antMatchers(HttpMethod.DELETE, "/comments/**")
+                .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.GET,"/comments").hasAnyRole(ApplicationRole.ADMIN.getName())
                 .anyRequest()
                 .authenticated()
@@ -121,4 +124,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(new Http403ForbiddenEntryPoint());
     }
 }
-

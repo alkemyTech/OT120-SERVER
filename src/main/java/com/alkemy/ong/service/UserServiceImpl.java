@@ -132,7 +132,6 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
         return user;
     }
 
-
     @Override
     public UserDtoResponse save(UserDtoRequest userRequestDto) {
         User user = userMapper.userDtoToEntity(userRequestDto);
@@ -148,6 +147,5 @@ public class UserServiceImpl implements UserDetailsService, IGetUserService, IUs
     public List<UsersResponseDto> getAllUsers() {
         return userRepository.findAll().stream().map(userMapper::usersDtoResponse).collect(Collectors.toList());
     }
-
 
 }

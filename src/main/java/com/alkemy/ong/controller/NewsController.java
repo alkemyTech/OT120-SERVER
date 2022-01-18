@@ -1,6 +1,8 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.PageDto;
 import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.model.entity.Comment;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,6 @@ public class NewsController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newsService.postNews(newsDto));
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<NewsDto> getNewsById(@PathVariable Long id) {
         return ResponseEntity.ok(newsService.findNewsById(id));
@@ -40,6 +41,14 @@ public class NewsController {
     public ResponseEntity<Empty> delete(@PathVariable long id) throws EntityNotFoundException {
         newsService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/page")
+    public ResponseEntity<PageDto<NewsDto>> getPage(
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer sizePage,
+            @RequestParam(defaultValue = "id") String sortBy) throws NotFoundExceptions {
+        return new ResponseEntity<>(newsService.getPage(page, sizePage, sortBy), HttpStatus.OK);
     }
 
     @GetMapping("/{id}/comments")

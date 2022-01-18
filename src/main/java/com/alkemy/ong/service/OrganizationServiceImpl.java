@@ -49,4 +49,13 @@ public class OrganizationServiceImpl implements IOrganizationService {
             return organizationMapper.organizationEntity2DtoAll(organizationRepository.save(organizationMapper.updateValues(dto, optional.get())));
         } else throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
     }
+
+    @Override
+    public Organization getOrganizationId(Long id) {
+        Optional<Organization> organizationOp = organizationRepository.findById(id);
+        if (organizationOp.isEmpty()) {
+            throw new EntityNotFoundException(ORGANIZATION_NOT_FOUND_MESSAGE);
+        }
+        return organizationOp.get();
+    }
 }

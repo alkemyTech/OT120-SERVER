@@ -1,14 +1,17 @@
 package com.alkemy.ong.mapper;
 
+import com.alkemy.ong.dto.PageDto;
 import com.alkemy.ong.model.entity.News;
 import com.alkemy.ong.dto.NewsDto;
 import com.alkemy.ong.service.abstraction.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class NewsMapper {
@@ -50,6 +53,32 @@ public class NewsMapper {
         entity.setImage(dto.getImage());
         entity.setCategory(categoryService.getCategory(dto.getCategory()));
         return entity;
+    }
+
+    private List<NewsDto> toNewsDtoList(Page<News> newsPage) {
+        List<NewsDto> newsDtoList = new ArrayList<>();
+
+        if (newsPage.hasContent()) {
+            newsDtoList = newsPage.stream().map(news -> {
+                return new NewsDto(news.getName(), news.getContent(), news.getImage(), news.getCategory().getId());
+            }).collect(Collectors.toList());
+        }
+        return newsDtoList;
+    }
+
+    public PageDto<NewsDto> toPageDto(Page<News> newsPage, Integer pageNumber, Integer totalPages) {
+        PageDto<NewsDto> pageDto = new PageDto<>();
+        pageDto.setTotalPages(totalPages);
+
+        if (newsPage.hasNext()) {
+            pageDto.setNextPage("/page?page=" + (pageNumber + 1));
+        }
+
+        if (newsPage.hasPrevious()) {
+            pageDto.setPreviousPage("/page?page=" + (pageNumber - 1));
+        }
+        pageDto.setList(toNewsDtoList((newsPage)));
+        return pageDto;
     }
 }
 

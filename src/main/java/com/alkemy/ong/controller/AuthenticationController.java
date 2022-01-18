@@ -37,6 +37,4 @@ public class AuthenticationController {
         return new ResponseEntity<>(userService.getInfoUser(), HttpStatus.OK);
     }
 
-
-
 }
