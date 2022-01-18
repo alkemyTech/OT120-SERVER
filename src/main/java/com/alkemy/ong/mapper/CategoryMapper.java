@@ -38,7 +38,7 @@ public class CategoryMapper {
 
         if (categoryPage.hasContent()) {
             categoriesDtos = categoryPage.stream().map(category -> {
-                return new CategoryDto(category.getName(), category.getDescription(), category.getImage(), category.getId());
+                return new CategoryDto( category.getId(), category.getDescription(), category.getImage(),category.getName());
             }).collect(Collectors.toList());
         }
         return categoriesDtos;
