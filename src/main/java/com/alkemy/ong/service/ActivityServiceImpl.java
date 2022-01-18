@@ -1,16 +1,19 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.dto.ActivityDto;
+import com.alkemy.ong.exception.NotEmptyException;
 import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.mapper.ActivityMapper;
 import com.alkemy.ong.model.entity.Activity;
 import com.alkemy.ong.repository.IActivityRepository;
 import com.alkemy.ong.service.abstraction.IActivityService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 
 @Service
 public class ActivityServiceImpl implements IActivityService {
@@ -30,10 +33,10 @@ public class ActivityServiceImpl implements IActivityService {
     public ActivityDto save(ActivityDto activityDto){
 
         if(activityDto.getName().trim().isEmpty()){
-            throw new NullPointerException(NAME_NOT_BLANK_MESSAGE);
+            throw new NotEmptyException(NAME_NOT_BLANK_MESSAGE);
         }
         if(activityDto.getContent().trim().isEmpty()){
-            throw new NullPointerException(CONTENT_NOT_BLANK_MESSAGE);
+            throw new NotEmptyException(CONTENT_NOT_BLANK_MESSAGE);
         }
         Activity activityEntity = activityMapper.activityDto2Entity(activityDto);
         Activity activitySaved = this.activityRepository.save(activityEntity);
