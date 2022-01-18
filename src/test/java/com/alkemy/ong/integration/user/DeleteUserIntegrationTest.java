@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DeleteUserIntegrationTest extends AbstractBaseIntegrationTest {
 
-  private final String PATH = "/users/users/id" + USER_ID;
+  private final String PATH = "/users/" + USER_ID;
 
   @Test
   public void shouldReturnForbiddenWhenUserIsNotUserRole() {
