@@ -135,40 +135,23 @@
       <artifactId>aws-java-sdk-s3</artifactId>
       <version>1.11.343</version>
     </dependency>
-      <!-- SWAGGER -->
-      <dependency>
-          <groupId>org.springdoc</groupId>
-          <artifactId>springdoc-openapi-ui</artifactId>
-          <version>1.6.3</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-hateoas</artifactId>
-      </dependency>
-      <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-boot-starter</artifactId>
-          <version>3.0.0</version>
-      </dependency>
-      <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-swagger2</artifactId>
-          <version>3.0.0</version>
-      </dependency>
-      <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-swagger-ui</artifactId>
-          <version>3.0.0</version>
-      </dependency>
+
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>3.22.0</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
+    <!-- SWAGGER -->
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>3.0.0</version>
     </dependency>
     <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest</artifactId>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>3.0.0</version>
     </dependency>
+    <!-- Fin Swagger -->
   </dependencies>
   <description>ONG project with Spring Boot</description>
   <groupId>com.alkemy</groupId>

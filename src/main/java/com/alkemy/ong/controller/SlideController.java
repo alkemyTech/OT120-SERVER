@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("slides")
+@RequestMapping("/slides")
 public class SlideController {
 
   @Autowired
@@ -28,7 +28,7 @@ public class SlideController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
-  @GetMapping("")
+  @GetMapping
   public ResponseEntity<List<SlideRequestDto>> listAll(){
     return ResponseEntity.ok(slideServiceImpl.listAll());
   }

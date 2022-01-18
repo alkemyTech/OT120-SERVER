@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @EnableWebSecurity
 @Configuration
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
@@ -59,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/auth/me",
             "/users/auth/register",
             "/users/auth/**",
-            "/news/{id}/comments"
+            "/news/{id}/comments",
+            "/swagger-ui"
     };
 
 
