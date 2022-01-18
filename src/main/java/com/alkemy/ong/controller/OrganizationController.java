@@ -11,7 +11,7 @@ import com.alkemy.ong.dto.OrganizationAllDto;
 import com.alkemy.ong.service.abstraction.IOrganizationService ;
 
 @RestController
-@RequestMapping("organization/public")
+@RequestMapping("/organization/public")
 public class OrganizationController {
 
   @Autowired

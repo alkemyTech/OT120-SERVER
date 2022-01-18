@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @EnableWebSecurity
 @Configuration
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
@@ -59,7 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/auth/me",
             "/users/auth/register",
             "/users/auth/**",
-            "/news/{id}/comments"
+            "/news/{id}/comments",
+            "/swagger-ui"
     };
 
     @Override
@@ -103,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/news/{id}").hasRole(ApplicationRole.ADMIN.getName())
                 .antMatchers(HttpMethod.DELETE, "/categories/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())
-                .antMatchers(HttpMethod.DELETE, "/users/**")
+                .antMatchers(HttpMethod.DELETE, "/users/users/{id}")
                 .hasAnyRole(ApplicationRole.USER.getName())
                 .antMatchers(HttpMethod.DELETE, "/testimonials/**")
                 .hasAnyRole(ApplicationRole.ADMIN.getName(), ApplicationRole.USER.getName())

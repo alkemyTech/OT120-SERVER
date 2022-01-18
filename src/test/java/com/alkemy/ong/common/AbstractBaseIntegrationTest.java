@@ -51,7 +51,7 @@ public abstract class AbstractBaseIntegrationTest {
     return new User(USER_ID,
         "John",
         "Doe",
-        "johnny@gmail.com",
+        "jonny@gmail.com",
         "123456789",
         "https://foo.jpg",
         Lists.list(stubRole(role)),
