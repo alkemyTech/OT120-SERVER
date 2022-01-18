@@ -1,12 +1,17 @@
 package com.alkemy.ong.service.abstraction;
 
+import com.alkemy.ong.dto.PageDto;
 import com.alkemy.ong.exception.FieldInvalidException;
+import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.exception.OperationNotAllowedException;
 import com.alkemy.ong.dto.NewsDto;
-import com.alkemy.ong.model.entity.News;
 
 import javax.persistence.EntityNotFoundException;
-import java.lang.reflect.Field;
+
+import com.alkemy.ong.model.entity.Comment;
+import com.alkemy.ong.model.entity.News;
+
+import java.util.List;
 
 public interface INewsService {
 
@@ -19,5 +24,9 @@ public interface INewsService {
     NewsDto updateNews (NewsDto newsDto, Long id);
 
     void delete(Long id) throws EntityNotFoundException;
+
+    PageDto<NewsDto> getPage(Integer page, Integer sizePage, String sortBy) throws NotFoundExceptions;
+
+    List<Comment> commentPerNews(Long id);
 
 }

@@ -15,6 +15,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.hateoas.RepresentationModel;
 
 @Entity
 @Table(name = "MEMBERS")
@@ -24,7 +25,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @SQLDelete(sql = "UPDATE MEMBERS SET SOFT_DELETE=true WHERE id=?")
 @Where(clause = "SOFT_DELETE=false")
-public class Member {
+public class Member extends RepresentationModel<Member> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

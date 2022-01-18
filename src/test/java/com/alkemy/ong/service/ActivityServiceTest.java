@@ -38,6 +38,7 @@ public class ActivityServiceTest {
 
     @TestConfiguration
     static class UserServiceImplTestConfiguration{
+
         public IActivityService activityService(){
             return new ActivityServiceImpl();
         }
@@ -56,13 +57,7 @@ public class ActivityServiceTest {
 
         assertNotNull(activitySaved);
 
-
-
-
-
-    }
-
-
+        }
     }
 
 
