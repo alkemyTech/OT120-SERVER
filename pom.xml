@@ -2,44 +2,43 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>ong</artifactId>
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>
-              <artifactId>lombok</artifactId>
-              <groupId>org.projectlombok</groupId>
-            </exclude>
-          </excludes>
-        </configuration>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <groupId>org.springframework.boot</groupId>
-      </plugin>
-      <plugin>
-        <artifactId>git-build-hook-maven-plugin</artifactId>
-        <configuration>
-          <installHooks>
-            <pre-push>./etc/hooks/pre-push.sh</pre-push>
-          </installHooks>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>install</goal>
-            </goals>
-          </execution>
-        </executions>
-        <groupId>com.rudikershaw.gitbuildhook</groupId>
-        <version>3.0.0</version>
-      </plugin>
-    </plugins>
-
+    <artifactId>ong</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <artifactId>lombok</artifactId>
+                            <groupId>org.projectlombok</groupId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <groupId>org.springframework.boot</groupId>
+            </plugin>
+            <plugin>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+            </plugin>
+            <plugin>
+                <artifactId>git-build-hook-maven-plugin</artifactId>
+                <configuration>
+                    <installHooks>
+                        <pre-push>./etc/hooks/pre-push.sh</pre-push>
+                    </installHooks>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <groupId>com.rudikershaw.gitbuildhook</groupId>
+                <version>3.0.0</version>
+            </plugin>
+        </plugins>
   </build>
   <dependencies>
     <dependency>
@@ -135,31 +134,23 @@
       <artifactId>aws-java-sdk-s3</artifactId>
       <version>1.11.343</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-hateoas</artifactId>
+    </dependency>
       <!-- SWAGGER -->
-      <dependency>
-          <groupId>org.springdoc</groupId>
-          <artifactId>springdoc-openapi-ui</artifactId>
-          <version>1.6.3</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-hateoas</artifactId>
-      </dependency>
-      <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-boot-starter</artifactId>
-          <version>3.0.0</version>
-      </dependency>
-      <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-swagger2</artifactId>
-          <version>3.0.0</version>
-      </dependency>
-      <dependency>
-          <groupId>io.springfox</groupId>
-          <artifactId>springfox-swagger-ui</artifactId>
-          <version>3.0.0</version>
-      </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-swagger-ui</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <!-- Fin Swagger -->
   </dependencies>
   <description>ONG project with Spring Boot</description>
   <groupId>com.alkemy</groupId>
@@ -174,7 +165,6 @@
   <properties>
     <java.version>11</java.version>
   </properties>
-
-  <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
 
 </project>

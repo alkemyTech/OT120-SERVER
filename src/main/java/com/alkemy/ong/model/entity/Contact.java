@@ -2,6 +2,7 @@ package com.alkemy.ong.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -11,7 +12,9 @@ import javax.validation.constraints.Email;
 @Table(name = "contacts")
 @Getter
 @Setter
-@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE CATEGORIES SET SOFT_DELETE=true WHERE id=?")
+@Where(clause = "SOFT_DELETE=false")
+
 public class Contact {
 
     @Id
@@ -28,7 +31,7 @@ public class Contact {
 
     private String message;
 
+    @Column(name = "SOFT_DELETE")
+    private boolean softDelete;
 
-
-    private boolean deletedAt = Boolean.FALSE;
 }

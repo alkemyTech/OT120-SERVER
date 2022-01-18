@@ -35,12 +35,13 @@ public class DeleteUserIntegrationTest extends AbstractBaseIntegrationTest {
         Object.class);
 
     assertEquals(response.getStatusCode(), HttpStatus.FORBIDDEN);
+
   }
 
   @Test
-  public void shouldReturnNotFoundWhenIdNoExist() {
+  public void shouldReturnNotFoundWhenIdNoExist() { //debe devolver No encontrado cuando la identificación no existe
     when(userRepository.findById(eq(USER_ID))).thenReturn(Optional.empty());
-    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getFullRoleName());
+    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getName());
 
     ResponseEntity<ErrorResponse> response = restTemplate.exchange(
         createURLWithPort(PATH),
@@ -53,11 +54,11 @@ public class DeleteUserIntegrationTest extends AbstractBaseIntegrationTest {
   }
 
   @Test
-  public void shouldSoftDeleteUserSuccessfully() {
-    User user = stubUser(ApplicationRole.USER.getFullRoleName());
+  public void shouldSoftDeleteUserSuccessfully() { // debería eliminar el usuario con éxito
+    User user = stubUser(ApplicationRole.USER.getName());
     when(userRepository.findById(eq(USER_ID))).thenReturn(Optional.of(user));
     when(userRepository.save(eq(user))).thenReturn(user);
-    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getFullRoleName());
+    setAuthorizationHeaderBasedOn(ApplicationRole.USER.getName());
 
     ResponseEntity<Object> response = restTemplate.exchange(
         createURLWithPort(PATH),

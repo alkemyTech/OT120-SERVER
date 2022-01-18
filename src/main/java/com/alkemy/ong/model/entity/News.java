@@ -14,12 +14,16 @@ import javax.persistence.Table;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE news SET soft_delete=true WHERE id=?")
+@Where(clause = "soft_delete=false")
 @Entity
 @Table(name = "NEWS")
 public class News {

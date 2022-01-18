@@ -1,6 +1,5 @@
 package com.alkemy.ong.service;
 
-
 import com.alkemy.ong.dto.SlideDto;
 import com.alkemy.ong.dto.SlideDtoOrganization;
 import com.alkemy.ong.dto.SlideRequestDto;

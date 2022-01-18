@@ -16,29 +16,30 @@ import com.alkemy.ong.service.abstraction.ITestimonialService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 
 @RestController
+@RequestMapping("/testimonials")
 public class TestimonialController {
 
   @Autowired
   private ITestimonialService testimonialService;
 
-  @DeleteMapping(value = "/testimonials/{id}")
+  @DeleteMapping(value = "/{id}")
   public ResponseEntity<Empty> delete(@PathVariable Long id) throws EntityNotFoundException {
     testimonialService.delete(id);
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
-  @PostMapping(value = "/testimonials")
+  @PostMapping
   public ResponseEntity<Testimonial> newtestimonials(@Valid @RequestBody TestimonialRequestDto testimonialRequest) {
     return new ResponseEntity<Testimonial>(testimonialService.save(testimonialRequest), HttpStatus.CREATED);
   }
   
-  @PutMapping(value = "/testimonials/{id}")
+  @PutMapping(value = "/{id}")
   public ResponseEntity<TestimonialRequestDto> updateTestimonial(@Valid @RequestBody TestimonialRequestDto testimonialRequest, @PathVariable Long id) {
     TestimonialRequestDto dto = testimonialService.update(testimonialRequest, id);
 	return new ResponseEntity<TestimonialRequestDto>(dto, HttpStatus.OK);
   }
 
-  @GetMapping(value="alltestimonials")
+  @GetMapping(value="/alltestimonials")
   public ResponseEntity<PageDto<TestimonialRequestDto>> getPage(@RequestParam (defaultValue = "0") Integer page,
                                                                 @RequestParam (defaultValue = "10") Integer sizePage ,
                                                                 @RequestParam (defaultValue = "id") String sortBy) throws NotFoundException {

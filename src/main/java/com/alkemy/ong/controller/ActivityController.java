@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("activities")
+@RequestMapping("/activities")
 public class ActivityController {
 
     @Autowired
