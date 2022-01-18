@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.dto.SlideDto;
 import com.alkemy.ong.dto.SlideRequestDto;
 import com.alkemy.ong.dto.SlideResponseDto;
 import com.alkemy.ong.service.SlideServiceImpl;
@@ -43,6 +44,14 @@ public class SlideController {
   @GetMapping("/Slides/{id}")
   public ResponseEntity<SlideResponseDto> getOne(@PathVariable long id) throws EntityNotFoundException{
     return ResponseEntity.status(HttpStatus.OK).body(slideService.getById(id));
+  }
+
+  @PostMapping
+  public ResponseEntity<SlideDto> save(@RequestBody SlideDto slide) throws Exception{
+
+    SlideDto slideSaved = slideService.save(slide);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(slideSaved);
   }
 
 }

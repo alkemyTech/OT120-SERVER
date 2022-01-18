@@ -4,18 +4,13 @@ import com.alkemy.ong.dto.MemberPageDto;
 import com.alkemy.ong.dto.MemberRequestDto;
 import com.alkemy.ong.exception.FieldInvalidException;
 import com.alkemy.ong.dto.MemberDto;
-import com.alkemy.ong.exception.NotFoundExceptions;
 import com.alkemy.ong.service.abstraction.IMembersService;
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.constraints.Size;
 
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

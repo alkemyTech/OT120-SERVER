@@ -1,7 +1,6 @@
 package com.alkemy.ong.mapper;
 
 import com.alkemy.ong.dto.CommentDto;
-import com.alkemy.ong.dto.CommentsBodyDto;
 import com.alkemy.ong.model.entity.Comment;
 import com.alkemy.ong.service.abstraction.INewsService;
 import com.alkemy.ong.service.abstraction.IUserService;
