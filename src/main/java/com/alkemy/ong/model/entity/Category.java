@@ -21,8 +21,8 @@ import org.springframework.hateoas.RepresentationModel;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SQLDelete(sql = "UPDATE CATEGORIES SET SOFT_DELETE=true WHERE id=?")
-@Where(clause = "SOFT_DELETE=false")
+@SQLDelete(sql = "UPDATE categories SET soft_delete=true WHERE id=?")
+@Where(clause = "soft_delete=false")
 @Table(name = "CATEGORIES")
 public class Category extends RepresentationModel<Category> {
 

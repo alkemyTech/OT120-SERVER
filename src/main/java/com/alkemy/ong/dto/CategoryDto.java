@@ -14,6 +14,8 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 public class CategoryDto {
 
+    public Long id;
+
     @NotEmpty (message = "El nombre no puede estar vacío ni ser nulo")
     private String name;
 
@@ -22,5 +24,4 @@ public class CategoryDto {
 
     public String image;
 
-    public Long id;
 }

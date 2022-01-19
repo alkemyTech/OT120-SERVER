@@ -2,7 +2,9 @@ package com.alkemy.ong.controller;
 
 import javax.validation.Valid;
 
+import com.sendgrid.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,14 @@ public class OrganizationController {
   public ResponseEntity<OrganizationAllDto> update(@Valid @RequestBody OrganizationAllDto dto, @PathVariable Long id){
     OrganizationAllDto organization = organizationService.update(dto,id);
             return ResponseEntity.ok(organization);
+  }
+
+  @PostMapping
+  public ResponseEntity<OrganizationDto> save(@RequestBody OrganizationDto organizationDto){
+
+    OrganizationDto organizationSaved = organizationService.save(organizationDto);
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(organizationSaved);
   }
 
 }

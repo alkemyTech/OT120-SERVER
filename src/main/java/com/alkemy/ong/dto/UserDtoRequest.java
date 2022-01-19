@@ -2,6 +2,8 @@ package com.alkemy.ong.dto;
 
 import java.sql.Timestamp;
 import java.util.List;
+
+import com.alkemy.ong.model.entity.Role;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -29,7 +31,8 @@ public class UserDtoRequest {
     @NotBlank (message = "La contraseña no puede estar vacía")
     @Size(min = 6, max = 25, message = "La contraseña debe ser entre 6 y 25 caracteres")
     private String password;
-    
+
+    private Role rol;
     private String photo;
     private List<RoleDto> roles;
     private Timestamp timestamp;

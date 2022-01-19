@@ -15,6 +15,7 @@ import java.util.List;
 public class MemberPageDto<T> {
 
     private Integer totalPages;
+    private Long totalElements;
     private String nextPage;
     private String previousPage;
     private List<T> list;

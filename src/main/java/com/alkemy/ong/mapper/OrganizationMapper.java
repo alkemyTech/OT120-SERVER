@@ -77,4 +77,36 @@ public class OrganizationMapper {
       return entity;
   }
 
+    public Organization organizationDtoToEntity(OrganizationDto organizationDto) {
+        Organization organization = new Organization();
+        organization.setName(organizationDto.getName());
+        organization.setImage(organizationDto.getImage());
+        organization.setPhone(organizationDto.getPhone());
+        organization.setAddress(organizationDto.getAddress());
+        organization.setEmail(organizationDto.getEmail());
+        organization.setWelcomeText(organizationDto.getWelcomeText());
+        organization.setAboutUsText(organizationDto.getAboutUsText());
+        organization.setFacebook(organizationDto.getFacebook());
+        organization.setInstagram(organizationDto.getInstagram());
+        organization.setLinkedin(organizationDto.getLinkedin());
+
+        return organization;
+    }
+
+    public OrganizationDto organizationEntity2Dto(Organization organization) {
+        OrganizationDto organizationDto = new OrganizationDto();
+        organizationDto.setName(organization.getName());
+        organizationDto.setImage(organization.getImage());
+        organizationDto.setPhone(organization.getPhone());
+        organizationDto.setAddress(organization.getAddress());
+        organizationDto.setEmail(organization.getEmail());
+        organizationDto.setWelcomeText(organization.getWelcomeText());
+        organizationDto.setAboutUsText(organization.getAboutUsText());
+        organizationDto.setFacebook(organization.getFacebook());
+        organizationDto.setInstagram(organization.getInstagram());
+        organizationDto.setLinkedin(organization.getLinkedin());
+
+        return organizationDto;
+    }
+
 }

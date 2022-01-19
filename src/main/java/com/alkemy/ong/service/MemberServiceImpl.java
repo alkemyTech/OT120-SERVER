@@ -80,11 +80,12 @@ public class MemberServiceImpl implements IMembersService {
     Pageable pageable = PageRequest.of(page, sizePage, Sort.by(sortBy));
     Page<Member> pageRecovered = memberRepository.findAll(pageable);
     Integer totalPages = pageRecovered.getTotalPages();
+    Long totalElements = pageRecovered.getTotalElements();
 
     if (totalPages < page) {
       throw new NotFoundException("The page does not exists");
     }
-    return memberMapper.toPageDto(pageRecovered, page, totalPages);
+    return memberMapper.toPageDto(pageRecovered, page,  totalElements, totalPages);
   }
 
 }

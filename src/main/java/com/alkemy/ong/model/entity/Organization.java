@@ -17,14 +17,14 @@ import org.hibernate.annotations.Where;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SQLDelete(sql = "UPDATE organizations SET is_deleted=true WHERE id=?")
-@Where(clause = "is_deleted=false")
+@SQLDelete(sql = "UPDATE organization SET soft_delete=true WHERE id=?")
+@Where(clause = "soft_delete=false")
 @Table(name = "organization")
 public class Organization {
 
   @Id
-  @Column(name = "ORGANIZATION_ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "ORGANIZATION_ID", nullable = false)
   private long id;
 
   @Column(name = "org_name", nullable = false)
